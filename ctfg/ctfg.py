@@ -12,13 +12,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNorm
 from einops import rearrange, reduce, repeat
-import configs
 
 from timm.models.registry import register_model
 from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD, IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD
 from timm.models.vision_transformer import VisionTransformer as VIT, Attention as VIT_Attention, _cfg
 from timm.models.layers.helpers import to_2tuple
-from configs import *
+from ctfg.configs import *
 
 logger = logging.getLogger(__name__)
 
@@ -404,20 +403,6 @@ def con_loss(features, labels):
     loss = (pos_cos_matrix * pos_label_matrix).sum() + (neg_cos_matrix * neg_label_matrix).sum()
     loss /= (B * B)
     return loss
-
-
-CONFIGS = {
-    'ViT-B_16': configs.get_b16_config(),
-    'ViT-B_32': configs.get_b32_config(),
-    'ViT-L_16': configs.get_l16_config(),
-    'ViT-L_32': configs.get_l32_config(),
-    'ViT-H_14': configs.get_h14_config(),
-    'testing': configs.get_testing(),
-    'CCT-7/3x1': configs.get_cct731_config(),
-    'CCT-7/7x2': configs.get_cct772_config(),
-    'CCT-14/7x2': configs.get_cct1472_config(),
-    'CCT-16/7x2': configs.get_cct1672_config(),
-}
 
 
 def _cfg(url='', **kwargs):
