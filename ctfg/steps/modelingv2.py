@@ -11,13 +11,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNorm
+from torch.nn.modules.utils import _pair
 from einops import rearrange, reduce, repeat
-
-from timm.models.registry import register_model
-from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD, IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD
-from timm.models.vision_transformer import VisionTransformer as VIT, Attention as VIT_Attention, _cfg
-from timm.models.layers.helpers import to_2tuple
-from ctfg.configs import *
+import models.configs as configs
 
 logger = logging.getLogger(__name__)
 
@@ -212,14 +208,14 @@ class Embeddings(nn.Module):
     """Construct the embeddings from patch, position embeddings.
     """
 
-    def __init__(self, config, input_size):
+    def __init__(self, config, img_size, in_channels=3):
         super(Embeddings, self).__init__()
         self.hybrid = None
 
-        img_size = to_2tuple(input_size[1])
+        img_size = _pair(img_size)
         self.n_conv_layers = config.n_conv_layers
 
-        n_filter_list = [input_size[0]] + \
+        n_filter_list = [in_channels] + \
                         [config.in_planes for _ in range(config.n_conv_layers - 1)] + \
                         [config.hidden_size]
 
@@ -287,9 +283,9 @@ class Embeddings(nn.Module):
 
 
 class Transformer(nn.Module):
-    def __init__(self, config, input_size):
+    def __init__(self, config, img_size):
         super(Transformer, self).__init__()
-        self.embeddings = Embeddings(config, input_size=input_size)
+        self.embeddings = Embeddings(config, img_size=img_size)
         self.encoder = Encoder(config)
 
     def forward(self, input_ids):
@@ -298,14 +294,14 @@ class Transformer(nn.Module):
         return part_encoded
 
 
-class CTFG(nn.Module):
-    def __init__(self, config, input_size=(3, 384, 384), num_classes=21843, smoothing_value=0):
-        super(CTFG, self).__init__()
+class VisionTransformer(nn.Module):
+    def __init__(self, config, img_size=384, num_classes=21843, smoothing_value=0):
+        super(VisionTransformer, self).__init__()
         self.num_classes = num_classes
         self.smoothing_value = smoothing_value
 
         # transformer
-        self.transformer = Transformer(config, input_size)
+        self.transformer = Transformer(config, img_size)
 
         self.part_head = Linear(config.hidden_size, num_classes)
 
@@ -334,7 +330,10 @@ class CTFG(nn.Module):
 
             part_loss = loss_fct(part_logits.view(-1, self.num_classes), labels.view(-1))
 
-            contrast_loss = con_loss(part_tokens, labels.view(-1))
+            if self.seq_pool:
+                contrast_loss = con_loss(part_tokens, labels.view(-1))
+            else:
+                contrast_loss = con_loss(part_tokens[:, 0], labels.view(-1))
 
             loss = part_loss + contrast_loss
             return loss, part_logits
@@ -352,18 +351,13 @@ class CTFG(nn.Module):
             nn.init.constant_(m.bias, 0)
             nn.init.constant_(m.weight, 1.0)
 
-    def load_from(self, weights,num_classes,em):
+    def load_from(self, weights):
         with torch.no_grad():
             self.transformer.embeddings.patch_embeddings[0][0].weight.copy_(weights["tokenizer.conv_layers.0.0.weight"])
             self.transformer.embeddings.patch_embeddings[1][0].weight.copy_(weights["tokenizer.conv_layers.1.0.weight"])
             self.transformer.embeddings.position_embeddings.copy_(weights["classifier.positional_emb"])
             self.attention_pool.weight.copy_(weights["classifier.attention_pool.weight"])
             self.attention_pool.bias.copy_(weights["classifier.attention_pool.bias"])
-
-            self.transformer.encoder.part_norm.weight.copy_(weights["classifier.norm.weight"])
-            self.transformer.encoder.part_norm.bias.copy_(weights["classifier.norm.bias"])
-
-
 
             encoder_layers = self.transformer.encoder.layer_num - 1
             encoder_layers = 14 if encoder_layers > 14 else encoder_layers
@@ -407,35 +401,15 @@ def con_loss(features, labels):
     return loss
 
 
-def _cfg(url='', **kwargs):
-    return {
-        'url': url,
-        'num_classes': 200, 'input_size': (3, 384, 384), 'smoothing_value': 0,
-        'mean': IMAGENET_INCEPTION_MEAN, 'std': IMAGENET_INCEPTION_STD,
-        **kwargs
-    }
-
-
-__all__ = [
-    'ctfg_1472'
-]
-
-
-def _create_ctfg(variant, pretrained=False, default_cfg=None, **kwargs):
-    pass
-
-
-@register_model
-def ctfg_1472(pretrained=False, **kwargs):
-    config = get_cct1472_config()
-    default_cfg = _cfg('', **kwargs)
-
-    input_size = kwargs.get('input_size', default_cfg['input_size'])
-    num_classes = kwargs.get('num_classes', default_cfg['num_classes'])
-    # smoothing_value = kwargs.get('smoothing_value', default_cfg.smoothing_value)
-
-    model = CTFG(config, input_size=input_size, num_classes=num_classes, smoothing_value=0)
-
-    model.default_cfg = default_cfg
-
-    return model
+CONFIGS = {
+    'ViT-B_16': configs.get_b16_config(),
+    'ViT-B_32': configs.get_b32_config(),
+    'ViT-L_16': configs.get_l16_config(),
+    'ViT-L_32': configs.get_l32_config(),
+    'ViT-H_14': configs.get_h14_config(),
+    'testing': configs.get_testing(),
+    'CCT-7/3x1': configs.get_cct731_config(),
+    'CCT-7/7x2': configs.get_cct772_config(),
+    'CCT-14/7x2': configs.get_cct1472_config(),
+    'CCT-16/7x2': configs.get_cct1672_config(),
+}

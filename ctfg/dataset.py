@@ -21,7 +21,6 @@ def copy(root):
     mkdir(valF)
 
     img_txt_file = open(os.path.join(target, 'images.txt'))
-    label_txt_file = open(os.path.join(target, 'image_class_labels.txt'))
     train_val_file = open(os.path.join(target, 'train_test_split.txt'))
 
     img_name_list = []
