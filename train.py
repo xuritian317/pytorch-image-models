@@ -24,7 +24,6 @@ from contextlib import suppress
 from datetime import datetime
 
 import torch
-import torch.nn as nn
 import torchvision.utils
 from torch.nn.parallel import DistributedDataParallel as NativeDDP
 
@@ -37,7 +36,7 @@ from timm.optim import create_optimizer_v2, optimizer_kwargs
 from timm.scheduler import create_scheduler
 from timm.utils import ApexScaler, NativeScaler
 from tensorboardX import SummaryWriter
-import ctfg.ctfg
+from main.cct.src import *
 
 try:
     from apex import amp
