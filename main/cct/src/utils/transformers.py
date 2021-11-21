@@ -70,37 +70,33 @@ class TransformerEncoderLayer(Module):
 
 # PSM
 class PartAttention(Module):
-    def __init__(self):
+    def __init__(self, last_block):
         super(PartAttention, self).__init__()
+        self.last_block = last_block
 
-    def forward(self, x):
-        length = len(x)
+    def forward(self, attn_weights, x):
+        length = len(attn_weights)
 
-        last_map = x[0]
+        last_map = attn_weights[0]
 
         for i in range(1, length):
-            last_map = torch.matmul(x[i], last_map)
+            last_map = torch.matmul(attn_weights[i], last_map)
 
         last_map = last_map[:, :, 0, :]
 
-        _, max_inx = last_map.max(2)
+        _, part_inx = last_map.max(2)
 
-        return _, max_inx
+        parts = []
+        B, _ = part_inx.shape
+        for i in range(B):
+            parts.append(x[i, part_inx[i, :]])
 
+        parts = torch.stack(parts).squeeze(1)
+        concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
 
-def con_loss(features, labels):
-    B, _ = features.shape
-    features = F.normalize(features)
-    cos_matrix = features.mm(features.t())
-    pos_label_matrix = torch.stack([labels == labels[i] for i in range(B)]).float()
-    neg_label_matrix = 1 - pos_label_matrix
-    pos_cos_matrix = 1 - cos_matrix
-    neg_cos_matrix = cos_matrix - 0.4
-    # neg_cos_matrix[neg_cos_matrix < 0] = 0
-    neg_cos_matrix = neg_cos_matrix.clamp(min=0.0)
-    loss = (pos_cos_matrix * pos_label_matrix).sum() + (neg_cos_matrix * neg_label_matrix).sum()
-    loss /= (B * B)
-    return loss
+        # 最后一层
+        part_states, _ = self.last_block(concat)
+        return part_states
 
 
 class TransformerClassifier(Module):
@@ -152,19 +148,15 @@ class TransformerClassifier(Module):
             TransformerEncoderLayer(d_model=embedding_dim, nhead=num_heads,
                                     dim_feedforward=dim_feedforward, dropout=dropout,
                                     attention_dropout=attention_dropout, drop_path_rate=dpr[i])
-            for i in range(num_layers - 1)])
+            for i in range(num_layers)])
         self.norm = LayerNorm(embedding_dim)
 
         self.fc = Linear(embedding_dim, num_classes)
+        self.part_select = PartAttention(self.blocks[-1])
+
         self.apply(self.init_weight)
 
-        self.part_select = PartAttention()
-        self.part_layer = TransformerEncoderLayer(d_model=embedding_dim, nhead=num_heads,
-                                                  dim_feedforward=dim_feedforward, dropout=dropout,
-                                                  attention_dropout=attention_dropout,
-                                                  drop_path_rate=dpr[num_layers - 1])
-
-    def forward(self, x):
+    def forward(self, x, flag=False):
         if self.positional_emb is None and x.size(1) < self.sequence_length:
             x = F.pad(x, (0, 0, 0, self.n_channels - x.size(1)), mode='constant', value=0)
 
@@ -178,33 +170,30 @@ class TransformerClassifier(Module):
         x = self.dropout(x)
 
         attn_weights = []
-        for blk in self.blocks:
+        for blk in self.blocks[:-1]:
             x, weights = blk(x)
             attn_weights.append(weights)
 
-        _, part_inx = self.part_select(attn_weights)
-
-        parts = []
-        B, num = part_inx.shape
-        for i in range(B):
-            parts.append(x[i, part_inx[i, :]])
-
-        parts = torch.stack(parts).squeeze(1)
-        concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
-
-        # 最后一层
-        part_states, _ = self.part_layer(concat)
-
+        part_states = self.part_select(attn_weights, x)
         x = self.norm(part_states)
+
+        # for blk in self.blocks:
+        #     x, a = blk(x)
+        # x = self.norm(x)
 
         if self.seq_pool:
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
         else:
             x = x[:, 0]
 
+        part_token = x
+
         x = self.fc(x)
-        
-        return x
+
+        if flag:
+            return x, part_token
+        else:
+            return x
 
     @staticmethod
     def init_weight(m):

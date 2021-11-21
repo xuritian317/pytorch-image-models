@@ -13,7 +13,7 @@ import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNorm
 from torch.nn.modules.utils import _pair
 from einops import rearrange, reduce, repeat
-import models.configs as configs
+import configs as configs
 
 logger = logging.getLogger(__name__)
 

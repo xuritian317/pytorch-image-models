@@ -24,6 +24,8 @@ from contextlib import suppress
 from datetime import datetime
 
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 import torchvision.utils
 from torch.nn.parallel import DistributedDataParallel as NativeDDP
 
@@ -177,7 +179,7 @@ parser.add_argument('--decay-rate', '--dr', type=float, default=0.1, metavar='RA
 
 # Augmentation & regularization parameters
 
-parser.add_argument('--con_loss', action='store_true', default=True,
+parser.add_argument('--is_con_loss', action='store_true', default=True,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--no-aug', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
@@ -304,7 +306,7 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
                     help='convert model torchscript for inference')
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
-parser.add_argument('--pretrained_dir', type=str, default='',
+parser.add_argument('--pretrained_dir', type=str, default='./',
                     help='pretrained_dir')
 
 
@@ -394,6 +396,7 @@ def main():
     model = create_model(
         args.model,
         pretrained=args.pretrained,
+        pretrained_dir=args.pretrained_dir,
         num_classes=args.num_classes,
         drop_rate=args.drop,
         drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path
@@ -406,7 +409,7 @@ def main():
         scriptable=args.torchscript,
         checkpoint_path=args.initial_checkpoint)
 
-    model.load_from(torch.load(args.pretrained_dir))
+    # model.load_from(torch.load(args.pretrained_dir))
 
     if args.num_classes is None:
         assert hasattr(model, 'num_classes'), 'Model must have `num_classes` attr if not set on cmd line/config.'
@@ -614,8 +617,10 @@ def main():
             train_loss_fn = LabelSmoothingCrossEntropy(smoothing=args.smoothing)
     else:
         train_loss_fn = nn.CrossEntropyLoss()
+
     train_loss_fn = train_loss_fn.cuda()
     validate_loss_fn = nn.CrossEntropyLoss().cuda()
+    con_loss = ConLossEntropy().cuda()
 
     # setup checkpoint saver and eval metric tracking
     eval_metric = args.eval_metric
@@ -648,7 +653,8 @@ def main():
             train_metrics = train_one_epoch(
                 epoch, model, loader_train, optimizer, train_loss_fn, args,
                 lr_scheduler=lr_scheduler, saver=saver, output_dir=output_dir,
-                amp_autocast=amp_autocast, loss_scaler=loss_scaler, model_ema=model_ema, mixup_fn=mixup_fn)
+                amp_autocast=amp_autocast, loss_scaler=loss_scaler,
+                model_ema=model_ema, mixup_fn=mixup_fn, con_loss=con_loss)
 
             if args.distributed and args.dist_bn in ('broadcast', 'reduce'):
                 if args.local_rank == 0:
@@ -699,7 +705,7 @@ def main():
 def train_one_epoch(
         epoch, model, loader, optimizer, loss_fn, args,
         lr_scheduler=None, saver=None, output_dir=None, amp_autocast=suppress,
-        loss_scaler=None, model_ema=None, mixup_fn=None, writer=None):
+        loss_scaler=None, model_ema=None, mixup_fn=None, writer=None, con_loss=None):
     if args.mixup_off_epoch and epoch >= args.mixup_off_epoch:
         if args.prefetcher and loader.mixup_enabled:
             loader.mixup_enabled = False
@@ -717,6 +723,7 @@ def train_one_epoch(
     last_idx = len(loader) - 1
     num_updates = epoch * len(loader)
     for batch_idx, (input, target) in enumerate(loader):
+
         last_batch = batch_idx == last_idx
         data_time_m.update(time.time() - end)
         if not args.prefetcher:
@@ -727,10 +734,11 @@ def train_one_epoch(
             input = input.contiguous(memory_format=torch.channels_last)
 
         with amp_autocast():
-            output = model(input)
+            output, part_token = model(input, True)
             loss = loss_fn(output, target)
-            if args.con_loss:
-                contrast_loss = model.con_loss(output, target)
+
+            if args.is_con_loss:
+                contrast_loss = con_loss(part_token, target[:, 0])
                 loss = loss + contrast_loss
 
         if not args.distributed:
@@ -749,6 +757,7 @@ def train_one_epoch(
                 dispatch_clip_grad(
                     model_parameters(model, exclude_head='agc' in args.clip_mode),
                     value=args.clip_grad, mode=args.clip_mode)
+
             optimizer.step()
 
         if model_ema is not None:
@@ -818,6 +827,7 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
     last_idx = len(loader) - 1
     with torch.no_grad():
         for batch_idx, (input, target) in enumerate(loader):
+
             last_batch = batch_idx == last_idx
             if not args.prefetcher:
                 input = input.cuda()
@@ -837,6 +847,7 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
                 target = target[0:target.size(0):reduce_factor]
 
             loss = loss_fn(output, target)
+
             acc1, acc5 = accuracy(output, target, topk=(1, 5))
 
             if args.distributed:

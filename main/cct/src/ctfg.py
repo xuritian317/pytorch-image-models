@@ -1,13 +1,27 @@
-from torch.hub import load_state_dict_from_url
+import torch
+from torch.hub import load_state_dict_from_url, load
 import torch.nn as nn
 from .utils.transformers import TransformerClassifier
 from .utils.tokenizer import Tokenizer
 from .utils.helpers import pe_check
+import os
+import logging
+
+_logger = logging.getLogger(__name__)
 
 try:
     from timm.models.registry import register_model
 except ImportError:
     from .registry import register_model
+
+model_urls = {
+    'ctfg_14_7x2_224':
+        'http://ix.cs.uoregon.edu/~alih/compact-transformers/checkpoints/pretrained/cct_14_7x2_224_imagenet.pth',
+    'ctfg_14_7x2_384':
+        'cct_14_7x2_384_imagenet.pth',
+    'ctfg_14_7x2_384_fl':
+        'http://ix.cs.uoregon.edu/~alih/compact-transformers/checkpoints/finetuned/cct_14_7x2_384_flowers102.pth',
+}
 
 
 class CTFG(nn.Module):
@@ -62,9 +76,9 @@ class CTFG(nn.Module):
             positional_embedding=positional_embedding
         )
 
-    def forward(self, x):
+    def forward(self, x, flag=False):
         x = self.tokenizer(x)
-        return self.classifier(x)
+        return self.classifier(x, flag)
 
 
 def _ctfg(arch, pretrained, progress,
@@ -85,11 +99,22 @@ def _ctfg(arch, pretrained, progress,
     if pretrained:
         pass
         # TODO the pretrain function is to be implementation
+        # checkpoint_path = kwargs.get('pretrained_dir', './')
+        #
         # if arch in model_urls:
-        #     state_dict = load_state_dict_from_url(model_urls[arch],
-        #                                           progress=progress)
+        #     # state_dict = load_state_dict_from_url(model_urls[arch], model_dir=model_dir,
+        #     #                                       progress=True)
+        #
+        #     state_dict = torch.load(checkpoint_path)
+        #
         #     state_dict = pe_check(model, state_dict)
+        #
+        #     state_dict['classifier.fc.weight'] = model.classifier.fc.weight
+        #     state_dict['classifier.fc.bias'] = model.classifier.fc.bias
+        #
         #     model.load_state_dict(state_dict)
+        #
+        #     _logger.info("Loaded from checkpoint '{}'".format(checkpoint_path))
         # else:
         #     raise RuntimeError(f'Variant {arch} does not yet have pretrained weights.')
     return model

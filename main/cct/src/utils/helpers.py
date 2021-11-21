@@ -29,4 +29,5 @@ def pe_check(model, state_dict, pe_key='classifier.positional_emb'):
             state_dict[pe_key] = resize_pos_embed(state_dict[pe_key],
                                                   model.state_dict()[pe_key],
                                                   num_tokens=model.classifier.num_tokens)
+            print("\n\nresize_pos_embed")
     return state_dict

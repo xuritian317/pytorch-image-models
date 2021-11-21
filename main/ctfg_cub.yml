@@ -28,9 +28,9 @@ cutmix: 1.0
 reprob: 0.25
 remode: pixel
 amp: True
-model: ctfg_1472
+model: ctfg_14_7x2_384
 model_ema: False
-batch_size: 32
+batch_size: 16
 sched: cosine
 epochs: 100
 cooldown_epochs: 5
