@@ -1,6 +1,7 @@
+import torch
 from torch.hub import load_state_dict_from_url
 import torch.nn as nn
-from .utils.transformers import TransformerClassifier
+from .utils.transformersv0 import TransformerClassifier
 from .utils.tokenizer import Tokenizer
 from .utils.helpers import pe_check
 
@@ -103,12 +104,11 @@ def _cct(arch, pretrained, progress,
 
     if pretrained:
         if arch in model_urls:
-            state_dict = load_state_dict_from_url(model_urls[arch],
-                                                  progress=progress)
+            state_dict = torch.load(kwargs.get('pretrained_dir', './cct_14_7x2_384_imagenet.pth'))
             state_dict = pe_check(model, state_dict)
 
-            # state_dict['classifier.fc.weight'] = model.classifier.fc.weight
-            # state_dict['classifier.fc.bias'] = model.classifier.fc.bias
+            state_dict['classifier.fc.weight'] = model.classifier.fc.weight
+            state_dict['classifier.fc.bias'] = model.classifier.fc.bias
 
             model.load_state_dict(state_dict)
         else:

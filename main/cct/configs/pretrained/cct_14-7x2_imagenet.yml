@@ -30,12 +30,12 @@ model_ema: False
 batch_size: 128
 lr: 5e-4
 min_lr: 0.00001
-sched: cosine
 weight_decay: 5e-2
+warmup_lr: 0.000001
+sched: cosine
 epochs: 300
 cooldown_epochs: 10
 warmup_epochs: 10
-warmup_lr: 0.000001
 opt: adamw
 smoothing: 0.1
 workers: 8

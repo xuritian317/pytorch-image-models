@@ -47,7 +47,7 @@ def copy(root):
 
 
 def main():
-    copy(f'/home/ubuntu/Datas/CUB')
+    copy(f'/home/ubuntu/xu')
 
 
 if __name__ == '__main__':

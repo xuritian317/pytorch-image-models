@@ -97,26 +97,61 @@ def _ctfg(arch, pretrained, progress,
                  *args, **kwargs)
 
     if pretrained:
-        pass
+        # pass
         # TODO the pretrain function is to be implementation
-        # checkpoint_path = kwargs.get('pretrained_dir', './')
-        #
-        # if arch in model_urls:
-        #     # state_dict = load_state_dict_from_url(model_urls[arch], model_dir=model_dir,
-        #     #                                       progress=True)
-        #
-        #     state_dict = torch.load(checkpoint_path)
-        #
-        #     state_dict = pe_check(model, state_dict)
-        #
-        #     state_dict['classifier.fc.weight'] = model.classifier.fc.weight
-        #     state_dict['classifier.fc.bias'] = model.classifier.fc.bias
-        #
-        #     model.load_state_dict(state_dict)
-        #
-        #     _logger.info("Loaded from checkpoint '{}'".format(checkpoint_path))
-        # else:
-        #     raise RuntimeError(f'Variant {arch} does not yet have pretrained weights.')
+        checkpoint_path = kwargs.get('pretrained_dir', os.path.join('./', model_urls[arch]))
+
+        if arch in model_urls:
+            # state_dict = load_state_dict_from_url(model_urls[arch], model_dir=model_dir,
+            #                                       progress=True)
+
+            state_dict = torch.load(checkpoint_path)
+
+            state_dict = pe_check(model, state_dict)
+
+            state_dict['classifier.fc.weight'] = model.classifier.fc.weight
+            state_dict['classifier.fc.bias'] = model.classifier.fc.bias
+
+            num = str(num_layers - 1)
+            state_dict['classifier.part_select.last_block.pre_norm.weight'] = state_dict[
+                'classifier.blocks.' + num + '.pre_norm.weight']
+
+            state_dict['classifier.part_select.last_block.pre_norm.bias'] = state_dict[
+                'classifier.blocks.' + num + '.pre_norm.bias']
+
+            state_dict['classifier.part_select.last_block.linear1.weight'] = state_dict[
+                'classifier.blocks.' + num + '.linear1.weight']
+
+            state_dict['classifier.part_select.last_block.linear1.bias'] = state_dict[
+                'classifier.blocks.' + num + '.linear1.bias']
+
+            state_dict['classifier.part_select.last_block.norm1.weight'] = state_dict[
+                'classifier.blocks.' + num + '.norm1.weight']
+
+            state_dict['classifier.part_select.last_block.norm1.bias'] = state_dict[
+                'classifier.blocks.' + num + '.norm1.bias']
+
+            state_dict['classifier.part_select.last_block.linear2.weight'] = state_dict[
+                'classifier.blocks.' + num + '.linear2.weight']
+
+            state_dict['classifier.part_select.last_block.linear2.bias'] = state_dict[
+                'classifier.blocks.' + num + '.linear2.bias']
+
+            state_dict['classifier.part_select.last_block.self_attn.proj.weight'] = state_dict[
+                'classifier.blocks.' + num + '.self_attn.proj.weight']
+
+            state_dict['classifier.part_select.last_block.self_attn.proj.bias'] = state_dict[
+                'classifier.blocks.' + num + '.self_attn.proj.bias']
+
+            state_dict[
+                'classifier.part_select.last_block.self_attn.qkv.weight'] = state_dict[
+                'classifier.blocks.' + num + '.self_attn.qkv.weight']
+
+            model.load_state_dict(state_dict)
+
+            _logger.info("Loaded from checkpoint '{}'".format(checkpoint_path))
+        else:
+            raise RuntimeError(f'Variant {arch} does not yet have pretrained weights.')
     return model
 
 

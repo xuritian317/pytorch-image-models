@@ -28,9 +28,14 @@ cutmix: 1.0
 reprob: 0.25
 remode: pixel
 amp: True
+model: cct_14_7x2_384
 pretrained: True
 model_ema: False
-batch_size: 16
+batch_size: 32
+lr: 2e-4
+min_lr: 3e-6
+weight_decay: 5e-2
+warmup_lr: 0.000001
 sched: cosine
 epochs: 100
 cooldown_epochs: 5
@@ -38,32 +43,3 @@ warmup_epochs: 10
 opt: adamw
 smoothing: 0.1
 workers: 8
-lr: 1e-4
-min_lr: 2e-6
-weight_decay: 6e-2
-warmup_lr: 2e-7
-
-#lr: 4e-5
-#min_lr: 8e-7
-#weight_decay: 6e-2
-#warmup_lr: 8e-8
-
-#lr: 7e-5
-#min_lr: 14e-7
-#weight_decay: 6e-2
-#warmup_lr: 14e-8
-
-#lr: 3e-2
-#min_lr: 6e-4
-#weight_decay: 5e-2
-#warmup_lr: 12e-4
-
-#lr: 4e-3
-#min_lr: 1e-4
-#weight_decay: 5e-2
-#warmup_lr: 2e-4
-
-#lr: 5e-4
-#min_lr: 1e-5
-#weight_decay: 5e-2
-#warmup_lr: 1e-6

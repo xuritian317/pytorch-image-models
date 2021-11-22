@@ -179,7 +179,7 @@ parser.add_argument('--decay-rate', '--dr', type=float, default=0.1, metavar='RA
 
 # Augmentation & regularization parameters
 
-parser.add_argument('--is_con_loss', action='store_true', default=True,
+parser.add_argument('--is_con_loss', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--no-aug', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
@@ -734,12 +734,17 @@ def train_one_epoch(
             input = input.contiguous(memory_format=torch.channels_last)
 
         with amp_autocast():
-            output, part_token = model(input, True)
-            loss = loss_fn(output, target)
 
             if args.is_con_loss:
+                output, part_token = model(input, True)
+                loss = loss_fn(output, target)
+
                 contrast_loss = con_loss(part_token, target[:, 0])
+
                 loss = loss + contrast_loss
+            else:
+                output = model(input)
+                loss = loss_fn(output, target)
 
         if not args.distributed:
             losses_m.update(loss.item(), input.size(0))
