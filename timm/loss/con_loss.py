@@ -11,7 +11,7 @@ class ConLossEntropy(nn.Module):
         loss = self.con_loss(features, labels)
         return loss
 
-    def con_loss(self, features: torch.Tensor, labels: torch.Tensor)-> torch.Tensor:
+    def con_loss(self, features: torch.Tensor, labels: torch.Tensor) -> torch.Tensor:
         B, _ = features.shape
         features = F.normalize(features)
         cos_matrix = features.mm(features.t())
@@ -23,4 +23,4 @@ class ConLossEntropy(nn.Module):
         neg_cos_matrix = neg_cos_matrix.clamp(min=0.0)
         loss = (pos_cos_matrix * pos_label_matrix).sum() + (neg_cos_matrix * neg_label_matrix).sum()
         loss /= (B * B)
-        return loss.mean()
+        return loss
