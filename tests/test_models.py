@@ -339,14 +339,16 @@ EXCLUDE_FX_FILTERS = []
 if 'GITHUB_ACTIONS' in os.environ:
     EXCLUDE_FX_FILTERS += [
         'beit_large*',
-        'swin_large*',
+        'mixer_l*',
+        '*nfnet_f2*',
         '*resnext101_32x32d',
         'resnetv2_152x2*',
-        '*nfnet_f2*',
         'resmlp_big*',
         'resnetrs270',
+        'swin_large*',
         'vgg*',
         'vit_large*',
+        'vit_base_patch8*',
         'xcit_large*',
     ]
 
@@ -368,15 +370,16 @@ def test_model_forward_fx(model_name, batch_size):
     input_size = _get_input_size(model=model, target=TARGET_FWD_FX_SIZE)
     if max(input_size) > MAX_FWD_FX_SIZE:
         pytest.skip("Fixed input size model > limit.")
-    inputs = torch.randn((batch_size, *input_size))
-    outputs = model(inputs)
-    if isinstance(outputs, tuple):
-        outputs = torch.cat(outputs)
+    with torch.no_grad():
+        inputs = torch.randn((batch_size, *input_size))
+        outputs = model(inputs)
+        if isinstance(outputs, tuple):
+            outputs = torch.cat(outputs)
 
-    model = _create_fx_model(model)
-    fx_outputs = tuple(model(inputs).values())
-    if isinstance(fx_outputs, tuple):
-        fx_outputs = torch.cat(fx_outputs)
+        model = _create_fx_model(model)
+        fx_outputs = tuple(model(inputs).values())
+        if isinstance(fx_outputs, tuple):
+            fx_outputs = torch.cat(fx_outputs)
 
     assert torch.all(fx_outputs == outputs)
     assert outputs.shape[0] == batch_size
@@ -397,8 +400,10 @@ def test_model_backward_fx(model_name, batch_size):
         pytest.skip("Fixed input size model > limit.")
 
     model = create_model(model_name, pretrained=False, num_classes=42)
-    num_params = sum([x.numel() for x in model.parameters()])
     model.train()
+    num_params = sum([x.numel() for x in model.parameters()])
+    if 'GITHUB_ACTIONS' in os.environ and num_params > 100e6:
+        pytest.skip("Skipping FX backward test on model with more than 100M params.")
 
     model = _create_fx_model(model, train=True)
     outputs = tuple(model(torch.randn((batch_size, *input_size))).values())
@@ -440,9 +445,10 @@ def test_model_forward_fx_torchscript(model_name, batch_size):
     model.eval()
 
     model = torch.jit.script(_create_fx_model(model))
-    outputs = tuple(model(torch.randn((batch_size, *input_size))).values())
-    if isinstance(outputs, tuple):
-        outputs = torch.cat(outputs)
+    with torch.no_grad():
+        outputs = tuple(model(torch.randn((batch_size, *input_size))).values())
+        if isinstance(outputs, tuple):
+            outputs = torch.cat(outputs)
 
     assert outputs.shape[0] == batch_size
     assert not torch.isnan(outputs).any(), 'Output included NaNs'
