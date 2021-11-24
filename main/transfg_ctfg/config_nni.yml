@@ -1,0 +1,25 @@
+experimentName: example_nni
+searchSpaceFile: search_space.json
+trialCodeDirectory: ./
+trialCommand: python3 train_nni.py --name sample_run --fp16 --train_log_name log_train_fix_btf_nni2.txt
+trialConcurrency: 2
+trialGpuNumber: 1
+maxTrialNumber: 100
+maxExperimentDuration: 48h
+debug: false
+experimentWorkingDirectory: logs/
+tuner:
+  name: TPE
+  classArgs:
+    optimize_mode: maximize
+trainingService:
+  platform: local
+  maxTrialNumberPerGpu: 1
+  useActiveGpu: false
+assessor:
+  name: Curvefitting
+  classArgs:
+    epoch_num: 100
+    threshold: 0.8
+    start_step: 6
+    gap: 1

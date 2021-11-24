@@ -25,3 +25,7 @@ import torch
 # # print(a.size())
 # print(a)
 
+a = 0.0005
+print(a)
+print(a/10)
+print('test')
