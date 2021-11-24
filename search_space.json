@@ -1,0 +1,17 @@
+{
+  "lr": {
+    "_type": "quniform",
+    "_value": [
+      5e-5,
+      3e-4,
+      1e-1
+    ]
+  },
+  "weight_decay": {
+    "_type": "choice",
+    "_value": [
+      5e-2,
+      6e-2
+    ]
+  }
+}

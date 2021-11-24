@@ -1,0 +1,28 @@
+experimentName: example_nni
+searchSpaceFile: search_space.json
+trialCodeDirectory: ./
+trialCommand: python3 train.py -c main/ctfg_cub.yml \
+  --model ctfg_14_7x2_384 --data_dir /hy-nas/CUB2 \
+  --pretrained_dir /hy-nas/cct_14_7x2_384_imagenet.pth \
+  --is_con_los
+trialConcurrency: 2
+trialGpuNumber: 1
+maxTrialNumber: 100
+maxExperimentDuration: 48h
+debug: false
+experimentWorkingDirectory: output/
+tuner:
+  name: TPE
+  classArgs:
+    optimize_mode: maximize
+trainingService:
+  platform: local
+  maxTrialNumberPerGpu: 1
+  useActiveGpu: true
+assessor:
+  name: Curvefitting
+  classArgs:
+    epoch_num: 100
+    threshold: 0.9
+    start_step: 10
+    gap: 1
