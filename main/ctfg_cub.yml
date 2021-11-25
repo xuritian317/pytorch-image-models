@@ -30,10 +30,10 @@ remode: pixel
 amp: True
 pretrained: True
 model_ema: False
-batch_size: 32
+batch_size: 16
 sched: cosine
-epochs: 300
-cooldown_epochs: 10
+epochs: 100
+cooldown_epochs: 5
 warmup_epochs: 10
 opt: adamw
 smoothing: 0.1
