@@ -42,6 +42,7 @@ from timm.utils import ApexScaler, NativeScaler
 from tensorboardX import SummaryWriter
 from main.cct.src import *
 import nni
+from nni.utils import merge_parameter
 
 try:
     from apex import amp
@@ -334,7 +335,8 @@ def main():
     setup_default_logging()
     args, args_text = _parse_args()
 
-    args = nni.get_next_parameter()
+    tuner_params = nni.get_next_parameter()
+    args = vars(merge_parameter(args, tuner_params))
 
     lr = args['lr']
     args['min_lr'] = lr / 50
