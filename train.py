@@ -334,18 +334,25 @@ def main():
     setup_default_logging()
     args, args_text = _parse_args()
 
-    log_dir = os.path.join("logs", args.experiment)
-    if os.path.exists(log_dir):
-        print("---  the folder already exists  ---")
-    else:
-        os.makedirs(log_dir)
-
     if args.is_nni:
         tuner_params = nni.get_next_parameter()
+        print("get nni parameter")
         args = merge_parameter(args, tuner_params)
-        writer = SummaryWriter(log_dir=os.path.join(log_dir, os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+        writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
     else:
+        log_dir = os.path.join("logs", args.experiment)
+        if os.path.exists(log_dir):
+            print("---  the folder already exists  ---")
+        else:
+            os.makedirs(log_dir)
         writer = SummaryWriter(log_dir=log_dir)
+
+    lr = args.lr
+    args.min_lr = lr / 50
+    args.warmup_lr = lr / 500
+
+    if args.experiment is None or args.experiment == '':
+        args.experiment = str(format(lr, '.1e')) + '_' + str(format(args.warmup_lr, '.1e'))
 
     if args.log_wandb:
         if has_wandb:
@@ -628,7 +635,7 @@ def main():
     output_dir = None
     if args.rank == 0:
         if args.experiment:
-            exp_name = args.experiment
+            exp_name = args.experiment + '_' + datetime.now().strftime("%Y%m%d-%H%M%S")
         else:
             exp_name = '-'.join([
                 datetime.now().strftime("%Y%m%d-%H%M%S"),

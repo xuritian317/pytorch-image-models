@@ -10,7 +10,7 @@ trialGpuNumber: 1
 maxTrialNumber: 100
 maxExperimentDuration: 48h
 debug: false
-experimentWorkingDirectory: output/
+experimentWorkingDirectory: output/nni
 tuner:
   name: TPE
   classArgs:
