@@ -28,6 +28,6 @@ def pe_check(model, state_dict, pe_key='classifier.positional_emb'):
         if model.state_dict()[pe_key].shape != state_dict[pe_key].shape:
             state_dict[pe_key] = resize_pos_embed(state_dict[pe_key],
                                                   model.state_dict()[pe_key],
-                                                  num_tokens=model.classifier.num_tokens)
+                                                  num_tokens=0)
             print("\n\nresize_pos_embed")
     return state_dict
