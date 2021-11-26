@@ -1,8 +1,9 @@
 dataset: CUB_200_2011
 num_classes: 200
-img_size: 384
+img_size: 224
 train_split: train
 val_split: val
+model: ctfg_14_7x2_224
 log_interval: 10
 mean:
   - 0.485
@@ -30,28 +31,20 @@ remode: pixel
 amp: True
 pretrained: True
 model_ema: False
-batch_size: 32
-model: ctfg_14_7x2_384
-lr: 5e-6
-min_lr: 0
+batch_size: 128
 sched: cosine
-weight_decay: 0
-epochs: 30
-cooldown_epochs: 10
-warmup_epochs: 0
-warmup_lr: 0.0
+epochs: 100
+cooldown_epochs: 5
+warmup_epochs: 10
 opt: adamw
 smoothing: 0.1
 workers: 8
 
-#sched: cosine
-#epochs: 100
-#cooldown_epochs: 5
-#warmup_epochs: 10
-#opt: adamw
-#smoothing: 0.1
-#workers: 8
-#
+lr: 5e-4
+min_lr: 1e-5
+weight_decay: 5e-2
+warmup_lr: 2e-6
+
 #lr: 5e-5
 #min_lr: 1e-6
 #weight_decay: 5e-2

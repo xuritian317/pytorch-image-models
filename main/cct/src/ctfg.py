@@ -5,9 +5,6 @@ from .utils.transformers import TransformerClassifier
 from .utils.tokenizer import Tokenizer
 from .utils.helpers import pe_check
 import os
-import logging
-
-_logger = logging.getLogger(__name__)
 
 try:
     from timm.models.registry import register_model
@@ -99,9 +96,12 @@ def _ctfg(arch, pretrained, progress,
     if pretrained:
         # pass
         # TODO the pretrain function is to be implementation
-        checkpoint_path = kwargs.get('pretrained_dir', os.path.join('./', model_urls[arch]))
+        print('ctfg pretrained')
 
-        if arch in model_urls:
+        checkpoint_path = kwargs.get('pretrained_dir', os.path.join('./', model_urls[arch]))
+        is_changeSize = kwargs.get('is_changeSize', False)
+
+        if not is_changeSize:
             # state_dict = load_state_dict_from_url(model_urls[arch], model_dir=model_dir,
             #                                       progress=True)
 
@@ -148,10 +148,13 @@ def _ctfg(arch, pretrained, progress,
                 'classifier.blocks.' + num + '.self_attn.qkv.weight']
 
             model.load_state_dict(state_dict)
-
-            _logger.info("Loaded from checkpoint '{}'".format(checkpoint_path))
+            print("Loaded from checkpoint '{}'".format(checkpoint_path))
         else:
-            raise RuntimeError(f'Variant {arch} does not yet have pretrained weights.')
+            # raise RuntimeError(f'Variant {arch} does not yet have pretrained weights.')
+            state_dict = torch.load(checkpoint_path)['state_dict']
+            state_dict = pe_check(model, state_dict)
+            model.load_state_dict(state_dict)
+
     return model
 
 

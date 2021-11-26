@@ -17,18 +17,19 @@ Hacked together by / Copyright 2020 Ross Wightman (https://github.com/rwightman)
 import argparse
 import time
 import yaml
+import os
+import logging
 from collections import OrderedDict
 from contextlib import suppress
 from datetime import datetime
+
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import os
-import logging
 import torchvision.utils
 from torch.nn.parallel import DistributedDataParallel as NativeDDP
+
 from timm.data import create_dataset, create_loader, resolve_data_config, Mixup, FastCollateMixup, AugMixDataset
-from timm.models import create_model, safe_model_name, resume_checkpoint, load_checkpoint, \
+from timm.models import create_model, safe_model_name, resume_checkpoint, load_checkpoint,\
     convert_splitbn_model, model_parameters
 from timm.utils import *
 from timm.loss import *
@@ -44,7 +45,6 @@ try:
     from apex import amp
     from apex.parallel import DistributedDataParallel as ApexDDP
     from apex.parallel import convert_syncbn_model
-
     has_apex = True
 except ImportError:
     has_apex = False
@@ -58,7 +58,6 @@ except AttributeError:
 
 try:
     import wandb
-
     has_wandb = True
 except ImportError:
     has_wandb = False
@@ -307,6 +306,8 @@ parser.add_argument('--log-wandb', action='store_true', default=False,
 
 parser.add_argument('--pretrained_dir', type=str, default='./',
                     help='pretrained_dir')
+parser.add_argument('--is_changeSize', action='store_true', default=False,
+                    help='whether to change size')
 parser.add_argument('--is_con_loss', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--is_nni', action='store_true', default=False,
@@ -339,6 +340,14 @@ def main():
         print("get nni parameter")
         args = merge_parameter(args, tuner_params)
         writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+
+        lr = args.lr
+        args.min_lr = lr / 50
+        args.warmup_lr = lr / 500
+
+        if args.experiment is None or args.experiment == '':
+            args.experiment = str(format(args.lr, '.1e')) + '_' + str(format(args.warmup_lr, '.1e'))
+
     else:
         log_dir = os.path.join("logs", args.experiment)
         if os.path.exists(log_dir):
@@ -346,13 +355,6 @@ def main():
         else:
             os.makedirs(log_dir)
         writer = SummaryWriter(log_dir=log_dir)
-
-    lr = args.lr
-    args.min_lr = lr / 50
-    args.warmup_lr = lr / 500
-
-    if args.experiment is None or args.experiment == '':
-        args.experiment = str(format(lr, '.1e')) + '_' + str(format(args.warmup_lr, '.1e'))
 
     if args.log_wandb:
         if has_wandb:
@@ -402,6 +404,7 @@ def main():
         args.model,
         pretrained=args.pretrained,
         pretrained_dir=args.pretrained_dir,
+        is_changeSize=args.is_changeSize,
         num_classes=args.num_classes,
         drop_rate=args.drop,
         drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path

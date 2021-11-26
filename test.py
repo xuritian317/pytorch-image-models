@@ -25,7 +25,22 @@ import torch
 # # print(a.size())
 # print(a)
 
-a = 0.0005
-print(a)
-print(a/10)
-print('test')
+# a = 0.0005
+# print(a)
+# print(a/10)
+# print('test')
+# a = ''
+# if a is None:
+#     print("1")
+# elif a == '':
+#     print('2')
+
+# a = 0.0000000034234
+# print(format(a,'.1e'))
+state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128b_83.6/model_best.pth.tar')
+for key in state_dict.keys():
+    print(key)
+
+
+
+
