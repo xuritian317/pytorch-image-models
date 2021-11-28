@@ -1,7 +1,7 @@
 import torch
 from torch.hub import load_state_dict_from_url
 import torch.nn as nn
-from .utils.transformersv0 import TransformerClassifier
+from .utils.transformers import TransformerClassifier
 from .utils.tokenizer import Tokenizer
 from .utils.helpers import pe_check
 

@@ -1,5 +1,4 @@
 """ Logging helpers
-
 Hacked together by / Copyright 2020 Ross Wightman
 """
 import logging
