@@ -337,7 +337,7 @@ def _parse_args():
 def main():
     setup_default_logging()
     args, args_text = _parse_args()
-    _logger.info(args_text)
+    # _logger.info(args_text)
 
     if args.is_nni:
         # tuner_params = nni.get_next_parameter()

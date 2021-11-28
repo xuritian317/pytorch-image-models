@@ -37,10 +37,13 @@ import torch
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128B_83.6/model_pretrained_224.pth.tar')
-for key in state_dict.keys():
-    print(key)
+# state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128B_83.6/model_pretrained_224.pth.tar')
+# for key in state_dict.keys():
+#     print(key)
 
 
+a = [1, 2, 3]
+b = [3, 4, 5]
 
-
+for p, i, j in zip(a, b):
+    print(str(i) + '' + str(j))
