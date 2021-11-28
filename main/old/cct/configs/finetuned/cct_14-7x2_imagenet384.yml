@@ -1,6 +1,6 @@
 dataset: imagenet
 num_classes: 1000
-img_size: 224
+img_size: 384
 mean:
     - 0.485
     - 0.456
@@ -26,16 +26,17 @@ reprob: 0.25
 remode: pixel
 amp: True
 model: cct_14_7x2_224
+pretrained: True
 model_ema: False
-batch_size: 128
-lr: 5e-4
-min_lr: 0.00001
-weight_decay: 5e-2
-warmup_lr: 0.000001
+batch_size: 96
+lr: 1e-5
+min_lr: 0
 sched: cosine
-epochs: 300
+weight_decay: 0
+epochs: 30
 cooldown_epochs: 10
-warmup_epochs: 10
+warmup_epochs: 0
+warmup_lr: 0.0
 opt: adamw
 smoothing: 0.1
 workers: 8

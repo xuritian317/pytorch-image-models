@@ -37,7 +37,7 @@ import torch
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128b_83.6/model_best.pth.tar')
+state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128B_83.6/model_pretrained_224.pth.tar')
 for key in state_dict.keys():
     print(key)
 

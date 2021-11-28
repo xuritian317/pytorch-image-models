@@ -1,17 +1,17 @@
-dataset: imagenet
-num_classes: 1000
-img_size: 224
+dataset: cifar10
+num_classes: 10
+img_size: 32
 mean:
-    - 0.485
-    - 0.456
-    - 0.406
+    - 0.4914
+    - 0.4822
+    - 0.4465
 std:
-    - 0.229
-    - 0.224
-    - 0.225
-crop_pct: 0.9
+    - 0.2470
+    - 0.2435
+    - 0.2616
+crop_pct: 1.0
 scale:
-    - 0.08
+    - 0.8
     - 1.0
 interpolation: bicubic
 train_interpolation: random
@@ -25,17 +25,17 @@ cutmix: 1.0
 reprob: 0.25
 remode: pixel
 amp: True
-model: cct_14_7x2_224
+model: cct_7_3x1_32_sine
 model_ema: False
 batch_size: 128
 lr: 5e-4
-min_lr: 0.00001
-weight_decay: 5e-2
-warmup_lr: 0.000001
+min_lr: 1e-5
 sched: cosine
-epochs: 300
+weight_decay: 5e-2
+epochs: 5000
 cooldown_epochs: 10
 warmup_epochs: 10
+warmup_lr: 0.00001
 opt: adamw
 smoothing: 0.1
 workers: 8

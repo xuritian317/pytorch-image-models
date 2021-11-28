@@ -96,9 +96,9 @@ def _ctfg(arch, pretrained, progress,
     if pretrained:
         # pass
         # TODO the pretrain function is to be implementation
-        print('ctfg pretrained')
+        print('ctfg_old pretrained')
 
-        checkpoint_path = kwargs.get('pretrained_dir', os.path.join('./', model_urls[arch]))
+        checkpoint_path = kwargs.get('pretrained_dir', os.path.join('/', model_urls[arch]))
         is_changeSize = kwargs.get('is_changeSize', False)
 
         if not is_changeSize:

@@ -36,10 +36,13 @@ from timm.loss import *
 from timm.optim import create_optimizer_v2, optimizer_kwargs
 from timm.scheduler import create_scheduler
 from timm.utils import ApexScaler, NativeScaler
+
 from tensorboardX import SummaryWriter
-from main.cct.src import *
-import nni
-from nni.utils import merge_parameter
+# import nni
+# from nni.utils import merge_parameter
+
+from main.ctfg.ctfg import *
+from main.old.cct.src import *
 
 try:
     from apex import amp
@@ -307,7 +310,7 @@ parser.add_argument('--log-wandb', action='store_true', default=False,
 parser.add_argument('--pretrained_dir', type=str, default='./',
                     help='pretrained_dir')
 parser.add_argument('--is_changeSize', action='store_true', default=False,
-                    help='whether to change size')
+                    help='If you have pretrained checkpoint, whether to change size')
 parser.add_argument('--is_con_loss', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--is_nni', action='store_true', default=False,
@@ -334,12 +337,13 @@ def _parse_args():
 def main():
     setup_default_logging()
     args, args_text = _parse_args()
+    _logger.info(args_text)
 
     if args.is_nni:
-        tuner_params = nni.get_next_parameter()
-        print("get nni parameter")
-        args = merge_parameter(args, tuner_params)
-        writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+        # tuner_params = nni.get_next_parameter()
+        # print("get nni parameter")
+        # args = merge_parameter(args, tuner_params)
+        # writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
 
         lr = args.lr
         args.min_lr = lr / 50
@@ -349,12 +353,12 @@ def main():
             args.experiment = str(format(args.lr, '.1e')) + '_' + str(format(args.warmup_lr, '.1e'))
 
     else:
-        log_dir = os.path.join("logs", args.experiment)
-        if os.path.exists(log_dir):
-            print("---  the folder already exists  ---")
-        else:
-            os.makedirs(log_dir)
-        writer = SummaryWriter(log_dir=log_dir)
+        # log_dir = os.path.join("logs", args.experiment)
+        # if os.path.exists(log_dir):
+        #     print("---  the folder already exists  ---")
+        # else:
+        #     os.makedirs(log_dir)
+        writer = SummaryWriter(log_dir='logs')
 
     if args.log_wandb:
         if has_wandb:
@@ -705,9 +709,9 @@ def main():
     if best_metric is not None:
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
 
-    nni.report_final_result(best_metric)
+    # nni.report_final_result(best_metric)
 
-    writer.export_scalars_to_json(os.path.join("logs", "all_scalars.json"))
+    # writer.export_scalars_to_json(os.path.join("logs", "all_scalars.json"))
     writer.close()
 
 
@@ -892,7 +896,7 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
 
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg)])
 
-    nni.report_intermediate_result(top1_m.avg)
+    # nni.report_intermediate_result(top1_m.avg)
 
     return metrics
 
