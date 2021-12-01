@@ -39,8 +39,8 @@ def create_datasets(root):
             toT = os.path.join(trainF, name)
         else:
             toT = os.path.join(valF, name)
-        # mkdir(toT)
-        # shutil.copy(ori, toT)
+        mkdir(toT)
+        shutil.copy(ori, toT)
 
 
 def get_continuous_class_map(class_labels):
@@ -80,7 +80,7 @@ def mkdir(path):
 
 
 def main():
-    create_datasets(f'/home/ubuntu/xu')
+    create_datasets(f'/home/lirunze/xh/datas')
 
 
 if __name__ == "__main__":
