@@ -4,11 +4,11 @@ import shutil
 
 
 def main():
-    create_datasets(f'/home/ubuntu/xu')
+    create_datasets(f'/hy-nas')
 
 
 def create_datasets(root):
-    dataset_path = os.path.join(root, 'cars')
+    dataset_path = os.path.join(root, 'stanfordcars')
 
     cars = os.path.join(root, "cars2")
     trainF = os.path.join(cars, "train")
