@@ -30,7 +30,7 @@ remode: pixel
 amp: True
 pretrained: True
 model_ema: False
-batch_size: 16
+batch_size: 32
 model: ctfg_14_7x2_384
 sched: cosine
 epochs: 100

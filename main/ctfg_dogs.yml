@@ -40,15 +40,15 @@ opt: adamw
 smoothing: 0.1
 workers: 8
 
-lr: 1e-4
-min_lr: 2e-6
-weight_decay: 6e-2
-warmup_lr: 2e-7
-
-#lr: 7e-5
-#min_lr: 1.4e-6
+#lr: 1e-4
+#min_lr: 2e-6
 #weight_decay: 6e-2
-#warmup_lr: 1.4e-7
+#warmup_lr: 2e-7
+
+lr: 7e-5
+min_lr: 1.4e-6
+weight_decay: 6e-2
+warmup_lr: 1.4e-7
 
 #lr: 5e-5
 #min_lr: 1e-6
