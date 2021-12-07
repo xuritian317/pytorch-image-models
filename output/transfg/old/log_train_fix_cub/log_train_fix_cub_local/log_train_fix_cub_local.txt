@@ -1,0 +1,4542 @@
+
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(
+data_root='/home/ubuntu/Datas/CUB/CUB_200_2011',
+ dataset='CUB_200_2011', decay_type='cosine',
+ device=device(type='cuda', index=1), eval_batch_size=8,
+ eval_every=100, fp16=True, fp16_opt_level='O2',
+ gradient_accumulation_steps=1, img_size=384,
+ learning_rate=0.1, local_rank=1, loss_scale=0,
+ max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1,
+ name='sample_run', nprocs=2, num_steps=20000, o
+ utput_dir='./output', pretrain=True,
+ pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth',
+  pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True,
+  slide_step=12, smoothing_value=0.0, split='overlap',
+  train_batch_size=16, train_log_name='train_.txt', warmup_steps=500,
+  weight_decay=0.03)
+
+Total Parameter: 	22.2M
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0.03)
+Total Parameter: 	22.2M
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.25983
+Valid Accuracy: 0.01174
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.26001
+Valid Accuracy: 0.01174
+best accuracy so far: 0.011736
+train accuracy so far: 0.010194
+train accuracy so far: 0.010194
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.20787
+Valid Accuracy: 0.01174
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.20596
+Valid Accuracy: 0.01174
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.25348
+Valid Accuracy: 0.00915
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.25153
+Valid Accuracy: 0.00915
+best accuracy so far: 0.011736
+train accuracy so far: 0.008189
+train accuracy so far: 0.008189
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 400
+Valid Loss: 5.22551
+Valid Accuracy: 0.01070
+
+Validation Results
+Global Steps: 400
+Valid Loss: 5.23153
+Valid Accuracy: 0.01070
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 500
+Valid Loss: 5.28167
+Valid Accuracy: 0.00742
+
+Validation Results
+Global Steps: 500
+Valid Loss: 5.27396
+Valid Accuracy: 0.00742
+best accuracy so far: 0.011736
+train accuracy so far: 0.005348
+train accuracy so far: 0.005348
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 600
+Valid Loss: 5.27144
+Valid Accuracy: 0.00794
+
+Validation Results
+Global Steps: 600
+Valid Loss: 5.26683
+Valid Accuracy: 0.00794
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 700
+Valid Loss: 5.30141
+Valid Accuracy: 0.00483
+
+Validation Results
+Global Steps: 700
+Valid Loss: 5.30334
+Valid Accuracy: 0.00483
+best accuracy so far: 0.011736
+train accuracy so far: 0.004846
+train accuracy so far: 0.004846
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 800
+Valid Loss: 5.30411
+Valid Accuracy: 0.00639
+
+Validation Results
+Global Steps: 800
+Valid Loss: 5.30222
+Valid Accuracy: 0.00639
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 900
+Valid Loss: 5.26573
+Valid Accuracy: 0.00828
+
+Validation Results
+Global Steps: 900
+Valid Loss: 5.26501
+Valid Accuracy: 0.00828
+best accuracy so far: 0.011736
+train accuracy so far: 0.004512
+train accuracy so far: 0.004512
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 5.27963
+Valid Accuracy: 0.00690
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 5.28238
+Valid Accuracy: 0.00690
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 5.29439
+Valid Accuracy: 0.00621
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 5.29198
+Valid Accuracy: 0.00621
+best accuracy so far: 0.011736
+train accuracy so far: 0.007186
+train accuracy so far: 0.007186
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 5.29588
+Valid Accuracy: 0.00431
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 5.28882
+Valid Accuracy: 0.00431
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 5.28344
+Valid Accuracy: 0.00708
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 5.28268
+Valid Accuracy: 0.00708
+best accuracy so far: 0.011736
+train accuracy so far: 0.004679
+train accuracy so far: 0.004679
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 5.28709
+Valid Accuracy: 0.00656
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 5.28684
+Valid Accuracy: 0.00656
+best accuracy so far: 0.011736
+train accuracy so far: 0.005180
+train accuracy so far: 0.005180
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 5.27183
+Valid Accuracy: 0.00828
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 5.27107
+Valid Accuracy: 0.00828
+best accuracy so far: 0.011736
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 5.29332
+Valid Accuracy: 0.00742
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 5.28335
+Valid Accuracy: 0.00742
+best accuracy so far: 0.011736
+train accuracy so far: 0.003676
+train accuracy so far: 0.003676
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 5.28897
+Valid Accuracy: 0.00639
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 5.28768
+Valid Accuracy: 0.00639
+best accuracy so far: 0.011736
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=1), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=1, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0.1)
+Total Parameter: 	22.2M
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0.1)
+Total Parameter: 	22.2M
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.29132
+Valid Accuracy: 0.00708
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.29112
+Valid Accuracy: 0.00708
+best accuracy so far: 0.007076
+train accuracy so far: 0.004679
+train accuracy so far: 0.004679
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.29817
+Valid Accuracy: 0.00449
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.29803
+Valid Accuracy: 0.00449
+best accuracy so far: 0.007076
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.29737
+Valid Accuracy: 0.00501
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.29741
+Valid Accuracy: 0.00501
+best accuracy so far: 0.007076
+train accuracy so far: 0.005348
+train accuracy so far: 0.005348
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 400
+Valid Loss: 5.28268
+Valid Accuracy: 0.00725
+
+Validation Results
+Global Steps: 400
+Valid Loss: 5.27990
+Valid Accuracy: 0.00725
+best accuracy so far: 0.007249
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 500
+Valid Loss: 5.29628
+Valid Accuracy: 0.00690
+
+Validation Results
+Global Steps: 500
+Valid Loss: 5.28963
+Valid Accuracy: 0.00690
+best accuracy so far: 0.007249
+train accuracy so far: 0.006183
+train accuracy so far: 0.006183
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 600
+Valid Loss: 5.29425
+Valid Accuracy: 0.00466
+
+Validation Results
+Global Steps: 600
+Valid Loss: 5.29945
+Valid Accuracy: 0.00466
+best accuracy so far: 0.007249
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=1), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=1, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	22.2M
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	22.2M
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.43104
+Valid Accuracy: 0.00570
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.42828
+Valid Accuracy: 0.00570
+best accuracy so far: 0.005696
+train accuracy so far: 0.004345
+train accuracy so far: 0.004345
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 200
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 200
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.005696
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 300
+Valid Loss: nan
+Valid Accuracy: 0.00690
+
+Validation Results
+Global Steps: 300
+Valid Loss: nan
+Valid Accuracy: 0.00690
+best accuracy so far: 0.006904
+train accuracy so far: 0.007019
+train accuracy so far: 0.007019
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 400
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 400
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 500
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 500
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+train accuracy so far: 0.004679
+train accuracy so far: 0.004679
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 600
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 600
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 700
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 700
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+train accuracy so far: 0.005013
+train accuracy so far: 0.005013
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 800
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 800
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 900
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 900
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+train accuracy so far: 0.005013
+train accuracy so far: 0.005013
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1000
+Valid Loss: nan
+Valid Accuracy: 0.00518
+
+Validation Results
+Global Steps: 1000
+Valid Loss: nan
+Valid Accuracy: 0.00518
+best accuracy so far: 0.006904
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=1), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=1, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	22.2M
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+classifier: token
+conv_bias: false
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stride: 2
+transformer:
+  attention_dropout_rate: 0.0
+  dropout_rate: 0.1
+  mlp_dim: 1152
+  num_heads: 12
+  num_layers: 12
+
+Training parameters Namespace(data_root='/home/ubuntu/Datas/CUB/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=8, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14t/7x2', n_gpu=1, name='sample_run', nprocs=2, num_steps=20000, output_dir='./output', pretrain=True, pretrained_dir='/home/ubuntu/Datas/cct_14_7x2_384_flowers102.pth', pretrained_model='cct_14_7x2_384', seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='train_.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	22.2M
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running training *****
+  Total optimization steps = 20000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.34984
+Valid Accuracy: 0.00570
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.35445
+Valid Accuracy: 0.00570
+best accuracy so far: 0.005696
+train accuracy so far: 0.004512
+train accuracy so far: 0.004512
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.26547
+Valid Accuracy: 0.00949
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.25950
+Valid Accuracy: 0.00949
+best accuracy so far: 0.009493
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.11008
+Valid Accuracy: 0.02123
+
+Validation Results
+Global Steps: 300
+Valid Loss: 5.09023
+Valid Accuracy: 0.02123
+best accuracy so far: 0.021229
+train accuracy so far: 0.020555
+train accuracy so far: 0.020555
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 400
+Valid Loss: 4.68185
+Valid Accuracy: 0.05074
+
+Validation Results
+Global Steps: 400
+Valid Loss: 4.67140
+Valid Accuracy: 0.05074
+best accuracy so far: 0.050742
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 500
+Valid Loss: 4.17003
+Valid Accuracy: 0.09216
+
+Validation Results
+Global Steps: 500
+Valid Loss: 4.17448
+Valid Accuracy: 0.09216
+best accuracy so far: 0.092164
+train accuracy so far: 0.070020
+train accuracy so far: 0.070020
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 600
+Valid Loss: 3.74872
+Valid Accuracy: 0.14946
+
+Validation Results
+Global Steps: 600
+Valid Loss: 3.71855
+Valid Accuracy: 0.14946
+best accuracy so far: 0.149465
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 700
+Valid Loss: 3.44113
+Valid Accuracy: 0.19814
+
+Validation Results
+Global Steps: 700
+Valid Loss: 3.42210
+Valid Accuracy: 0.19814
+best accuracy so far: 0.198136
+train accuracy so far: 0.168282
+train accuracy so far: 0.168282
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 800
+Valid Loss: 3.23467
+Valid Accuracy: 0.24042
+
+Validation Results
+Global Steps: 800
+Valid Loss: 3.24677
+Valid Accuracy: 0.24042
+best accuracy so far: 0.240421
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 900
+Valid Loss: 2.84013
+Valid Accuracy: 0.32741
+
+Validation Results
+Global Steps: 900
+Valid Loss: 2.86004
+Valid Accuracy: 0.32741
+best accuracy so far: 0.327408
+train accuracy so far: 0.280247
+train accuracy so far: 0.280247
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 2.58496
+Valid Accuracy: 0.37142
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 2.61326
+Valid Accuracy: 0.37142
+best accuracy so far: 0.371419
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 2.49314
+Valid Accuracy: 0.40179
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 2.49939
+Valid Accuracy: 0.40179
+best accuracy so far: 0.401795
+train accuracy so far: 0.392547
+train accuracy so far: 0.392547
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 2.32928
+Valid Accuracy: 0.42458
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 2.33459
+Valid Accuracy: 0.42458
+best accuracy so far: 0.424577
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 2.15000
+Valid Accuracy: 0.46911
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 2.15706
+Valid Accuracy: 0.46911
+best accuracy so far: 0.469106
+train accuracy so far: 0.485963
+train accuracy so far: 0.485963
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 1.97285
+Valid Accuracy: 0.50311
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 1.99474
+Valid Accuracy: 0.50311
+best accuracy so far: 0.503107
+train accuracy so far: 0.563168
+train accuracy so far: 0.563168
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 1.81931
+Valid Accuracy: 0.54004
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 1.85276
+Valid Accuracy: 0.54004
+best accuracy so far: 0.540041
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 1.70846
+Valid Accuracy: 0.57076
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 1.72702
+Valid Accuracy: 0.57076
+best accuracy so far: 0.570763
+train accuracy so far: 0.621156
+train accuracy so far: 0.621156
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 1.73224
+Valid Accuracy: 0.56006
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 1.77792
+Valid Accuracy: 0.56006
+best accuracy so far: 0.570763
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1800
+Valid Loss: 1.53243
+Valid Accuracy: 0.60476
+
+Validation Results
+Global Steps: 1800
+Valid Loss: 1.56507
+Valid Accuracy: 0.60476
+best accuracy so far: 0.604764
+train accuracy so far: 0.679813
+train accuracy so far: 0.679813
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 1900
+Valid Loss: 1.54519
+Valid Accuracy: 0.60252
+
+Validation Results
+Global Steps: 1900
+Valid Loss: 1.54314
+Valid Accuracy: 0.60252
+best accuracy so far: 0.604764
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2000
+Valid Loss: 1.40158
+Valid Accuracy: 0.63031
+
+Validation Results
+Global Steps: 2000
+Valid Loss: 1.43701
+Valid Accuracy: 0.63031
+best accuracy so far: 0.630307
+train accuracy so far: 0.721758
+train accuracy so far: 0.721758
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2100
+Valid Loss: 1.41470
+Valid Accuracy: 0.63393
+
+Validation Results
+Global Steps: 2100
+Valid Loss: 1.40323
+Valid Accuracy: 0.63393
+best accuracy so far: 0.633932
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2200
+Valid Loss: 1.36650
+Valid Accuracy: 0.63238
+
+Validation Results
+Global Steps: 2200
+Valid Loss: 1.40260
+Valid Accuracy: 0.63238
+best accuracy so far: 0.633932
+train accuracy so far: 0.760528
+train accuracy so far: 0.760528
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2300
+Valid Loss: 1.38066
+Valid Accuracy: 0.64860
+
+Validation Results
+Global Steps: 2300
+Valid Loss: 1.32855
+Valid Accuracy: 0.64860
+best accuracy so far: 0.648602
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2400
+Valid Loss: 1.25059
+Valid Accuracy: 0.66379
+
+Validation Results
+Global Steps: 2400
+Valid Loss: 1.26285
+Valid Accuracy: 0.66379
+best accuracy so far: 0.663790
+train accuracy so far: 0.780582
+train accuracy so far: 0.780582
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2500
+Valid Loss: 1.20233
+Valid Accuracy: 0.67725
+
+Validation Results
+Global Steps: 2500
+Valid Loss: 1.23011
+Valid Accuracy: 0.67725
+best accuracy so far: 0.677252
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2600
+Valid Loss: 1.19327
+Valid Accuracy: 0.68053
+
+Validation Results
+Global Steps: 2600
+Valid Loss: 1.22359
+Valid Accuracy: 0.68053
+best accuracy so far: 0.680532
+train accuracy so far: 0.808322
+train accuracy so far: 0.808322
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2700
+Valid Loss: 1.20019
+Valid Accuracy: 0.67121
+
+Validation Results
+Global Steps: 2700
+Valid Loss: 1.22597
+Valid Accuracy: 0.67121
+best accuracy so far: 0.680532
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2800
+Valid Loss: 1.16003
+Valid Accuracy: 0.69244
+
+Validation Results
+Global Steps: 2800
+Valid Loss: 1.17087
+Valid Accuracy: 0.69244
+best accuracy so far: 0.692440
+train accuracy so far: 0.837066
+train accuracy so far: 0.837066
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 2900
+Valid Loss: 1.16747
+Valid Accuracy: 0.69158
+
+Validation Results
+Global Steps: 2900
+Valid Loss: 1.18336
+Valid Accuracy: 0.69158
+best accuracy so far: 0.692440
+train accuracy so far: 0.855114
+train accuracy so far: 0.855114
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3000
+Valid Loss: 1.20100
+Valid Accuracy: 0.67449
+
+Validation Results
+Global Steps: 3000
+Valid Loss: 1.23695
+Valid Accuracy: 0.67449
+best accuracy so far: 0.692440
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3100
+Valid Loss: 1.14831
+Valid Accuracy: 0.68433
+
+Validation Results
+Global Steps: 3100
+Valid Loss: 1.20281
+Valid Accuracy: 0.68433
+best accuracy so far: 0.692440
+train accuracy so far: 0.869652
+train accuracy so far: 0.869652
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3200
+Valid Loss: 1.14195
+Valid Accuracy: 0.69313
+
+Validation Results
+Global Steps: 3200
+Valid Loss: 1.14862
+Valid Accuracy: 0.69313
+best accuracy so far: 0.693131
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3300
+Valid Loss: 1.27091
+Valid Accuracy: 0.64757
+
+Validation Results
+Global Steps: 3300
+Valid Loss: 1.33355
+Valid Accuracy: 0.64757
+best accuracy so far: 0.693131
+train accuracy so far: 0.891043
+train accuracy so far: 0.891043
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3400
+Valid Loss: 1.11618
+Valid Accuracy: 0.70538
+
+Validation Results
+Global Steps: 3400
+Valid Loss: 1.09604
+Valid Accuracy: 0.70538
+best accuracy so far: 0.705385
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3500
+Valid Loss: 1.18275
+Valid Accuracy: 0.67742
+
+Validation Results
+Global Steps: 3500
+Valid Loss: 1.21902
+Valid Accuracy: 0.67742
+best accuracy so far: 0.705385
+train accuracy so far: 0.907754
+train accuracy so far: 0.907754
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3600
+Valid Loss: 1.08679
+Valid Accuracy: 0.70538
+
+Validation Results
+Global Steps: 3600
+Valid Loss: 1.09855
+Valid Accuracy: 0.70538
+best accuracy so far: 0.705385
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3700
+Valid Loss: 1.27598
+Valid Accuracy: 0.66396
+
+Validation Results
+Global Steps: 3700
+Valid Loss: 1.25343
+Valid Accuracy: 0.66396
+best accuracy so far: 0.705385
+train accuracy so far: 0.915608
+train accuracy so far: 0.915608
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3800
+Valid Loss: 1.10544
+Valid Accuracy: 0.70072
+
+Validation Results
+Global Steps: 3800
+Valid Loss: 1.09556
+Valid Accuracy: 0.70072
+best accuracy so far: 0.705385
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 3900
+Valid Loss: 1.14043
+Valid Accuracy: 0.69537
+
+Validation Results
+Global Steps: 3900
+Valid Loss: 1.14612
+Valid Accuracy: 0.69537
+best accuracy so far: 0.705385
+train accuracy so far: 0.924799
+train accuracy so far: 0.924799
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4000
+Valid Loss: 1.14177
+Valid Accuracy: 0.69399
+
+Validation Results
+Global Steps: 4000
+Valid Loss: 1.16206
+Valid Accuracy: 0.69399
+best accuracy so far: 0.705385
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4100
+Valid Loss: 1.09778
+Valid Accuracy: 0.70797
+
+Validation Results
+Global Steps: 4100
+Valid Loss: 1.12832
+Valid Accuracy: 0.70797
+best accuracy so far: 0.707974
+train accuracy so far: 0.936664
+train accuracy so far: 0.936664
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4200
+Valid Loss: 1.08174
+Valid Accuracy: 0.71281
+
+Validation Results
+Global Steps: 4200
+Valid Loss: 1.07813
+Valid Accuracy: 0.71281
+best accuracy so far: 0.712806
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4300
+Valid Loss: 1.17862
+Valid Accuracy: 0.68105
+
+Validation Results
+Global Steps: 4300
+Valid Loss: 1.22403
+Valid Accuracy: 0.68105
+best accuracy so far: 0.712806
+train accuracy so far: 0.945187
+train accuracy so far: 0.945187
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4400
+Valid Loss: 1.08349
+Valid Accuracy: 0.70970
+
+Validation Results
+Global Steps: 4400
+Valid Loss: 1.09771
+Valid Accuracy: 0.70970
+best accuracy so far: 0.712806
+train accuracy so far: 0.948529
+train accuracy so far: 0.948529
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4500
+Valid Loss: 1.10248
+Valid Accuracy: 0.70469
+
+Validation Results
+Global Steps: 4500
+Valid Loss: 1.15091
+Valid Accuracy: 0.70469
+best accuracy so far: 0.712806
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4600
+Valid Loss: 1.08055
+Valid Accuracy: 0.71712
+
+Validation Results
+Global Steps: 4600
+Valid Loss: 1.08934
+Valid Accuracy: 0.71712
+best accuracy so far: 0.717121
+train accuracy so far: 0.954378
+train accuracy so far: 0.954378
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4700
+Valid Loss: 1.11017
+Valid Accuracy: 0.70521
+
+Validation Results
+Global Steps: 4700
+Valid Loss: 1.15660
+Valid Accuracy: 0.70521
+best accuracy so far: 0.717121
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4800
+Valid Loss: 1.08845
+Valid Accuracy: 0.71177
+
+Validation Results
+Global Steps: 4800
+Valid Loss: 1.10358
+Valid Accuracy: 0.71177
+best accuracy so far: 0.717121
+train accuracy so far: 0.959225
+train accuracy so far: 0.959225
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 4900
+Valid Loss: 1.10344
+Valid Accuracy: 0.71574
+
+Validation Results
+Global Steps: 4900
+Valid Loss: 1.07748
+Valid Accuracy: 0.71574
+best accuracy so far: 0.717121
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5000
+Valid Loss: 1.13651
+Valid Accuracy: 0.70435
+
+Validation Results
+Global Steps: 5000
+Valid Loss: 1.15407
+Valid Accuracy: 0.70435
+best accuracy so far: 0.717121
+train accuracy so far: 0.966745
+train accuracy so far: 0.966745
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5100
+Valid Loss: 1.09336
+Valid Accuracy: 0.71885
+
+Validation Results
+Global Steps: 5100
+Valid Loss: 1.07558
+Valid Accuracy: 0.71885
+best accuracy so far: 0.718847
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5200
+Valid Loss: 1.15576
+Valid Accuracy: 0.70487
+
+Validation Results
+Global Steps: 5200
+Valid Loss: 1.15179
+Valid Accuracy: 0.70487
+best accuracy so far: 0.718847
+train accuracy so far: 0.966745
+train accuracy so far: 0.966745
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5300
+Valid Loss: 1.07042
+Valid Accuracy: 0.72092
+
+Validation Results
+Global Steps: 5300
+Valid Loss: 1.09838
+Valid Accuracy: 0.72092
+best accuracy so far: 0.720918
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5400
+Valid Loss: 1.10499
+Valid Accuracy: 0.71971
+
+Validation Results
+Global Steps: 5400
+Valid Loss: 1.10546
+Valid Accuracy: 0.71971
+best accuracy so far: 0.720918
+train accuracy so far: 0.973596
+train accuracy so far: 0.973596
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5500
+Valid Loss: 1.16961
+Valid Accuracy: 0.69883
+
+Validation Results
+Global Steps: 5500
+Valid Loss: 1.19236
+Valid Accuracy: 0.69883
+best accuracy so far: 0.720918
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5600
+Valid Loss: 1.14765
+Valid Accuracy: 0.71367
+
+Validation Results
+Global Steps: 5600
+Valid Loss: 1.14920
+Valid Accuracy: 0.71367
+best accuracy so far: 0.720918
+train accuracy so far: 0.973596
+train accuracy so far: 0.973596
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5700
+Valid Loss: 1.10401
+Valid Accuracy: 0.71695
+
+Validation Results
+Global Steps: 5700
+Valid Loss: 1.11913
+Valid Accuracy: 0.71695
+best accuracy so far: 0.720918
+train accuracy so far: 0.980114
+train accuracy so far: 0.980114
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5800
+Valid Loss: 1.10924
+Valid Accuracy: 0.72195
+
+Validation Results
+Global Steps: 5800
+Valid Loss: 1.12079
+Valid Accuracy: 0.72195
+best accuracy so far: 0.721954
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 5900
+Valid Loss: 1.05694
+Valid Accuracy: 0.73490
+
+Validation Results
+Global Steps: 5900
+Valid Loss: 1.07027
+Valid Accuracy: 0.73490
+best accuracy so far: 0.734898
+train accuracy so far: 0.982955
+train accuracy so far: 0.982955
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6000
+Valid Loss: 1.11220
+Valid Accuracy: 0.71954
+
+Validation Results
+Global Steps: 6000
+Valid Loss: 1.13290
+Valid Accuracy: 0.71954
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6100
+Valid Loss: 1.16308
+Valid Accuracy: 0.71263
+
+Validation Results
+Global Steps: 6100
+Valid Loss: 1.17793
+Valid Accuracy: 0.71263
+best accuracy so far: 0.734898
+train accuracy so far: 0.982620
+train accuracy so far: 0.982620
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6200
+Valid Loss: 1.06426
+Valid Accuracy: 0.72730
+
+Validation Results
+Global Steps: 6200
+Valid Loss: 1.09638
+Valid Accuracy: 0.72730
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6300
+Valid Loss: 1.16166
+Valid Accuracy: 0.71678
+
+Validation Results
+Global Steps: 6300
+Valid Loss: 1.19131
+Valid Accuracy: 0.71678
+best accuracy so far: 0.734898
+train accuracy so far: 0.983790
+train accuracy so far: 0.983790
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6400
+Valid Loss: 1.19378
+Valid Accuracy: 0.71591
+
+Validation Results
+Global Steps: 6400
+Valid Loss: 1.14423
+Valid Accuracy: 0.71591
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6500
+Valid Loss: 1.13575
+Valid Accuracy: 0.72644
+
+Validation Results
+Global Steps: 6500
+Valid Loss: 1.14823
+Valid Accuracy: 0.72644
+best accuracy so far: 0.734898
+train accuracy so far: 0.983790
+train accuracy so far: 0.983790
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6600
+Valid Loss: 1.12861
+Valid Accuracy: 0.72799
+
+Validation Results
+Global Steps: 6600
+Valid Loss: 1.14817
+Valid Accuracy: 0.72799
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6700
+Valid Loss: 1.13785
+Valid Accuracy: 0.72420
+
+Validation Results
+Global Steps: 6700
+Valid Loss: 1.12001
+Valid Accuracy: 0.72420
+best accuracy so far: 0.734898
+train accuracy so far: 0.985795
+train accuracy so far: 0.985795
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6800
+Valid Loss: 1.11213
+Valid Accuracy: 0.72696
+
+Validation Results
+Global Steps: 6800
+Valid Loss: 1.12325
+Valid Accuracy: 0.72696
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 6900
+Valid Loss: 1.18295
+Valid Accuracy: 0.71781
+
+Validation Results
+Global Steps: 6900
+Valid Loss: 1.18074
+Valid Accuracy: 0.71781
+best accuracy so far: 0.734898
+train accuracy so far: 0.984793
+train accuracy so far: 0.984793
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7000
+Valid Loss: 1.13733
+Valid Accuracy: 0.73404
+
+Validation Results
+Global Steps: 7000
+Valid Loss: 1.11058
+Valid Accuracy: 0.73404
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7100
+Valid Loss: 1.16927
+Valid Accuracy: 0.72817
+
+Validation Results
+Global Steps: 7100
+Valid Loss: 1.13683
+Valid Accuracy: 0.72817
+best accuracy so far: 0.734898
+train accuracy so far: 0.987634
+train accuracy so far: 0.987634
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7200
+Valid Loss: 1.13559
+Valid Accuracy: 0.72938
+
+Validation Results
+Global Steps: 7200
+Valid Loss: 1.12176
+Valid Accuracy: 0.72938
+best accuracy so far: 0.734898
+train accuracy so far: 0.988135
+train accuracy so far: 0.988135
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7300
+Valid Loss: 1.20622
+Valid Accuracy: 0.72420
+
+Validation Results
+Global Steps: 7300
+Valid Loss: 1.18673
+Valid Accuracy: 0.72420
+best accuracy so far: 0.734898
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7400
+Valid Loss: 1.06872
+Valid Accuracy: 0.74301
+
+Validation Results
+Global Steps: 7400
+Valid Loss: 1.10344
+Valid Accuracy: 0.74301
+best accuracy so far: 0.743010
+train accuracy so far: 0.990642
+train accuracy so far: 0.990642
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7500
+Valid Loss: 1.14955
+Valid Accuracy: 0.73214
+
+Validation Results
+Global Steps: 7500
+Valid Loss: 1.13829
+Valid Accuracy: 0.73214
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7600
+Valid Loss: 1.14922
+Valid Accuracy: 0.73093
+
+Validation Results
+Global Steps: 7600
+Valid Loss: 1.13929
+Valid Accuracy: 0.73093
+best accuracy so far: 0.743010
+train accuracy so far: 0.991979
+train accuracy so far: 0.991979
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7700
+Valid Loss: 1.08525
+Valid Accuracy: 0.74163
+
+Validation Results
+Global Steps: 7700
+Valid Loss: 1.12756
+Valid Accuracy: 0.74163
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7800
+Valid Loss: 1.15592
+Valid Accuracy: 0.72696
+
+Validation Results
+Global Steps: 7800
+Valid Loss: 1.15807
+Valid Accuracy: 0.72696
+best accuracy so far: 0.743010
+train accuracy so far: 0.993650
+train accuracy so far: 0.993650
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 7900
+Valid Loss: 1.12943
+Valid Accuracy: 0.73697
+
+Validation Results
+Global Steps: 7900
+Valid Loss: 1.14953
+Valid Accuracy: 0.73697
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8000
+Valid Loss: 1.18577
+Valid Accuracy: 0.71971
+
+Validation Results
+Global Steps: 8000
+Valid Loss: 1.24442
+Valid Accuracy: 0.71971
+best accuracy so far: 0.743010
+train accuracy so far: 0.993483
+train accuracy so far: 0.993483
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8100
+Valid Loss: 1.12582
+Valid Accuracy: 0.73645
+
+Validation Results
+Global Steps: 8100
+Valid Loss: 1.13675
+Valid Accuracy: 0.73645
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8200
+Valid Loss: 1.16111
+Valid Accuracy: 0.72679
+
+Validation Results
+Global Steps: 8200
+Valid Loss: 1.15692
+Valid Accuracy: 0.72679
+best accuracy so far: 0.743010
+train accuracy so far: 0.993148
+train accuracy so far: 0.993148
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8300
+Valid Loss: 1.17890
+Valid Accuracy: 0.73283
+
+Validation Results
+Global Steps: 8300
+Valid Loss: 1.16256
+Valid Accuracy: 0.73283
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8400
+Valid Loss: 1.20002
+Valid Accuracy: 0.73283
+
+Validation Results
+Global Steps: 8400
+Valid Loss: 1.14398
+Valid Accuracy: 0.73283
+best accuracy so far: 0.743010
+train accuracy so far: 0.994151
+train accuracy so far: 0.994151
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8500
+Valid Loss: 1.22613
+Valid Accuracy: 0.71712
+
+Validation Results
+Global Steps: 8500
+Valid Loss: 1.27237
+Valid Accuracy: 0.71712
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8600
+Valid Loss: 1.24670
+Valid Accuracy: 0.71971
+
+Validation Results
+Global Steps: 8600
+Valid Loss: 1.25942
+Valid Accuracy: 0.71971
+best accuracy so far: 0.743010
+train accuracy so far: 0.993148
+train accuracy so far: 0.993148
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8700
+Valid Loss: 1.17031
+Valid Accuracy: 0.73921
+
+Validation Results
+Global Steps: 8700
+Valid Loss: 1.15647
+Valid Accuracy: 0.73921
+best accuracy so far: 0.743010
+train accuracy so far: 0.994652
+train accuracy so far: 0.994652
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8800
+Valid Loss: 1.22823
+Valid Accuracy: 0.72868
+
+Validation Results
+Global Steps: 8800
+Valid Loss: 1.20629
+Valid Accuracy: 0.72868
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 8900
+Valid Loss: 1.19330
+Valid Accuracy: 0.72955
+
+Validation Results
+Global Steps: 8900
+Valid Loss: 1.17382
+Valid Accuracy: 0.72955
+best accuracy so far: 0.743010
+train accuracy so far: 0.995822
+train accuracy so far: 0.995822
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9000
+Valid Loss: 1.15060
+Valid Accuracy: 0.74128
+
+Validation Results
+Global Steps: 9000
+Valid Loss: 1.13042
+Valid Accuracy: 0.74128
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9100
+Valid Loss: 1.19646
+Valid Accuracy: 0.73214
+
+Validation Results
+Global Steps: 9100
+Valid Loss: 1.16629
+Valid Accuracy: 0.73214
+best accuracy so far: 0.743010
+train accuracy so far: 0.997159
+train accuracy so far: 0.997159
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9200
+Valid Loss: 1.19673
+Valid Accuracy: 0.73611
+
+Validation Results
+Global Steps: 9200
+Valid Loss: 1.16985
+Valid Accuracy: 0.73611
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9300
+Valid Loss: 1.17271
+Valid Accuracy: 0.73662
+
+Validation Results
+Global Steps: 9300
+Valid Loss: 1.15772
+Valid Accuracy: 0.73662
+best accuracy so far: 0.743010
+train accuracy so far: 0.996658
+train accuracy so far: 0.996658
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9400
+Valid Loss: 1.15732
+Valid Accuracy: 0.74266
+
+Validation Results
+Global Steps: 9400
+Valid Loss: 1.15003
+Valid Accuracy: 0.74266
+best accuracy so far: 0.743010
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9500
+Valid Loss: 1.16604
+Valid Accuracy: 0.73887
+
+Validation Results
+Global Steps: 9500
+Valid Loss: 1.16049
+Valid Accuracy: 0.73887
+best accuracy so far: 0.743010
+train accuracy so far: 0.997493
+train accuracy so far: 0.997493
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9600
+Valid Loss: 1.14629
+Valid Accuracy: 0.74456
+
+Validation Results
+Global Steps: 9600
+Valid Loss: 1.12741
+Valid Accuracy: 0.74456
+best accuracy so far: 0.744563
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9700
+Valid Loss: 1.16203
+Valid Accuracy: 0.74732
+
+Validation Results
+Global Steps: 9700
+Valid Loss: 1.14918
+Valid Accuracy: 0.74732
+best accuracy so far: 0.747325
+train accuracy so far: 0.996825
+train accuracy so far: 0.996825
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9800
+Valid Loss: 1.14087
+Valid Accuracy: 0.74974
+
+Validation Results
+Global Steps: 9800
+Valid Loss: 1.14157
+Valid Accuracy: 0.74974
+best accuracy so far: 0.749741
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 9900
+Valid Loss: 1.15630
+Valid Accuracy: 0.75147
+
+Validation Results
+Global Steps: 9900
+Valid Loss: 1.11878
+Valid Accuracy: 0.75147
+best accuracy so far: 0.751467
+train accuracy so far: 0.997995
+train accuracy so far: 0.997995
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10000
+Valid Loss: 1.18344
+Valid Accuracy: 0.74387
+
+Validation Results
+Global Steps: 10000
+Valid Loss: 1.16497
+Valid Accuracy: 0.74387
+best accuracy so far: 0.751467
+train accuracy so far: 0.998329
+train accuracy so far: 0.998329
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10100
+Valid Loss: 1.18084
+Valid Accuracy: 0.74715
+
+Validation Results
+Global Steps: 10100
+Valid Loss: 1.16372
+Valid Accuracy: 0.74715
+best accuracy so far: 0.751467
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10200
+Valid Loss: 1.14908
+Valid Accuracy: 0.75060
+
+Validation Results
+Global Steps: 10200
+Valid Loss: 1.12113
+Valid Accuracy: 0.75060
+best accuracy so far: 0.751467
+train accuracy so far: 0.997660
+train accuracy so far: 0.997660
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10300
+Valid Loss: 1.18449
+Valid Accuracy: 0.73990
+
+Validation Results
+Global Steps: 10300
+Valid Loss: 1.19112
+Valid Accuracy: 0.73990
+best accuracy so far: 0.751467
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10400
+Valid Loss: 1.18314
+Valid Accuracy: 0.74577
+
+Validation Results
+Global Steps: 10400
+Valid Loss: 1.16577
+Valid Accuracy: 0.74577
+best accuracy so far: 0.751467
+train accuracy so far: 0.998329
+train accuracy so far: 0.998329
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10500
+Valid Loss: 1.16575
+Valid Accuracy: 0.74525
+
+Validation Results
+Global Steps: 10500
+Valid Loss: 1.18025
+Valid Accuracy: 0.74525
+best accuracy so far: 0.751467
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10600
+Valid Loss: 1.17194
+Valid Accuracy: 0.74698
+
+Validation Results
+Global Steps: 10600
+Valid Loss: 1.13790
+Valid Accuracy: 0.74698
+best accuracy so far: 0.751467
+train accuracy so far: 0.998162
+train accuracy so far: 0.998162
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10700
+Valid Loss: 1.15152
+Valid Accuracy: 0.75319
+
+Validation Results
+Global Steps: 10700
+Valid Loss: 1.12332
+Valid Accuracy: 0.75319
+best accuracy so far: 0.753193
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10800
+Valid Loss: 1.20192
+Valid Accuracy: 0.73921
+
+Validation Results
+Global Steps: 10800
+Valid Loss: 1.20938
+Valid Accuracy: 0.73921
+best accuracy so far: 0.753193
+train accuracy so far: 0.997995
+train accuracy so far: 0.997995
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 10900
+Valid Loss: 1.15332
+Valid Accuracy: 0.74802
+
+Validation Results
+Global Steps: 10900
+Valid Loss: 1.19106
+Valid Accuracy: 0.74802
+best accuracy so far: 0.753193
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11000
+Valid Loss: 1.19299
+Valid Accuracy: 0.74577
+
+Validation Results
+Global Steps: 11000
+Valid Loss: 1.17922
+Valid Accuracy: 0.74577
+best accuracy so far: 0.753193
+train accuracy so far: 0.998329
+train accuracy so far: 0.998329
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11100
+Valid Loss: 1.19602
+Valid Accuracy: 0.73852
+
+Validation Results
+Global Steps: 11100
+Valid Loss: 1.20664
+Valid Accuracy: 0.73852
+best accuracy so far: 0.753193
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11200
+Valid Loss: 1.15613
+Valid Accuracy: 0.74853
+
+Validation Results
+Global Steps: 11200
+Valid Loss: 1.16389
+Valid Accuracy: 0.74853
+best accuracy so far: 0.753193
+train accuracy so far: 0.999164
+train accuracy so far: 0.999164
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11300
+Valid Loss: 1.16034
+Valid Accuracy: 0.74750
+
+Validation Results
+Global Steps: 11300
+Valid Loss: 1.17599
+Valid Accuracy: 0.74750
+best accuracy so far: 0.753193
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11400
+Valid Loss: 1.18168
+Valid Accuracy: 0.74905
+
+Validation Results
+Global Steps: 11400
+Valid Loss: 1.15571
+Valid Accuracy: 0.74905
+best accuracy so far: 0.753193
+train accuracy so far: 0.998830
+train accuracy so far: 0.998830
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11500
+Valid Loss: 1.17398
+Valid Accuracy: 0.74888
+
+Validation Results
+Global Steps: 11500
+Valid Loss: 1.15730
+Valid Accuracy: 0.74888
+best accuracy so far: 0.753193
+train accuracy so far: 0.999164
+train accuracy so far: 0.999164
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11600
+Valid Loss: 1.15613
+Valid Accuracy: 0.75285
+
+Validation Results
+Global Steps: 11600
+Valid Loss: 1.15503
+Valid Accuracy: 0.75285
+best accuracy so far: 0.753193
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11700
+Valid Loss: 1.13378
+Valid Accuracy: 0.75475
+
+Validation Results
+Global Steps: 11700
+Valid Loss: 1.11395
+Valid Accuracy: 0.75475
+best accuracy so far: 0.754746
+train accuracy so far: 0.999164
+train accuracy so far: 0.999164
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11800
+Valid Loss: 1.14763
+Valid Accuracy: 0.75268
+
+Validation Results
+Global Steps: 11800
+Valid Loss: 1.17460
+Valid Accuracy: 0.75268
+best accuracy so far: 0.754746
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 11900
+Valid Loss: 1.15084
+Valid Accuracy: 0.75682
+
+Validation Results
+Global Steps: 11900
+Valid Loss: 1.12846
+Valid Accuracy: 0.75682
+best accuracy so far: 0.756817
+train accuracy so far: 0.998496
+train accuracy so far: 0.998496
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12000
+Valid Loss: 1.12520
+Valid Accuracy: 0.75699
+
+Validation Results
+Global Steps: 12000
+Valid Loss: 1.15075
+Valid Accuracy: 0.75699
+best accuracy so far: 0.756990
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12100
+Valid Loss: 1.14548
+Valid Accuracy: 0.75699
+
+Validation Results
+Global Steps: 12100
+Valid Loss: 1.13339
+Valid Accuracy: 0.75699
+best accuracy so far: 0.756990
+train accuracy so far: 0.999499
+train accuracy so far: 0.999499
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12200
+Valid Loss: 1.18499
+Valid Accuracy: 0.75526
+
+Validation Results
+Global Steps: 12200
+Valid Loss: 1.14916
+Valid Accuracy: 0.75526
+best accuracy so far: 0.756990
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12300
+Valid Loss: 1.15459
+Valid Accuracy: 0.76148
+
+Validation Results
+Global Steps: 12300
+Valid Loss: 1.12273
+Valid Accuracy: 0.76148
+best accuracy so far: 0.761477
+train accuracy so far: 0.998997
+train accuracy so far: 0.998997
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12400
+Valid Loss: 1.17109
+Valid Accuracy: 0.75975
+
+Validation Results
+Global Steps: 12400
+Valid Loss: 1.13655
+Valid Accuracy: 0.75975
+best accuracy so far: 0.761477
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12500
+Valid Loss: 1.20534
+Valid Accuracy: 0.74612
+
+Validation Results
+Global Steps: 12500
+Valid Loss: 1.17756
+Valid Accuracy: 0.74612
+best accuracy so far: 0.761477
+train accuracy so far: 0.999499
+train accuracy so far: 0.999499
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12600
+Valid Loss: 1.14476
+Valid Accuracy: 0.75958
+
+Validation Results
+Global Steps: 12600
+Valid Loss: 1.17061
+Valid Accuracy: 0.75958
+best accuracy so far: 0.761477
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12700
+Valid Loss: 1.11526
+Valid Accuracy: 0.76010
+
+Validation Results
+Global Steps: 12700
+Valid Loss: 1.14771
+Valid Accuracy: 0.76010
+best accuracy so far: 0.761477
+train accuracy so far: 0.999332
+train accuracy so far: 0.999332
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12800
+Valid Loss: 1.16738
+Valid Accuracy: 0.75820
+
+Validation Results
+Global Steps: 12800
+Valid Loss: 1.14180
+Valid Accuracy: 0.75820
+best accuracy so far: 0.761477
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 12900
+Valid Loss: 1.17069
+Valid Accuracy: 0.75854
+
+Validation Results
+Global Steps: 12900
+Valid Loss: 1.13922
+Valid Accuracy: 0.75854
+best accuracy so far: 0.761477
+train accuracy so far: 0.999332
+train accuracy so far: 0.999332
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13000
+Valid Loss: 1.14750
+Valid Accuracy: 0.75026
+
+Validation Results
+Global Steps: 13000
+Valid Loss: 1.17748
+Valid Accuracy: 0.75026
+best accuracy so far: 0.761477
+train accuracy so far: 0.998997
+train accuracy so far: 0.998997
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13100
+Valid Loss: 1.16802
+Valid Accuracy: 0.75216
+
+Validation Results
+Global Steps: 13100
+Valid Loss: 1.20242
+Valid Accuracy: 0.75216
+best accuracy so far: 0.761477
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13200
+Valid Loss: 1.13068
+Valid Accuracy: 0.75889
+
+Validation Results
+Global Steps: 13200
+Valid Loss: 1.16334
+Valid Accuracy: 0.75889
+best accuracy so far: 0.761477
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13300
+Valid Loss: 1.16343
+Valid Accuracy: 0.75958
+
+Validation Results
+Global Steps: 13300
+Valid Loss: 1.13222
+Valid Accuracy: 0.75958
+best accuracy so far: 0.761477
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13400
+Valid Loss: 1.15182
+Valid Accuracy: 0.76269
+
+Validation Results
+Global Steps: 13400
+Valid Loss: 1.12716
+Valid Accuracy: 0.76269
+best accuracy so far: 0.762686
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13500
+Valid Loss: 1.16348
+Valid Accuracy: 0.75854
+
+Validation Results
+Global Steps: 13500
+Valid Loss: 1.13242
+Valid Accuracy: 0.75854
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13600
+Valid Loss: 1.11216
+Valid Accuracy: 0.76251
+
+Validation Results
+Global Steps: 13600
+Valid Loss: 1.15153
+Valid Accuracy: 0.76251
+best accuracy so far: 0.762686
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13700
+Valid Loss: 1.12600
+Valid Accuracy: 0.76234
+
+Validation Results
+Global Steps: 13700
+Valid Loss: 1.15081
+Valid Accuracy: 0.76234
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13800
+Valid Loss: 1.14409
+Valid Accuracy: 0.75734
+
+Validation Results
+Global Steps: 13800
+Valid Loss: 1.17657
+Valid Accuracy: 0.75734
+best accuracy so far: 0.762686
+train accuracy so far: 0.998997
+train accuracy so far: 0.998997
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 13900
+Valid Loss: 1.17900
+Valid Accuracy: 0.76130
+
+Validation Results
+Global Steps: 13900
+Valid Loss: 1.14404
+Valid Accuracy: 0.76130
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14000
+Valid Loss: 1.17712
+Valid Accuracy: 0.75837
+
+Validation Results
+Global Steps: 14000
+Valid Loss: 1.12211
+Valid Accuracy: 0.75837
+best accuracy so far: 0.762686
+train accuracy so far: 0.999499
+train accuracy so far: 0.999499
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14100
+Valid Loss: 1.12999
+Valid Accuracy: 0.75906
+
+Validation Results
+Global Steps: 14100
+Valid Loss: 1.17282
+Valid Accuracy: 0.75906
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14200
+Valid Loss: 1.12910
+Valid Accuracy: 0.76079
+
+Validation Results
+Global Steps: 14200
+Valid Loss: 1.16588
+Valid Accuracy: 0.76079
+best accuracy so far: 0.762686
+train accuracy so far: 0.999164
+train accuracy so far: 0.999164
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14300
+Valid Loss: 1.14434
+Valid Accuracy: 0.75595
+
+Validation Results
+Global Steps: 14300
+Valid Loss: 1.18034
+Valid Accuracy: 0.75595
+best accuracy so far: 0.762686
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14400
+Valid Loss: 1.17409
+Valid Accuracy: 0.75751
+
+Validation Results
+Global Steps: 14400
+Valid Loss: 1.14348
+Valid Accuracy: 0.75751
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14500
+Valid Loss: 1.13419
+Valid Accuracy: 0.76148
+
+Validation Results
+Global Steps: 14500
+Valid Loss: 1.16702
+Valid Accuracy: 0.76148
+best accuracy so far: 0.762686
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14600
+Valid Loss: 1.12876
+Valid Accuracy: 0.76044
+
+Validation Results
+Global Steps: 14600
+Valid Loss: 1.16594
+Valid Accuracy: 0.76044
+best accuracy so far: 0.762686
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14700
+Valid Loss: 1.16523
+Valid Accuracy: 0.76027
+
+Validation Results
+Global Steps: 14700
+Valid Loss: 1.14072
+Valid Accuracy: 0.76027
+best accuracy so far: 0.762686
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14800
+Valid Loss: 1.12300
+Valid Accuracy: 0.76631
+
+Validation Results
+Global Steps: 14800
+Valid Loss: 1.16857
+Valid Accuracy: 0.76631
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 14900
+Valid Loss: 1.16561
+Valid Accuracy: 0.76148
+
+Validation Results
+Global Steps: 14900
+Valid Loss: 1.13540
+Valid Accuracy: 0.76148
+best accuracy so far: 0.766310
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15000
+Valid Loss: 1.16230
+Valid Accuracy: 0.76217
+
+Validation Results
+Global Steps: 15000
+Valid Loss: 1.12451
+Valid Accuracy: 0.76217
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15100
+Valid Loss: 1.15427
+Valid Accuracy: 0.76303
+
+Validation Results
+Global Steps: 15100
+Valid Loss: 1.12213
+Valid Accuracy: 0.76303
+best accuracy so far: 0.766310
+train accuracy so far: 0.999332
+train accuracy so far: 0.999332
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15200
+Valid Loss: 1.14039
+Valid Accuracy: 0.75837
+
+Validation Results
+Global Steps: 15200
+Valid Loss: 1.17612
+Valid Accuracy: 0.75837
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15300
+Valid Loss: 1.13339
+Valid Accuracy: 0.76113
+
+Validation Results
+Global Steps: 15300
+Valid Loss: 1.16964
+Valid Accuracy: 0.76113
+best accuracy so far: 0.766310
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15400
+Valid Loss: 1.12683
+Valid Accuracy: 0.76458
+
+Validation Results
+Global Steps: 15400
+Valid Loss: 1.16040
+Valid Accuracy: 0.76458
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15500
+Valid Loss: 1.12573
+Valid Accuracy: 0.76320
+
+Validation Results
+Global Steps: 15500
+Valid Loss: 1.15426
+Valid Accuracy: 0.76320
+best accuracy so far: 0.766310
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15600
+Valid Loss: 1.12511
+Valid Accuracy: 0.76372
+
+Validation Results
+Global Steps: 15600
+Valid Loss: 1.15044
+Valid Accuracy: 0.76372
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15700
+Valid Loss: 1.11977
+Valid Accuracy: 0.76510
+
+Validation Results
+Global Steps: 15700
+Valid Loss: 1.14406
+Valid Accuracy: 0.76510
+best accuracy so far: 0.766310
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15800
+Valid Loss: 1.15252
+Valid Accuracy: 0.76476
+
+Validation Results
+Global Steps: 15800
+Valid Loss: 1.11650
+Valid Accuracy: 0.76476
+best accuracy so far: 0.766310
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 15900
+Valid Loss: 1.15322
+Valid Accuracy: 0.76476
+
+Validation Results
+Global Steps: 15900
+Valid Loss: 1.12482
+Valid Accuracy: 0.76476
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16000
+Valid Loss: 1.14287
+Valid Accuracy: 0.76631
+
+Validation Results
+Global Steps: 16000
+Valid Loss: 1.11756
+Valid Accuracy: 0.76631
+best accuracy so far: 0.766310
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16100
+Valid Loss: 1.12053
+Valid Accuracy: 0.76458
+
+Validation Results
+Global Steps: 16100
+Valid Loss: 1.14783
+Valid Accuracy: 0.76458
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16200
+Valid Loss: 1.15371
+Valid Accuracy: 0.76493
+
+Validation Results
+Global Steps: 16200
+Valid Loss: 1.13016
+Valid Accuracy: 0.76493
+best accuracy so far: 0.766310
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16300
+Valid Loss: 1.15565
+Valid Accuracy: 0.76545
+
+Validation Results
+Global Steps: 16300
+Valid Loss: 1.12826
+Valid Accuracy: 0.76545
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16400
+Valid Loss: 1.12215
+Valid Accuracy: 0.76476
+
+Validation Results
+Global Steps: 16400
+Valid Loss: 1.15151
+Valid Accuracy: 0.76476
+best accuracy so far: 0.766310
+train accuracy so far: 0.999499
+train accuracy so far: 0.999499
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16500
+Valid Loss: 1.12308
+Valid Accuracy: 0.76631
+
+Validation Results
+Global Steps: 16500
+Valid Loss: 1.15524
+Valid Accuracy: 0.76631
+best accuracy so far: 0.766310
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16600
+Valid Loss: 1.11685
+Valid Accuracy: 0.76769
+
+Validation Results
+Global Steps: 16600
+Valid Loss: 1.14644
+Valid Accuracy: 0.76769
+best accuracy so far: 0.767691
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16700
+Valid Loss: 1.14742
+Valid Accuracy: 0.76838
+
+Validation Results
+Global Steps: 16700
+Valid Loss: 1.11420
+Valid Accuracy: 0.76838
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16800
+Valid Loss: 1.12064
+Valid Accuracy: 0.76527
+
+Validation Results
+Global Steps: 16800
+Valid Loss: 1.14696
+Valid Accuracy: 0.76527
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 16900
+Valid Loss: 1.12353
+Valid Accuracy: 0.76545
+
+Validation Results
+Global Steps: 16900
+Valid Loss: 1.14681
+Valid Accuracy: 0.76545
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17000
+Valid Loss: 1.14020
+Valid Accuracy: 0.76545
+
+Validation Results
+Global Steps: 17000
+Valid Loss: 1.11709
+Valid Accuracy: 0.76545
+best accuracy so far: 0.768381
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17100
+Valid Loss: 1.12375
+Valid Accuracy: 0.76579
+
+Validation Results
+Global Steps: 17100
+Valid Loss: 1.14771
+Valid Accuracy: 0.76579
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17200
+Valid Loss: 1.14821
+Valid Accuracy: 0.76458
+
+Validation Results
+Global Steps: 17200
+Valid Loss: 1.12389
+Valid Accuracy: 0.76458
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17300
+Valid Loss: 1.12318
+Valid Accuracy: 0.76614
+
+Validation Results
+Global Steps: 17300
+Valid Loss: 1.14884
+Valid Accuracy: 0.76614
+best accuracy so far: 0.768381
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17400
+Valid Loss: 1.12682
+Valid Accuracy: 0.76476
+
+Validation Results
+Global Steps: 17400
+Valid Loss: 1.14975
+Valid Accuracy: 0.76476
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17500
+Valid Loss: 1.12453
+Valid Accuracy: 0.76527
+
+Validation Results
+Global Steps: 17500
+Valid Loss: 1.14715
+Valid Accuracy: 0.76527
+best accuracy so far: 0.768381
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17600
+Valid Loss: 1.15073
+Valid Accuracy: 0.76562
+
+Validation Results
+Global Steps: 17600
+Valid Loss: 1.12681
+Valid Accuracy: 0.76562
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17700
+Valid Loss: 1.15065
+Valid Accuracy: 0.76389
+
+Validation Results
+Global Steps: 17700
+Valid Loss: 1.12727
+Valid Accuracy: 0.76389
+best accuracy so far: 0.768381
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17800
+Valid Loss: 1.15500
+Valid Accuracy: 0.76510
+
+Validation Results
+Global Steps: 17800
+Valid Loss: 1.12885
+Valid Accuracy: 0.76510
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 17900
+Valid Loss: 1.15176
+Valid Accuracy: 0.76527
+
+Validation Results
+Global Steps: 17900
+Valid Loss: 1.12614
+Valid Accuracy: 0.76527
+best accuracy so far: 0.768381
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18000
+Valid Loss: 1.15096
+Valid Accuracy: 0.76700
+
+Validation Results
+Global Steps: 18000
+Valid Loss: 1.12560
+Valid Accuracy: 0.76700
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18100
+Valid Loss: 1.14925
+Valid Accuracy: 0.76510
+
+Validation Results
+Global Steps: 18100
+Valid Loss: 1.12394
+Valid Accuracy: 0.76510
+best accuracy so far: 0.768381
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18200
+Valid Loss: 1.12401
+Valid Accuracy: 0.76493
+
+Validation Results
+Global Steps: 18200
+Valid Loss: 1.15049
+Valid Accuracy: 0.76493
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18300
+Valid Loss: 1.14959
+Valid Accuracy: 0.76545
+
+Validation Results
+Global Steps: 18300
+Valid Loss: 1.12333
+Valid Accuracy: 0.76545
+best accuracy so far: 0.768381
+train accuracy so far: 0.999833
+train accuracy so far: 0.999833
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18400
+Valid Loss: 1.12211
+Valid Accuracy: 0.76562
+
+Validation Results
+Global Steps: 18400
+Valid Loss: 1.14940
+Valid Accuracy: 0.76562
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18500
+Valid Loss: 1.15026
+Valid Accuracy: 0.76510
+
+Validation Results
+Global Steps: 18500
+Valid Loss: 1.12234
+Valid Accuracy: 0.76510
+best accuracy so far: 0.768381
+train accuracy so far: 0.999666
+train accuracy so far: 0.999666
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18600
+Valid Loss: 1.12427
+Valid Accuracy: 0.76562
+
+Validation Results
+Global Steps: 18600
+Valid Loss: 1.15202
+Valid Accuracy: 0.76562
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18700
+Valid Loss: 1.12466
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 18700
+Valid Loss: 1.15178
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+train accuracy so far: 0.999332
+train accuracy so far: 0.999332
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18800
+Valid Loss: 1.12420
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 18800
+Valid Loss: 1.15226
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 18900
+Valid Loss: 1.12355
+Valid Accuracy: 0.76579
+
+Validation Results
+Global Steps: 18900
+Valid Loss: 1.15156
+Valid Accuracy: 0.76579
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19000
+Valid Loss: 1.15126
+Valid Accuracy: 0.76614
+
+Validation Results
+Global Steps: 19000
+Valid Loss: 1.12317
+Valid Accuracy: 0.76614
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19100
+Valid Loss: 1.15236
+Valid Accuracy: 0.76631
+
+Validation Results
+Global Steps: 19100
+Valid Loss: 1.12456
+Valid Accuracy: 0.76631
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19200
+Valid Loss: 1.12477
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 19200
+Valid Loss: 1.15223
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19300
+Valid Loss: 1.15173
+Valid Accuracy: 0.76579
+
+Validation Results
+Global Steps: 19300
+Valid Loss: 1.12439
+Valid Accuracy: 0.76579
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19400
+Valid Loss: 1.15128
+Valid Accuracy: 0.76579
+
+Validation Results
+Global Steps: 19400
+Valid Loss: 1.12406
+Valid Accuracy: 0.76579
+best accuracy so far: 0.768381
+train accuracy so far: 0.999499
+train accuracy so far: 0.999499
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19500
+Valid Loss: 1.15175
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 19500
+Valid Loss: 1.12428
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19600
+Valid Loss: 1.15170
+Valid Accuracy: 0.76579
+
+Validation Results
+Global Steps: 19600
+Valid Loss: 1.12433
+Valid Accuracy: 0.76579
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19700
+Valid Loss: 1.15157
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 19700
+Valid Loss: 1.12419
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19800
+Valid Loss: 1.12437
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 19800
+Valid Loss: 1.15149
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+train accuracy so far: 1.000000
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 19900
+Valid Loss: 1.15150
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 19900
+Valid Loss: 1.12422
+Valid Accuracy: 0.76596
+best accuracy so far: 0.768381
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+***** Running Validation *****
+  Num steps = 363
+  Batch size = 8
+
+Validation Results
+Global Steps: 20000
+Valid Loss: 1.12428
+Valid Accuracy: 0.76596
+
+Validation Results
+Global Steps: 20000
+Valid Loss: 1.15148
+Valid Accuracy: 0.76596
+
+best accuracy so far: 0.768381
+train accuracy so far: 1.000000
+End Training!
+Total Training Time: 	1.512812
+Best Accuracy: 	0.768381
+End Training!
+Total Training Time: 	1.523398

@@ -40,7 +40,7 @@ from timm.utils import ApexScaler, NativeScaler
 from tensorboardX import SummaryWriter
 # import nni
 # from nni.utils import merge_parameter
-import tsensor
+# import tsensor
 
 from main.ctfg.ctfg import *
 from main.old.cct.src import *
@@ -309,7 +309,7 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
-parser.add_argument('--pretrained_dir', type=str, default='./',
+parser.add_argument('--pretrained_dir', type=str, default='',
                     help='pretrained_dir')
 parser.add_argument('--is_changeSize', action='store_true', default=False,
                     help='If you have pretrained checkpoint, whether to change size')
@@ -319,6 +319,8 @@ parser.add_argument('--is_nni', action='store_true', default=False,
                     help='whether to use nni')
 parser.add_argument('--is_ori_load', action='store_true', default=False,
                     help='whether to use model load')
+parser.add_argument('--is_need_da', action='store_true', default=False,
+                    help='whether to need data enhancement')
 
 
 def _parse_args():
@@ -426,6 +428,7 @@ def main():
         checkpoint_path=args.initial_checkpoint)
 
     # if args.is_ori_load:
+    #     # print(model)
     #     model.load_from(torch.load(args.pretrained_dir))
 
     if args.num_classes is None:
@@ -757,7 +760,7 @@ def train_one_epoch(
                 output, part_token = model(input, True)
                 loss = loss_fn(output, target)
 
-                if mixup_fn is not None:
+                if args.is_need_da:
                     contrast_loss = con_loss(part_token, target[:, 0])
                 else:
                     contrast_loss = con_loss(part_token, target)
@@ -837,6 +840,7 @@ def train_one_epoch(
 
     if hasattr(optimizer, 'sync_lookahead'):
         optimizer.sync_lookahead()
+
 
     return OrderedDict([('loss', losses_m.avg), ('lr', lr_scheduler.get_epoch_values(epoch))])
 
