@@ -1,4 +1,7 @@
 import torch
+import time
+import math
+
 
 # a = [1, 2, 3, 4, 5]
 # b = a[:-1]
@@ -42,8 +45,25 @@ import torch
 #     print(key)
 
 
-a = [1, 2, 3]
-b = [3, 4, 5]
+# a = [1, 2, 3]
+# b = [3, 4, 5]
+#
+# for p, i, j in zip(a, b):
+#     print(str(i) + '' + str(j))
+# localtime = time.time()
+# timestr = time.asctime(time.localtime(1638802320.8617198))
+# print(type(localtime))
+# print(timestr)
 
-for p, i, j in zip(a, b):
-    print(str(i) + '' + str(j))
+
+def lr_lambda(step, warmup_steps=500, t_total=10000, cycles=.5, last_epoch=-1):
+    if step < warmup_steps:
+        return float(step) / float(max(1.0, warmup_steps))
+    # progress after warmup
+    progress = float(step - warmup_steps) / float(max(1, t_total - warmup_steps))
+    return max(1e-5, 0.5 * (1. + math.cos(math.pi * float(cycles) * 2.0 * progress)))
+
+
+for i in range(1000):
+    a = lr_lambda(i)
+    print(a)

@@ -40,9 +40,11 @@ from timm.utils import ApexScaler, NativeScaler
 from tensorboardX import SummaryWriter
 # import nni
 # from nni.utils import merge_parameter
+import tsensor
 
 from main.ctfg.ctfg import *
 from main.old.cct.src import *
+from main.old.transfg_ctfg.modelingv0 import *
 
 try:
     from apex import amp
@@ -315,6 +317,8 @@ parser.add_argument('--is_con_loss', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--is_nni', action='store_true', default=False,
                     help='whether to use nni')
+parser.add_argument('--is_ori_load', action='store_true', default=False,
+                    help='whether to use model load')
 
 
 def _parse_args():
@@ -421,7 +425,8 @@ def main():
         scriptable=args.torchscript,
         checkpoint_path=args.initial_checkpoint)
 
-    # model.load_from(torch.load(args.pretrained_dir))
+    # if args.is_ori_load:
+    #     model.load_from(torch.load(args.pretrained_dir))
 
     if args.num_classes is None:
         assert hasattr(model, 'num_classes'), 'Model must have `num_classes` attr if not set on cmd line/config.'
@@ -752,7 +757,10 @@ def train_one_epoch(
                 output, part_token = model(input, True)
                 loss = loss_fn(output, target)
 
-                contrast_loss = con_loss(part_token, target[:, 0])
+                if mixup_fn is not None:
+                    contrast_loss = con_loss(part_token, target[:, 0])
+                else:
+                    contrast_loss = con_loss(part_token, target)
 
                 loss = loss + contrast_loss
             else:
