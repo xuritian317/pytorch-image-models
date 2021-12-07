@@ -1,7 +1,7 @@
 import torch
 import time
 import math
-
+import timm
 
 # a = [1, 2, 3, 4, 5]
 # b = a[:-1]
@@ -51,19 +51,26 @@ import math
 # for p, i, j in zip(a, b):
 #     print(str(i) + '' + str(j))
 # localtime = time.time()
-# timestr = time.asctime(time.localtime(1638802320.8617198))
+# timestr = time.asctime(time.localtime(1638863168.989379))
 # print(type(localtime))
-# print(timestr)
+#print(timestr) #Tue Dec  7 07:44:16 2021
+                #Tue Dec  7 07:46:08 2021
 
-
-def lr_lambda(step, warmup_steps=500, t_total=10000, cycles=.5, last_epoch=-1):
-    if step < warmup_steps:
-        return float(step) / float(max(1.0, warmup_steps))
-    # progress after warmup
-    progress = float(step - warmup_steps) / float(max(1, t_total - warmup_steps))
-    return max(1e-5, 0.5 * (1. + math.cos(math.pi * float(cycles) * 2.0 * progress)))
-
-
-for i in range(1000):
-    a = lr_lambda(i)
-    print(a)
+# def lr_lambda(step, warmup_steps=500, t_total=10000, cycles=.5, last_epoch=-1):
+#     if step < warmup_steps:
+#         return float(step) / float(max(1.0, warmup_steps))
+#     # progress after warmup
+#     progress = float(step - warmup_steps) / float(max(1, t_total - warmup_steps))
+#     return max(1e-5, 0.5 * (1. + math.cos(math.pi * float(cycles) * 2.0 * progress)))
+#
+#
+# for i in range(1000):
+#     a = lr_lambda(i)
+#     print(a)
+model_list = timm.list_models()
+# print(len(model_list), model_list[:3])
+# Results 541 ['adv_inception_v3', 'botnet26t_256', 'botnet50ts_256']
+# print(True)
+for name in model_list:
+    if 'vit' in name:
+        print(name)

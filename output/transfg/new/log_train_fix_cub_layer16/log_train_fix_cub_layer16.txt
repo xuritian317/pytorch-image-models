@@ -1,0 +1,2326 @@
+
+Fri Nov 12 14:50:57 2021
+
+
+Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: True, 16-bits training: True
+Fri Nov 12 14:50:58 2021
+
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+attention_dropout_rate: 0.1
+classifier: token
+conv_bias: false
+dropout_rate: 0.1
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_dim: 1152
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 14
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stochastic_depth_rate: 0.1
+stride: 2
+transformer: {}
+
+Training parameters Namespace(data_root='/home/lirunze/xh/datas/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=100, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-14/7x2', momentum=0.5, n_gpu=1, name='sample_run', nprocs=2, num_steps=10000, output_dir='./output', pretrained_dir='/home/lirunze/xh/datas/cct_14_7x2_384_imagenet.pth', pretrained_model=None, seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='log_train_fix_cub_data.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	22.2M
+Fri Nov 12 14:51:42 2021
+
+
+
+***** Running training *****
+  Total optimization steps = 10000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+Fri Nov 12 14:53:23 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 14:54:00 2021
+
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.33393
+Valid Accuracy: 0.00518
+Fri Nov 12 14:54:01 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 14:54:01 2021
+
+best accuracy so far: 0.005178
+Fri Nov 12 14:54:52 2021
+
+ train accuracy so far: 0.005180
+Fri Nov 12 14:55:00 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 14:55:37 2021
+
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.25024
+Valid Accuracy: 0.01018
+Fri Nov 12 14:55:38 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 14:55:38 2021
+
+best accuracy so far: 0.010183
+Fri Nov 12 14:56:37 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 14:57:15 2021
+
+
+Validation Results
+Global Steps: 300
+Valid Loss: 4.89331
+Valid Accuracy: 0.06472
+Fri Nov 12 14:57:15 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 14:57:15 2021
+
+best accuracy so far: 0.064722
+Fri Nov 12 14:58:00 2021
+
+ train accuracy so far: 0.044118
+Fri Nov 12 14:58:15 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 14:58:53 2021
+
+
+Validation Results
+Global Steps: 400
+Valid Loss: 3.85888
+Valid Accuracy: 0.17967
+Fri Nov 12 14:58:54 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 14:58:54 2021
+
+best accuracy so far: 0.179669
+Fri Nov 12 14:59:54 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:00:31 2021
+
+
+Validation Results
+Global Steps: 500
+Valid Loss: 3.00196
+Valid Accuracy: 0.32965
+Fri Nov 12 15:00:32 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:00:32 2021
+
+best accuracy so far: 0.329651
+Fri Nov 12 15:01:09 2021
+
+ train accuracy so far: 0.231785
+Fri Nov 12 15:01:32 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:02:10 2021
+
+
+Validation Results
+Global Steps: 600
+Valid Loss: 2.40916
+Valid Accuracy: 0.42527
+Fri Nov 12 15:02:10 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:02:10 2021
+
+best accuracy so far: 0.425268
+Fri Nov 12 15:03:10 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:03:48 2021
+
+
+Validation Results
+Global Steps: 700
+Valid Loss: 1.97395
+Valid Accuracy: 0.54487
+Fri Nov 12 15:03:48 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:03:48 2021
+
+best accuracy so far: 0.544874
+Fri Nov 12 15:04:17 2021
+
+ train accuracy so far: 0.461564
+Fri Nov 12 15:04:49 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:05:26 2021
+
+
+Validation Results
+Global Steps: 800
+Valid Loss: 1.71252
+Valid Accuracy: 0.58664
+Fri Nov 12 15:05:26 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:05:26 2021
+
+best accuracy so far: 0.586641
+Fri Nov 12 15:06:26 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:07:03 2021
+
+
+Validation Results
+Global Steps: 900
+Valid Loss: 1.49317
+Valid Accuracy: 0.64187
+Fri Nov 12 15:07:04 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:07:04 2021
+
+best accuracy so far: 0.641871
+Fri Nov 12 15:07:25 2021
+
+ train accuracy so far: 0.621992
+Fri Nov 12 15:08:05 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:08:42 2021
+
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 1.32863
+Valid Accuracy: 0.67829
+Fri Nov 12 15:08:42 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:08:42 2021
+
+best accuracy so far: 0.678288
+Fri Nov 12 15:09:42 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:10:21 2021
+
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 1.24625
+Valid Accuracy: 0.68882
+Fri Nov 12 15:10:22 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:10:22 2021
+
+best accuracy so far: 0.688816
+Fri Nov 12 15:10:35 2021
+
+ train accuracy so far: 0.709225
+Fri Nov 12 15:11:22 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:12:00 2021
+
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 1.06966
+Valid Accuracy: 0.73231
+Fri Nov 12 15:12:00 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:12:00 2021
+
+best accuracy so far: 0.732309
+Fri Nov 12 15:13:00 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:13:38 2021
+
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 1.05593
+Valid Accuracy: 0.72126
+Fri Nov 12 15:13:38 2021
+
+best accuracy so far: 0.732309
+Fri Nov 12 15:13:44 2021
+
+ train accuracy so far: 0.775401
+Fri Nov 12 15:14:39 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:15:17 2021
+
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 0.96679
+Valid Accuracy: 0.74059
+Fri Nov 12 15:15:18 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:15:18 2021
+
+best accuracy so far: 0.740594
+Fri Nov 12 15:16:15 2021
+
+ train accuracy so far: 0.819853
+Fri Nov 12 15:16:18 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:16:56 2021
+
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 0.99762
+Valid Accuracy: 0.73576
+Fri Nov 12 15:16:56 2021
+
+best accuracy so far: 0.740594
+Fri Nov 12 15:17:56 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:18:35 2021
+
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 0.88077
+Valid Accuracy: 0.76010
+Fri Nov 12 15:18:35 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:18:35 2021
+
+best accuracy so far: 0.760097
+Fri Nov 12 15:19:25 2021
+
+ train accuracy so far: 0.840909
+Fri Nov 12 15:19:36 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:20:14 2021
+
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 0.87207
+Valid Accuracy: 0.76130
+Fri Nov 12 15:20:15 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:20:15 2021
+
+best accuracy so far: 0.761305
+Fri Nov 12 15:21:15 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:21:53 2021
+
+
+Validation Results
+Global Steps: 1800
+Valid Loss: 0.84730
+Valid Accuracy: 0.76510
+Fri Nov 12 15:21:54 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:21:54 2021
+
+best accuracy so far: 0.765102
+Fri Nov 12 15:22:36 2021
+
+ train accuracy so far: 0.870655
+Fri Nov 12 15:22:54 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:23:32 2021
+
+
+Validation Results
+Global Steps: 1900
+Valid Loss: 0.82286
+Valid Accuracy: 0.77908
+Fri Nov 12 15:23:32 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:23:32 2021
+
+best accuracy so far: 0.779082
+Fri Nov 12 15:24:32 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:25:11 2021
+
+
+Validation Results
+Global Steps: 2000
+Valid Loss: 0.85098
+Valid Accuracy: 0.75923
+Fri Nov 12 15:25:11 2021
+
+best accuracy so far: 0.779082
+Fri Nov 12 15:25:46 2021
+
+ train accuracy so far: 0.886865
+Fri Nov 12 15:26:12 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:33:26 2021
+
+
+Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: True, 16-bits training: True
+Fri Nov 12 15:34:46 2021
+
+
+Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: True, 16-bits training: True
+Fri Nov 12 15:34:46 2021
+
+activation: !!python/name:torch.nn.modules.activation.ReLU ''
+attention_dropout_rate: 0.1
+classifier: token
+conv_bias: false
+dropout_rate: 0.1
+hidden_size: 384
+in_planes: 64
+kernel_size: 7
+max_pool: true
+mlp_dim: 1152
+mlp_ratio: 3
+n_conv_layers: 2
+num_heads: 6
+num_layers: 16
+padding: 3
+patches:
+  size: !!python/tuple
+  - 16
+  - 16
+pooling_kernel_size: 3
+pooling_padding: 1
+pooling_stride: 2
+representation_size: null
+seq_pool: true
+slide_step: 12
+split: overlap
+stochastic_depth_rate: 0.1
+stride: 2
+transformer: {}
+
+Training parameters Namespace(data_root='/home/lirunze/xh/datas/CUB_200_2011', dataset='CUB_200_2011', decay_type='cosine', device=device(type='cuda', index=0), eval_batch_size=100, eval_every=100, fp16=True, fp16_opt_level='O2', gradient_accumulation_steps=1, img_size=384, learning_rate=0.1, local_rank=0, loss_scale=0, max_grad_norm=1.0, model_type='CCT-16/7x2', momentum=0.5, n_gpu=1, name='sample_run', nprocs=2, num_steps=10000, output_dir='./output', pretrained_dir='/home/lirunze/xh/datas/cct_14_7x2_384_imagenet.pth', pretrained_model=None, seed=42, seq_pool=True, slide_step=12, smoothing_value=0.0, split='overlap', train_batch_size=16, train_log_name='log_train_fix_cub_data.txt', warmup_steps=500, weight_decay=0)
+Total Parameter: 	25.2M
+Fri Nov 12 15:35:30 2021
+
+
+
+***** Running training *****
+  Total optimization steps = 10000
+  Instantaneous batch size per GPU = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 1
+Fri Nov 12 15:37:19 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:38:03 2021
+
+
+Validation Results
+Global Steps: 100
+Valid Loss: 5.29977
+Valid Accuracy: 0.00604
+Fri Nov 12 15:38:03 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:38:03 2021
+
+best accuracy so far: 0.006041
+Fri Nov 12 15:39:02 2021
+
+ train accuracy so far: 0.006517
+Fri Nov 12 15:39:11 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:39:54 2021
+
+
+Validation Results
+Global Steps: 200
+Valid Loss: 5.22034
+Valid Accuracy: 0.01484
+Fri Nov 12 15:39:54 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:39:54 2021
+
+best accuracy so far: 0.014843
+Fri Nov 12 15:41:02 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:41:46 2021
+
+
+Validation Results
+Global Steps: 300
+Valid Loss: 4.75776
+Valid Accuracy: 0.07025
+Fri Nov 12 15:41:46 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:41:46 2021
+
+best accuracy so far: 0.070245
+Fri Nov 12 15:42:37 2021
+
+ train accuracy so far: 0.052473
+Fri Nov 12 15:42:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:43:39 2021
+
+
+Validation Results
+Global Steps: 400
+Valid Loss: 3.69684
+Valid Accuracy: 0.20366
+Fri Nov 12 15:43:39 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:43:39 2021
+
+best accuracy so far: 0.203659
+Fri Nov 12 15:44:47 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:45:32 2021
+
+
+Validation Results
+Global Steps: 500
+Valid Loss: 2.88310
+Valid Accuracy: 0.34950
+Fri Nov 12 15:45:32 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:45:32 2021
+
+best accuracy so far: 0.349499
+Fri Nov 12 15:46:14 2021
+
+ train accuracy so far: 0.262533
+Fri Nov 12 15:46:42 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:47:26 2021
+
+
+Validation Results
+Global Steps: 600
+Valid Loss: 2.29339
+Valid Accuracy: 0.43890
+Fri Nov 12 15:47:26 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:47:26 2021
+
+best accuracy so far: 0.438902
+Fri Nov 12 15:48:35 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:49:19 2021
+
+
+Validation Results
+Global Steps: 700
+Valid Loss: 1.92581
+Valid Accuracy: 0.56334
+Fri Nov 12 15:49:19 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:49:19 2021
+
+best accuracy so far: 0.563341
+Fri Nov 12 15:49:53 2021
+
+ train accuracy so far: 0.493984
+Fri Nov 12 15:50:29 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:51:12 2021
+
+
+Validation Results
+Global Steps: 800
+Valid Loss: 1.57704
+Valid Accuracy: 0.62133
+Fri Nov 12 15:51:13 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:51:13 2021
+
+best accuracy so far: 0.621332
+Fri Nov 12 15:52:22 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:53:06 2021
+
+
+Validation Results
+Global Steps: 900
+Valid Loss: 1.34965
+Valid Accuracy: 0.67363
+Fri Nov 12 15:53:06 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:53:06 2021
+
+best accuracy so far: 0.673628
+Fri Nov 12 15:53:30 2021
+
+ train accuracy so far: 0.639706
+Fri Nov 12 15:54:15 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:55:00 2021
+
+
+Validation Results
+Global Steps: 1000
+Valid Loss: 1.21224
+Valid Accuracy: 0.70694
+Fri Nov 12 15:55:00 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:55:00 2021
+
+best accuracy so far: 0.706938
+Fri Nov 12 15:56:09 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:56:53 2021
+
+
+Validation Results
+Global Steps: 1100
+Valid Loss: 1.03949
+Valid Accuracy: 0.73645
+Fri Nov 12 15:56:53 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 15:56:53 2021
+
+best accuracy so far: 0.736452
+Fri Nov 12 15:57:08 2021
+
+ train accuracy so far: 0.737801
+Fri Nov 12 15:58:02 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 15:58:44 2021
+
+
+Validation Results
+Global Steps: 1200
+Valid Loss: 1.01859
+Valid Accuracy: 0.73300
+Fri Nov 12 15:58:44 2021
+
+best accuracy so far: 0.736452
+Fri Nov 12 15:59:52 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:00:36 2021
+
+
+Validation Results
+Global Steps: 1300
+Valid Loss: 0.90030
+Valid Accuracy: 0.75803
+Fri Nov 12 16:00:37 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:00:37 2021
+
+best accuracy so far: 0.758026
+Fri Nov 12 16:00:43 2021
+
+ train accuracy so far: 0.792614
+Fri Nov 12 16:01:46 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:02:30 2021
+
+
+Validation Results
+Global Steps: 1400
+Valid Loss: 0.89290
+Valid Accuracy: 0.75751
+Fri Nov 12 16:02:30 2021
+
+best accuracy so far: 0.758026
+Fri Nov 12 16:03:35 2021
+
+ train accuracy so far: 0.829378
+Fri Nov 12 16:03:39 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:04:22 2021
+
+
+Validation Results
+Global Steps: 1500
+Valid Loss: 0.79811
+Valid Accuracy: 0.77943
+Fri Nov 12 16:04:22 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:04:22 2021
+
+best accuracy so far: 0.779427
+Fri Nov 12 16:05:30 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:06:15 2021
+
+
+Validation Results
+Global Steps: 1600
+Valid Loss: 0.78586
+Valid Accuracy: 0.77598
+Fri Nov 12 16:06:15 2021
+
+best accuracy so far: 0.779427
+Fri Nov 12 16:07:11 2021
+
+ train accuracy so far: 0.856785
+Fri Nov 12 16:07:24 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:08:08 2021
+
+
+Validation Results
+Global Steps: 1700
+Valid Loss: 0.76586
+Valid Accuracy: 0.78806
+Fri Nov 12 16:08:08 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:08:08 2021
+
+best accuracy so far: 0.788057
+Fri Nov 12 16:09:18 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:10:01 2021
+
+
+Validation Results
+Global Steps: 1800
+Valid Loss: 0.72715
+Valid Accuracy: 0.79462
+Fri Nov 12 16:10:02 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:10:02 2021
+
+best accuracy so far: 0.794615
+Fri Nov 12 16:10:50 2021
+
+ train accuracy so far: 0.882520
+Fri Nov 12 16:11:10 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:11:54 2021
+
+
+Validation Results
+Global Steps: 1900
+Valid Loss: 0.72677
+Valid Accuracy: 0.79375
+Fri Nov 12 16:11:54 2021
+
+best accuracy so far: 0.794615
+Fri Nov 12 16:13:02 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:13:46 2021
+
+
+Validation Results
+Global Steps: 2000
+Valid Loss: 0.72607
+Valid Accuracy: 0.79444
+Fri Nov 12 16:13:46 2021
+
+best accuracy so far: 0.794615
+Fri Nov 12 16:14:25 2021
+
+ train accuracy so far: 0.903910
+Fri Nov 12 16:14:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:15:38 2021
+
+
+Validation Results
+Global Steps: 2100
+Valid Loss: 0.74896
+Valid Accuracy: 0.79444
+Fri Nov 12 16:15:38 2021
+
+best accuracy so far: 0.794615
+Fri Nov 12 16:16:46 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:17:31 2021
+
+
+Validation Results
+Global Steps: 2200
+Valid Loss: 0.71303
+Valid Accuracy: 0.80394
+Fri Nov 12 16:17:31 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:17:31 2021
+
+best accuracy so far: 0.803935
+Fri Nov 12 16:18:01 2021
+
+ train accuracy so far: 0.918951
+Fri Nov 12 16:18:39 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:19:22 2021
+
+
+Validation Results
+Global Steps: 2300
+Valid Loss: 0.71309
+Valid Accuracy: 0.80618
+Fri Nov 12 16:19:23 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:19:23 2021
+
+best accuracy so far: 0.806179
+Fri Nov 12 16:20:30 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:21:14 2021
+
+
+Validation Results
+Global Steps: 2400
+Valid Loss: 0.68646
+Valid Accuracy: 0.81136
+Fri Nov 12 16:21:15 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:21:15 2021
+
+best accuracy so far: 0.811357
+Fri Nov 12 16:21:36 2021
+
+ train accuracy so far: 0.937667
+Fri Nov 12 16:22:23 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:23:06 2021
+
+
+Validation Results
+Global Steps: 2500
+Valid Loss: 0.69683
+Valid Accuracy: 0.80877
+Fri Nov 12 16:23:06 2021
+
+best accuracy so far: 0.811357
+Fri Nov 12 16:24:14 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:24:58 2021
+
+
+Validation Results
+Global Steps: 2600
+Valid Loss: 0.69095
+Valid Accuracy: 0.81291
+Fri Nov 12 16:24:58 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:24:58 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:25:11 2021
+
+ train accuracy so far: 0.940174
+Fri Nov 12 16:26:07 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:26:50 2021
+
+
+Validation Results
+Global Steps: 2700
+Valid Loss: 0.73108
+Valid Accuracy: 0.79634
+Fri Nov 12 16:26:50 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:27:58 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:28:42 2021
+
+
+Validation Results
+Global Steps: 2800
+Valid Loss: 0.73014
+Valid Accuracy: 0.80048
+Fri Nov 12 16:28:42 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:28:45 2021
+
+ train accuracy so far: 0.958055
+Fri Nov 12 16:29:50 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:30:33 2021
+
+
+Validation Results
+Global Steps: 2900
+Valid Loss: 0.73661
+Valid Accuracy: 0.80169
+Fri Nov 12 16:30:33 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:31:36 2021
+
+ train accuracy so far: 0.965575
+Fri Nov 12 16:31:42 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:32:26 2021
+
+
+Validation Results
+Global Steps: 3000
+Valid Loss: 0.71846
+Valid Accuracy: 0.81067
+Fri Nov 12 16:32:26 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:33:35 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:34:18 2021
+
+
+Validation Results
+Global Steps: 3100
+Valid Loss: 0.72718
+Valid Accuracy: 0.80290
+Fri Nov 12 16:34:18 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:35:12 2021
+
+ train accuracy so far: 0.966076
+Fri Nov 12 16:35:26 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:36:09 2021
+
+
+Validation Results
+Global Steps: 3200
+Valid Loss: 0.77117
+Valid Accuracy: 0.80221
+Fri Nov 12 16:36:09 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:37:17 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:38:01 2021
+
+
+Validation Results
+Global Steps: 3300
+Valid Loss: 0.71703
+Valid Accuracy: 0.81291
+Fri Nov 12 16:38:01 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:38:47 2021
+
+ train accuracy so far: 0.977273
+Fri Nov 12 16:39:10 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:39:55 2021
+
+
+Validation Results
+Global Steps: 3400
+Valid Loss: 0.74948
+Valid Accuracy: 0.80704
+Fri Nov 12 16:39:55 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:41:03 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:41:47 2021
+
+
+Validation Results
+Global Steps: 3500
+Valid Loss: 0.72569
+Valid Accuracy: 0.80963
+Fri Nov 12 16:41:47 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:42:23 2021
+
+ train accuracy so far: 0.973763
+Fri Nov 12 16:42:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:43:39 2021
+
+
+Validation Results
+Global Steps: 3600
+Valid Loss: 0.77105
+Valid Accuracy: 0.80480
+Fri Nov 12 16:43:39 2021
+
+best accuracy so far: 0.812910
+Fri Nov 12 16:44:47 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:45:32 2021
+
+
+Validation Results
+Global Steps: 3700
+Valid Loss: 0.73873
+Valid Accuracy: 0.81809
+Fri Nov 12 16:45:32 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:45:32 2021
+
+best accuracy so far: 0.818088
+Fri Nov 12 16:46:00 2021
+
+ train accuracy so far: 0.978443
+Fri Nov 12 16:46:42 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:47:26 2021
+
+
+Validation Results
+Global Steps: 3800
+Valid Loss: 0.72266
+Valid Accuracy: 0.81843
+Fri Nov 12 16:47:26 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:47:26 2021
+
+best accuracy so far: 0.818433
+Fri Nov 12 16:48:34 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:49:19 2021
+
+
+Validation Results
+Global Steps: 3900
+Valid Loss: 0.75856
+Valid Accuracy: 0.81999
+Fri Nov 12 16:49:19 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 16:49:19 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:49:38 2021
+
+ train accuracy so far: 0.983957
+Fri Nov 12 16:50:28 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:51:11 2021
+
+
+Validation Results
+Global Steps: 4000
+Valid Loss: 0.75939
+Valid Accuracy: 0.81567
+Fri Nov 12 16:51:11 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:52:19 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:53:03 2021
+
+
+Validation Results
+Global Steps: 4100
+Valid Loss: 0.74300
+Valid Accuracy: 0.81861
+Fri Nov 12 16:53:03 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:53:13 2021
+
+ train accuracy so far: 0.986631
+Fri Nov 12 16:54:11 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:54:55 2021
+
+
+Validation Results
+Global Steps: 4200
+Valid Loss: 0.76792
+Valid Accuracy: 0.81722
+Fri Nov 12 16:54:55 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:56:03 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:56:46 2021
+
+
+Validation Results
+Global Steps: 4300
+Valid Loss: 0.77223
+Valid Accuracy: 0.81757
+Fri Nov 12 16:56:46 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:56:47 2021
+
+ train accuracy so far: 0.989806
+Fri Nov 12 16:57:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 16:58:39 2021
+
+
+Validation Results
+Global Steps: 4400
+Valid Loss: 0.76860
+Valid Accuracy: 0.81809
+Fri Nov 12 16:58:39 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 16:59:39 2021
+
+ train accuracy so far: 0.992814
+Fri Nov 12 16:59:48 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:00:32 2021
+
+
+Validation Results
+Global Steps: 4500
+Valid Loss: 0.75316
+Valid Accuracy: 0.81826
+Fri Nov 12 17:00:32 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 17:01:40 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:02:25 2021
+
+
+Validation Results
+Global Steps: 4600
+Valid Loss: 0.78021
+Valid Accuracy: 0.81671
+Fri Nov 12 17:02:25 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 17:03:16 2021
+
+ train accuracy so far: 0.992647
+Fri Nov 12 17:03:33 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:04:18 2021
+
+
+Validation Results
+Global Steps: 4700
+Valid Loss: 0.81356
+Valid Accuracy: 0.81584
+Fri Nov 12 17:04:18 2021
+
+best accuracy so far: 0.819986
+Fri Nov 12 17:05:26 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:06:10 2021
+
+
+Validation Results
+Global Steps: 4800
+Valid Loss: 0.75845
+Valid Accuracy: 0.82793
+Fri Nov 12 17:06:10 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:06:10 2021
+
+best accuracy so far: 0.827925
+Fri Nov 12 17:06:53 2021
+
+ train accuracy so far: 0.992647
+Fri Nov 12 17:07:19 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:08:04 2021
+
+
+Validation Results
+Global Steps: 4900
+Valid Loss: 0.79427
+Valid Accuracy: 0.82258
+Fri Nov 12 17:08:04 2021
+
+best accuracy so far: 0.827925
+Fri Nov 12 17:09:12 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:09:56 2021
+
+
+Validation Results
+Global Steps: 5000
+Valid Loss: 0.76871
+Valid Accuracy: 0.82706
+Fri Nov 12 17:09:56 2021
+
+best accuracy so far: 0.827925
+Fri Nov 12 17:10:29 2021
+
+ train accuracy so far: 0.994820
+Fri Nov 12 17:11:04 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:11:47 2021
+
+
+Validation Results
+Global Steps: 5100
+Valid Loss: 0.77961
+Valid Accuracy: 0.82327
+Fri Nov 12 17:11:47 2021
+
+best accuracy so far: 0.827925
+Fri Nov 12 17:12:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:13:38 2021
+
+
+Validation Results
+Global Steps: 5200
+Valid Loss: 0.76237
+Valid Accuracy: 0.83034
+Fri Nov 12 17:13:38 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:13:38 2021
+
+best accuracy so far: 0.830342
+Fri Nov 12 17:14:03 2021
+
+ train accuracy so far: 0.997493
+Fri Nov 12 17:14:47 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:15:31 2021
+
+
+Validation Results
+Global Steps: 5300
+Valid Loss: 0.77441
+Valid Accuracy: 0.82689
+Fri Nov 12 17:15:31 2021
+
+best accuracy so far: 0.830342
+Fri Nov 12 17:16:39 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:17:23 2021
+
+
+Validation Results
+Global Steps: 5400
+Valid Loss: 0.76415
+Valid Accuracy: 0.82931
+Fri Nov 12 17:17:23 2021
+
+best accuracy so far: 0.830342
+Fri Nov 12 17:17:39 2021
+
+ train accuracy so far: 0.997660
+Fri Nov 12 17:18:31 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:19:15 2021
+
+
+Validation Results
+Global Steps: 5500
+Valid Loss: 0.75309
+Valid Accuracy: 0.83241
+Fri Nov 12 17:19:16 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:19:16 2021
+
+best accuracy so far: 0.832413
+Fri Nov 12 17:20:24 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:21:07 2021
+
+
+Validation Results
+Global Steps: 5600
+Valid Loss: 0.74295
+Valid Accuracy: 0.83207
+Fri Nov 12 17:21:07 2021
+
+best accuracy so far: 0.832413
+Fri Nov 12 17:21:15 2021
+
+ train accuracy so far: 0.997493
+Fri Nov 12 17:22:16 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:23:00 2021
+
+
+Validation Results
+Global Steps: 5700
+Valid Loss: 0.75847
+Valid Accuracy: 0.83138
+Fri Nov 12 17:23:00 2021
+
+best accuracy so far: 0.832413
+Fri Nov 12 17:24:06 2021
+
+ train accuracy so far: 0.997660
+Fri Nov 12 17:24:09 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:24:53 2021
+
+
+Validation Results
+Global Steps: 5800
+Valid Loss: 0.76347
+Valid Accuracy: 0.83138
+Fri Nov 12 17:24:53 2021
+
+best accuracy so far: 0.832413
+Fri Nov 12 17:26:01 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:26:44 2021
+
+
+Validation Results
+Global Steps: 5900
+Valid Loss: 0.75405
+Valid Accuracy: 0.83345
+Fri Nov 12 17:26:45 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:26:45 2021
+
+best accuracy so far: 0.833448
+Fri Nov 12 17:27:42 2021
+
+ train accuracy so far: 0.998329
+Fri Nov 12 17:27:53 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:28:36 2021
+
+
+Validation Results
+Global Steps: 6000
+Valid Loss: 0.75658
+Valid Accuracy: 0.83224
+Fri Nov 12 17:28:36 2021
+
+best accuracy so far: 0.833448
+Fri Nov 12 17:29:43 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:30:26 2021
+
+
+Validation Results
+Global Steps: 6100
+Valid Loss: 0.74990
+Valid Accuracy: 0.83259
+Fri Nov 12 17:30:26 2021
+
+best accuracy so far: 0.833448
+Fri Nov 12 17:31:15 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 17:31:35 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:32:19 2021
+
+
+Validation Results
+Global Steps: 6200
+Valid Loss: 0.75503
+Valid Accuracy: 0.83535
+Fri Nov 12 17:32:20 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:32:20 2021
+
+best accuracy so far: 0.835347
+Fri Nov 12 17:33:27 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:34:11 2021
+
+
+Validation Results
+Global Steps: 6300
+Valid Loss: 0.74910
+Valid Accuracy: 0.83794
+Fri Nov 12 17:34:12 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:34:12 2021
+
+best accuracy so far: 0.837936
+Fri Nov 12 17:34:51 2021
+
+ train accuracy so far: 0.998329
+Fri Nov 12 17:35:20 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:36:03 2021
+
+
+Validation Results
+Global Steps: 6400
+Valid Loss: 0.75165
+Valid Accuracy: 0.83552
+Fri Nov 12 17:36:03 2021
+
+best accuracy so far: 0.837936
+Fri Nov 12 17:37:11 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:37:54 2021
+
+
+Validation Results
+Global Steps: 6500
+Valid Loss: 0.76813
+Valid Accuracy: 0.83241
+Fri Nov 12 17:37:54 2021
+
+best accuracy so far: 0.837936
+Fri Nov 12 17:38:25 2021
+
+ train accuracy so far: 0.998830
+Fri Nov 12 17:39:03 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:39:46 2021
+
+
+Validation Results
+Global Steps: 6600
+Valid Loss: 0.74443
+Valid Accuracy: 0.83914
+Fri Nov 12 17:39:47 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:39:47 2021
+
+best accuracy so far: 0.839144
+Fri Nov 12 17:40:54 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:41:37 2021
+
+
+Validation Results
+Global Steps: 6700
+Valid Loss: 0.75491
+Valid Accuracy: 0.83845
+Fri Nov 12 17:41:37 2021
+
+best accuracy so far: 0.839144
+Fri Nov 12 17:42:00 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 17:42:46 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:43:30 2021
+
+
+Validation Results
+Global Steps: 6800
+Valid Loss: 0.74078
+Valid Accuracy: 0.84208
+Fri Nov 12 17:43:30 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:43:30 2021
+
+best accuracy so far: 0.842078
+Fri Nov 12 17:44:38 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:45:22 2021
+
+
+Validation Results
+Global Steps: 6900
+Valid Loss: 0.72741
+Valid Accuracy: 0.84122
+Fri Nov 12 17:45:22 2021
+
+best accuracy so far: 0.842078
+Fri Nov 12 17:45:35 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 17:46:30 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:47:14 2021
+
+
+Validation Results
+Global Steps: 7000
+Valid Loss: 0.76235
+Valid Accuracy: 0.84242
+Fri Nov 12 17:47:15 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:47:15 2021
+
+best accuracy so far: 0.842423
+Fri Nov 12 17:48:23 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:49:07 2021
+
+
+Validation Results
+Global Steps: 7100
+Valid Loss: 0.75626
+Valid Accuracy: 0.83880
+Fri Nov 12 17:49:07 2021
+
+best accuracy so far: 0.842423
+Fri Nov 12 17:49:11 2021
+
+ train accuracy so far: 0.999164
+Fri Nov 12 17:50:16 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:51:00 2021
+
+
+Validation Results
+Global Steps: 7200
+Valid Loss: 0.75900
+Valid Accuracy: 0.84260
+Fri Nov 12 17:51:00 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:51:00 2021
+
+best accuracy so far: 0.842596
+Fri Nov 12 17:52:04 2021
+
+ train accuracy so far: 0.999666
+Fri Nov 12 17:52:09 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:52:53 2021
+
+
+Validation Results
+Global Steps: 7300
+Valid Loss: 0.74669
+Valid Accuracy: 0.84846
+Fri Nov 12 17:52:53 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 17:52:53 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 17:54:02 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:54:45 2021
+
+
+Validation Results
+Global Steps: 7400
+Valid Loss: 0.75054
+Valid Accuracy: 0.84605
+Fri Nov 12 17:54:45 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 17:55:40 2021
+
+ train accuracy so far: 0.999499
+Fri Nov 12 17:55:54 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:56:38 2021
+
+
+Validation Results
+Global Steps: 7500
+Valid Loss: 0.74874
+Valid Accuracy: 0.84674
+Fri Nov 12 17:56:38 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 17:57:46 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 17:58:29 2021
+
+
+Validation Results
+Global Steps: 7600
+Valid Loss: 0.74659
+Valid Accuracy: 0.84501
+Fri Nov 12 17:58:29 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 17:59:15 2021
+
+ train accuracy so far: 0.998663
+Fri Nov 12 17:59:38 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:00:22 2021
+
+
+Validation Results
+Global Steps: 7700
+Valid Loss: 0.74525
+Valid Accuracy: 0.84536
+Fri Nov 12 18:00:22 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:01:29 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:02:14 2021
+
+
+Validation Results
+Global Steps: 7800
+Valid Loss: 0.74736
+Valid Accuracy: 0.84605
+Fri Nov 12 18:02:14 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:02:51 2021
+
+ train accuracy so far: 0.999666
+Fri Nov 12 18:03:22 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:04:07 2021
+
+
+Validation Results
+Global Steps: 7900
+Valid Loss: 0.74423
+Valid Accuracy: 0.84691
+Fri Nov 12 18:04:07 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:05:14 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:05:58 2021
+
+
+Validation Results
+Global Steps: 8000
+Valid Loss: 0.74534
+Valid Accuracy: 0.84363
+Fri Nov 12 18:05:58 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:06:26 2021
+
+ train accuracy so far: 0.999833
+Fri Nov 12 18:07:07 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:07:50 2021
+
+
+Validation Results
+Global Steps: 8100
+Valid Loss: 0.74665
+Valid Accuracy: 0.84657
+Fri Nov 12 18:07:50 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:08:58 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:09:42 2021
+
+
+Validation Results
+Global Steps: 8200
+Valid Loss: 0.73660
+Valid Accuracy: 0.84657
+Fri Nov 12 18:09:42 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:10:02 2021
+
+ train accuracy so far: 0.999499
+Fri Nov 12 18:10:52 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:11:35 2021
+
+
+Validation Results
+Global Steps: 8300
+Valid Loss: 0.73943
+Valid Accuracy: 0.84415
+Fri Nov 12 18:11:35 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:12:43 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:13:27 2021
+
+
+Validation Results
+Global Steps: 8400
+Valid Loss: 0.73713
+Valid Accuracy: 0.84398
+Fri Nov 12 18:13:27 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:13:37 2021
+
+ train accuracy so far: 0.999164
+Fri Nov 12 18:14:35 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:15:20 2021
+
+
+Validation Results
+Global Steps: 8500
+Valid Loss: 0.73617
+Valid Accuracy: 0.84622
+Fri Nov 12 18:15:20 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:16:28 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:17:12 2021
+
+
+Validation Results
+Global Steps: 8600
+Valid Loss: 0.73948
+Valid Accuracy: 0.84570
+Fri Nov 12 18:17:12 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:17:14 2021
+
+ train accuracy so far: 0.999833
+Fri Nov 12 18:18:21 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:19:05 2021
+
+
+Validation Results
+Global Steps: 8700
+Valid Loss: 0.73290
+Valid Accuracy: 0.84795
+Fri Nov 12 18:19:05 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:20:06 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 18:20:14 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:20:57 2021
+
+
+Validation Results
+Global Steps: 8800
+Valid Loss: 0.73294
+Valid Accuracy: 0.84846
+Fri Nov 12 18:20:57 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:22:05 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:22:49 2021
+
+
+Validation Results
+Global Steps: 8900
+Valid Loss: 0.73125
+Valid Accuracy: 0.84795
+Fri Nov 12 18:22:49 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:23:41 2021
+
+ train accuracy so far: 0.998997
+Fri Nov 12 18:23:57 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:24:42 2021
+
+
+Validation Results
+Global Steps: 9000
+Valid Loss: 0.73348
+Valid Accuracy: 0.84743
+Fri Nov 12 18:24:42 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:25:50 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:26:34 2021
+
+
+Validation Results
+Global Steps: 9100
+Valid Loss: 0.73334
+Valid Accuracy: 0.84846
+Fri Nov 12 18:26:34 2021
+
+best accuracy so far: 0.848464
+Fri Nov 12 18:27:17 2021
+
+ train accuracy so far: 0.999666
+Fri Nov 12 18:27:42 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:28:26 2021
+
+
+Validation Results
+Global Steps: 9200
+Valid Loss: 0.73196
+Valid Accuracy: 0.84898
+Fri Nov 12 18:28:26 2021
+Saved model checkpoint to [DIR: %s]./output
+Fri Nov 12 18:28:26 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:29:34 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:30:18 2021
+
+
+Validation Results
+Global Steps: 9300
+Valid Loss: 0.73264
+Valid Accuracy: 0.84864
+Fri Nov 12 18:30:18 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:30:52 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 18:31:27 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:32:11 2021
+
+
+Validation Results
+Global Steps: 9400
+Valid Loss: 0.73309
+Valid Accuracy: 0.84760
+Fri Nov 12 18:32:11 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:33:18 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:34:02 2021
+
+
+Validation Results
+Global Steps: 9500
+Valid Loss: 0.73271
+Valid Accuracy: 0.84708
+Fri Nov 12 18:34:02 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:34:27 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 18:35:10 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:35:54 2021
+
+
+Validation Results
+Global Steps: 9600
+Valid Loss: 0.73333
+Valid Accuracy: 0.84829
+Fri Nov 12 18:35:54 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:37:02 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:37:47 2021
+
+
+Validation Results
+Global Steps: 9700
+Valid Loss: 0.73336
+Valid Accuracy: 0.84846
+Fri Nov 12 18:37:47 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:38:04 2021
+
+ train accuracy so far: 1.000000
+Fri Nov 12 18:38:55 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:39:39 2021
+
+
+Validation Results
+Global Steps: 9800
+Valid Loss: 0.73341
+Valid Accuracy: 0.84812
+Fri Nov 12 18:39:39 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:40:47 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:41:31 2021
+
+
+Validation Results
+Global Steps: 9900
+Valid Loss: 0.73337
+Valid Accuracy: 0.84812
+Fri Nov 12 18:41:31 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:41:39 2021
+
+ train accuracy so far: 0.999332
+Fri Nov 12 18:42:40 2021
+
+
+***** Running Validation *****
+  Num steps = 29
+  Batch size = 100
+Fri Nov 12 18:43:24 2021
+
+
+Validation Results
+Global Steps: 10000
+Valid Loss: 0.73340
+Valid Accuracy: 0.84829
+Fri Nov 12 18:43:24 2021
+
+best accuracy so far: 0.848982
+Fri Nov 12 18:43:24 2021
+
+ train accuracy so far: 1.000000
+
+ Total time 3H 53M

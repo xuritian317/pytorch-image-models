@@ -1,0 +1,99 @@
+dataset: CUB_200_2011
+num_classes: 200
+img_size: 384
+train_split: train
+val_split: val
+log_interval: 10
+mean:
+  - 0.485
+  - 0.456
+  - 0.406
+std:
+  - 0.229
+  - 0.224
+  - 0.225
+crop_pct: 0.9
+scale:
+  - 0.08
+  - 1.0
+interpolation: bicubic
+train_interpolation: random
+aa: rand-m9-mstd0.5-inc1
+mixup: 0.8
+mixup_off_epoch: 0
+mixup_prob: 1.0
+mixup_mode: batch
+mixup_switch_prob: 0.5
+cutmix: 1.0
+reprob: 0.25
+remode: pixel
+is_need_da: True
+
+amp: True
+model_ema: False
+#model: ctfg_14_7x2_384
+sched: cosine
+opt: adamw
+smoothing: 0.1
+workers: 8
+
+batch_size: 16
+epochs: 100
+cooldown_epochs: 5
+warmup_epochs: 5
+pretrained: False
+
+lr: 1e-3
+min_lr: 2e-5
+weight_decay: 0.03
+warmup_lr: 2e-6
+
+#lr: 1e-4
+#min_lr: 2e-6
+#weight_decay: 6e-2
+#warmup_lr: 2e-7
+
+#lr: 7e-5
+#min_lr: 3.5e-7
+#weight_decay: 6e-2
+#warmup_lr: 3.5e-8
+
+#lr: 5e-4
+#min_lr: 1e-5
+#weight_decay: 5e-2
+#warmup_lr: 1e-6
+
+#lr: 1e-4
+#min_lr: 2e-6
+#weight_decay: 6e-2
+#warmup_lr: 2e-7
+
+#lr: 1.5e-4
+#min_lr: 6e-6
+#weight_decay: 6e-2
+#warmup_lr: 2e-5
+
+#lr: 4e-5
+#min_lr: 8e-7
+#weight_decay: 6e-2
+#warmup_lr: 8e-8
+
+#lr: 7e-5
+#min_lr: 14e-7
+#weight_decay: 6e-2
+#warmup_lr: 14e-8
+
+#lr: 3e-2
+#min_lr: 6e-4
+#weight_decay: 5e-2
+#warmup_lr: 12e-4
+
+#lr: 4e-3
+#min_lr: 1e-4
+#weight_decay: 5e-2
+#warmup_lr: 2e-4
+
+#lr: 5e-4
+#min_lr: 1e-5
+#weight_decay: 5e-2
+#warmup_lr: 1e-6

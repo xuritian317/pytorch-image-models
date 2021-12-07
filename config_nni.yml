@@ -1,7 +1,7 @@
 experimentName: example_nni
 searchSpaceFile: search_space.json
 trialCodeDirectory: ./
-trialCommand: python3 train.py -c main/ctfg_cub.yml
+trialCommand: python3 train.py -c main/ctfg_cub_transfg.yml
   --model ctfg_14_7x2_384 --data_dir /home/lirunze/xh/datas/CUB2
   --pretrained_dir /home/lirunze/xh/datas/cct_14_7x2_384_imagenet.pth
   --is_con_los --is_nni

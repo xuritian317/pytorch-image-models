@@ -18,8 +18,6 @@ from torch.nn import CrossEntropyLoss, Dropout, Softmax, Linear, Conv2d, LayerNo
 from torch.nn.modules.utils import _pair
 from scipy import ndimage
 
-import configs as configs
-
 from einops import rearrange, repeat
 from .configs import *
 
@@ -352,60 +350,59 @@ class VisionTransformer(nn.Module):
             return part_logits
 
     def load_from(self, weights):
-        pass
-        # with torch.no_grad():
-        #     self.transformer.embeddings.patch_embeddings.weight.copy_(np2th(weights["embedding/kernel"], conv=True))
-        #     self.transformer.embeddings.patch_embeddings.bias.copy_(np2th(weights["embedding/bias"]))
-        #     self.transformer.embeddings.cls_token.copy_(np2th(weights["cls"]))
-        #     self.transformer.encoder.part_norm.weight.copy_(np2th(weights["Transformer/encoder_norm/scale"]))
-        #     self.transformer.encoder.part_norm.bias.copy_(np2th(weights["Transformer/encoder_norm/bias"]))
-        #
-        #     posemb = np2th(weights["Transformer/posembed_input/pos_embedding"])
-        #     posemb_new = self.transformer.embeddings.position_embeddings
-        #     if posemb.size() == posemb_new.size():
-        #         self.transformer.embeddings.position_embeddings.copy_(posemb)
-        #     else:
-        #         logger.info("load_pretrained: resized variant: %s to %s" % (posemb.size(), posemb_new.size()))
-        #
-        #         # if self.local_rank == 0:
-        #         #     with open(os.path.join(self.output_dir, self.train_log_name), 'a') as f:
-        #         #         f.write("\nload_pretrained: resized variant: %s to %s" % (posemb.size(), posemb_new.size()))
-        #
-        #         ntok_new = posemb_new.size(1)
-        #
-        #         if self.classifier == "token":
-        #             posemb_tok, posemb_grid = posemb[:, :1], posemb[0, 1:]
-        #             ntok_new -= 1
-        #         else:
-        #             posemb_tok, posemb_grid = posemb[:, :0], posemb[0]
-        #
-        #         gs_old = int(np.sqrt(len(posemb_grid)))
-        #         gs_new = int(np.sqrt(ntok_new))
-        #         print('modeling.py load_pretrained: grid-size from %s to %s' % (gs_old, gs_new))
-        #         posemb_grid = posemb_grid.reshape(gs_old, gs_old, -1)
-        #
-        #         zoom = (gs_new / gs_old, gs_new / gs_old, 1)
-        #         posemb_grid = ndimage.zoom(posemb_grid, zoom, order=1)
-        #         posemb_grid = posemb_grid.reshape(1, gs_new * gs_new, -1)
-        #         posemb = np.concatenate([posemb_tok, posemb_grid], axis=1)
-        #         self.transformer.embeddings.position_embeddings.copy_(np2th(posemb))
-        #
-        #     for bname, block in self.transformer.encoder.named_children():
-        #         if bname.startswith('part') == False:
-        #             for uname, unit in block.named_children():
-        #                 unit.load_from(weights, n_block=uname)
-        #
-        #     if self.transformer.embeddings.hybrid:
-        #         self.transformer.embeddings.hybrid_model.root.conv.weight.copy_(
-        #             np2th(weights["conv_root/kernel"], conv=True))
-        #         gn_weight = np2th(weights["gn_root/scale"]).view(-1)
-        #         gn_bias = np2th(weights["gn_root/bias"]).view(-1)
-        #         self.transformer.embeddings.hybrid_model.root.gn.weight.copy_(gn_weight)
-        #         self.transformer.embeddings.hybrid_model.root.gn.bias.copy_(gn_bias)
-        #
-        #         for bname, block in self.transformer.embeddings.hybrid_model.body.named_children():
-        #             for uname, unit in block.named_children():
-        #                 unit.load_from(weights, n_block=bname, n_unit=uname)
+        with torch.no_grad():
+            self.transformer.embeddings.patch_embeddings.weight.copy_(np2th(weights["embedding/kernel"], conv=True))
+            self.transformer.embeddings.patch_embeddings.bias.copy_(np2th(weights["embedding/bias"]))
+            self.transformer.embeddings.cls_token.copy_(np2th(weights["cls"]))
+            self.transformer.encoder.part_norm.weight.copy_(np2th(weights["Transformer/encoder_norm/scale"]))
+            self.transformer.encoder.part_norm.bias.copy_(np2th(weights["Transformer/encoder_norm/bias"]))
+
+            posemb = np2th(weights["Transformer/posembed_input/pos_embedding"])
+            posemb_new = self.transformer.embeddings.position_embeddings
+            if posemb.size() == posemb_new.size():
+                self.transformer.embeddings.position_embeddings.copy_(posemb)
+            else:
+                logger.info("load_pretrained: resized variant: %s to %s" % (posemb.size(), posemb_new.size()))
+
+                # if self.local_rank == 0:
+                #     with open(os.path.join(self.output_dir, self.train_log_name), 'a') as f:
+                #         f.write("\nload_pretrained: resized variant: %s to %s" % (posemb.size(), posemb_new.size()))
+
+                ntok_new = posemb_new.size(1)
+
+                if self.classifier == "token":
+                    posemb_tok, posemb_grid = posemb[:, :1], posemb[0, 1:]
+                    ntok_new -= 1
+                else:
+                    posemb_tok, posemb_grid = posemb[:, :0], posemb[0]
+
+                gs_old = int(np.sqrt(len(posemb_grid)))
+                gs_new = int(np.sqrt(ntok_new))
+                print('modeling.py load_pretrained: grid-size from %s to %s' % (gs_old, gs_new))
+                posemb_grid = posemb_grid.reshape(gs_old, gs_old, -1)
+
+                zoom = (gs_new / gs_old, gs_new / gs_old, 1)
+                posemb_grid = ndimage.zoom(posemb_grid, zoom, order=1)
+                posemb_grid = posemb_grid.reshape(1, gs_new * gs_new, -1)
+                posemb = np.concatenate([posemb_tok, posemb_grid], axis=1)
+                self.transformer.embeddings.position_embeddings.copy_(np2th(posemb))
+
+            for bname, block in self.transformer.encoder.named_children():
+                if bname.startswith('part') == False:
+                    for uname, unit in block.named_children():
+                        unit.load_from(weights, n_block=uname)
+
+            if self.transformer.embeddings.hybrid:
+                self.transformer.embeddings.hybrid_model.root.conv.weight.copy_(
+                    np2th(weights["conv_root/kernel"], conv=True))
+                gn_weight = np2th(weights["gn_root/scale"]).view(-1)
+                gn_bias = np2th(weights["gn_root/bias"]).view(-1)
+                self.transformer.embeddings.hybrid_model.root.gn.weight.copy_(gn_weight)
+                self.transformer.embeddings.hybrid_model.root.gn.bias.copy_(gn_bias)
+
+                for bname, block in self.transformer.embeddings.hybrid_model.body.named_children():
+                    for uname, unit in block.named_children():
+                        unit.load_from(weights, n_block=bname, n_unit=uname)
 
 
 def con_loss(features, labels):
@@ -439,8 +436,10 @@ def transfg_1472(pretrained=False, **kwargs):
     input_size = kwargs.get('input_size', default_cfg['input_size'])
     num_classes = kwargs.get('num_classes', default_cfg['num_classes'])
     # smoothing_value = kwargs.get('smoothing_value', default_cfg.smoothing_value)
-
+    # config.split = 'non-overlap'
     model = VisionTransformer(config, img_size=448, num_classes=num_classes, smoothing_value=0)
+    # if pretrained:
+    #     model.load_from(torch.load("/home/ubuntu/xu/ViT-B_16.npz"))
 
     model.default_cfg = default_cfg
 
