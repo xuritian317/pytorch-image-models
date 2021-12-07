@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss, Dropout, Linear, LayerNorm
 from einops import rearrange, repeat
-from configs import *
+from .configs import *
 
 from timm.models.registry import register_model
 from timm.data import IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD
