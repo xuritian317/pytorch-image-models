@@ -46,9 +46,9 @@
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  train.py -c main/ctfg_cub_transfg.yml \
 #  --model transfg_1472 \
-#  --data_dir /home/ubuntu/xu/CUB2 \
+#  --data_dir /home/ubuntu/xu/CUB2 --is_con_loss
 #  --pretrained_dir /home/ubuntu/xu/ViT-B_16.npz \
-#  --is_con_loss --is_ori_load
+  #--is_con_loss #--is_ori_load
 
 #python3 train.py -c main/ctfg_cub.yml \
 #  --model transfg_1472 \
@@ -59,6 +59,12 @@
 
 python3 -m torch.distributed.launch --nproc_per_node=2 \
   train.py -c main/ctfg_cars.yml \
-  --data_dir /home/ubuntu/xu/cars \
+  --data_dir /home/ubuntu/xu/cars2 \
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-  --is_con_loss --is_need_da
+  --is_need_da #--is_con_loss
+
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  train.py -c main/ctfg_cub_ctfg.yml \
+#  --data_dir /home/ubuntu/xu/CUB2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss

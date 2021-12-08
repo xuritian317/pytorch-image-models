@@ -766,9 +766,14 @@ def train_one_epoch(
                     contrast_loss = con_loss(part_token, target)
 
                 loss = loss + contrast_loss
+                # print('is_con_loss')
+                # print(loss)
+                # print(contrast_loss)
             else:
                 output = model(input)
                 loss = loss_fn(output, target)
+                # print('no is_con_loss')
+                # print(loss)
 
         if not args.distributed:
             losses_m.update(loss.item(), input.size(0))

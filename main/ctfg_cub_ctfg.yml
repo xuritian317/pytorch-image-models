@@ -38,7 +38,7 @@ workers: 8
 batch_size: 16
 epochs: 100
 cooldown_epochs: 5
-warmup_epochs: 5
+warmup_epochs: 10
 pretrained: True
 
 lr: 7e-5
