@@ -50,10 +50,6 @@ min_lr: 3.5e-6
 weight_decay: 6e-2
 warmup_lr: 3.5e-7
 
-#lr: 5e-5
-#min_lr: 1e-6
-#weight_decay: 5e-2
-#warmup_lr: 1e-7
 
 #lr: 5e-4
 #min_lr: 1e-5

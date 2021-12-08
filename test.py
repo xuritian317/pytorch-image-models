@@ -51,10 +51,27 @@ import timm
 # for p, i, j in zip(a, b):
 #     print(str(i) + '' + str(j))
 # localtime = time.time()
-# timestr = time.asctime(time.localtime(1638863168.989379))
 # print(type(localtime))
-#print(timestr) #Tue Dec  7 07:44:16 2021
-                #Tue Dec  7 07:46:08 2021
+#1638970500.6771438
+def getTime(a,b):
+    if a>=b:
+        temp = time.localtime(a-b)
+    else:
+        temp = time.localtime(b-a)
+    print(time.asctime(temp))
+
+getTime(1638973949.1273873,1638975738.3822677)
+
+# timestr1 = time.asctime(time.localtime(1638971269.13979))
+# timestr2 = time.asctime(time.localtime(1638971382.3969326))
+# print(timestr2-timestr1)
+#Wed Dec  8 13:33:07 2021
+#Wed Dec  8 13:35:00 2021
+
+#1.83
+
+#Tue Dec  7 07:44:16 2021
+                # Tue Dec  7 07:46:08 2021
 
 # def lr_lambda(step, warmup_steps=500, t_total=10000, cycles=.5, last_epoch=-1):
 #     if step < warmup_steps:
@@ -67,10 +84,10 @@ import timm
 # for i in range(1000):
 #     a = lr_lambda(i)
 #     print(a)
-model_list = timm.list_models()
-# print(len(model_list), model_list[:3])
-# Results 541 ['adv_inception_v3', 'botnet26t_256', 'botnet50ts_256']
-# print(True)
-for name in model_list:
-    if 'vit' in name:
-        print(name)
+# model_list = timm.list_models()
+# # print(len(model_list), model_list[:3])
+# # Results 541 ['adv_inception_v3', 'botnet26t_256', 'botnet50ts_256']
+# # print(True)
+# for name in model_list:
+#     if 'vit' in name:
+#         print(name)
