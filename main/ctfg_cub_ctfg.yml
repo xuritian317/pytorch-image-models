@@ -29,7 +29,7 @@ reprob: 0.25
 remode: pixel
 amp: True
 model_ema: False
-model: ctfg_14_7x2_384
+#model: ctfg_14_7x2_384
 sched: cosine
 opt: adamw
 smoothing: 0.1
