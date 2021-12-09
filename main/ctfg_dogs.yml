@@ -31,7 +31,7 @@ amp: True
 pretrained: True
 model_ema: False
 batch_size: 16
-model: ctfg_14_7x2_384
+#model: ctfg_14_7x2_384
 sched: cosine
 epochs: 100
 cooldown_epochs: 5

@@ -435,11 +435,13 @@ def transfg_1472(pretrained=False, **kwargs):
 
     input_size = kwargs.get('input_size', default_cfg['input_size'])
     num_classes = kwargs.get('num_classes', default_cfg['num_classes'])
-    # smoothing_value = kwargs.get('smoothing_value', default_cfg.smoothing_value)
+
+    pretrained_dir = kwargs.get('pretrained_dir', './')
     # config.split = 'non-overlap'
     model = VisionTransformer(config, img_size=448, num_classes=num_classes, smoothing_value=0)
-    # if pretrained:
-    #     model.load_from(torch.load("/home/ubuntu/xu/ViT-B_16.npz"))
+
+    if pretrained:
+        model.load_from(np.load(pretrained_dir))
 
     model.default_cfg = default_cfg
 

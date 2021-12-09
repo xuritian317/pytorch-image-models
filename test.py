@@ -40,7 +40,7 @@ import timm
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-# state_dict = torch.load('/hy-tmp/ctfg_fork/output/train/5e-4_128B_83.6/model_pretrained_224.pth.tar')
+# state_dict = torch.load('/home/ubuntu/xu/ViT-B_16.npz')
 # for key in state_dict.keys():
 #     print(key)
 
@@ -53,15 +53,21 @@ import timm
 # localtime = time.time()
 # print(type(localtime))
 #1638970500.6771438
-def getTime(a,b):
-    if a>=b:
-        temp = time.localtime(a-b)
-    else:
-        temp = time.localtime(b-a)
-    print(time.asctime(temp))
 
-getTime(1638965681.735153,1638948688.7214055)
-getTime(1638976282.6424797,1638993254.9089367)
+# def getTime(a,b):
+#     if a>=b:
+#         temp = time.localtime(a-b)
+#     else:
+#         temp = time.localtime(b-a)
+#     print(time.asctime(temp))
+#
+# getTime(1639020352.9391108,1639020564.125613)
+# getTime(1638976282.6424797,1638993254.9089367)
+
+# if True and False:
+#     print(1)
+# else:
+#     print(2)
 
 # timestr1 = time.asctime(time.localtime(1638971269.13979))
 # timestr2 = time.asctime(time.localtime(1638971382.3969326))
