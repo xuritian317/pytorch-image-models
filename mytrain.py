@@ -38,8 +38,8 @@ from timm.scheduler import create_scheduler
 from timm.utils import ApexScaler, NativeScaler
 
 from tensorboardX import SummaryWriter
-import nni
-from nni.utils import merge_parameter
+# import nni
+# from nni.utils import merge_parameter
 import tsensor
 
 from main.ctfg.ctfg import *
@@ -311,18 +311,20 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
+parser.add_argument('--is_con_loss', action='store_true', default=False,
+                    help='Disable all training augmentation, override other train aug args')
+
+parser.add_argument('--is_nni', action='store_true', default=False,
+                    help='whether to use nni')
+parser.add_argument('--is_need_da', action='store_true', default=False,
+                    help='whether to need data enhancement')
+
+parser.add_argument('--is_use_timm_model', action='store_true', default=False,
+                    help='whether to use original model ')
 parser.add_argument('--pretrained_dir', type=str, default='',
                     help='pretrained_dir')
 parser.add_argument('--is_changeSize', action='store_true', default=False,
                     help='If you have pretrained checkpoint, whether to change size')
-parser.add_argument('--is_con_loss', action='store_true', default=False,
-                    help='Disable all training augmentation, override other train aug args')
-parser.add_argument('--is_nni', action='store_true', default=False,
-                    help='whether to use nni')
-parser.add_argument('--is_ori_load', action='store_true', default=False,
-                    help='whether to use model load')
-parser.add_argument('--is_need_da', action='store_true', default=False,
-                    help='whether to need data enhancement')
 
 
 def _parse_args():
@@ -393,26 +395,38 @@ def main():
 
     random_seed(args.seed, args.rank)
 
-    model = create_model(
-        args.model,
-        pretrained=args.pretrained,
-        pretrained_dir=args.pretrained_dir,
-        is_changeSize=args.is_changeSize,
-        num_classes=args.num_classes,
-        drop_rate=args.drop,
-        drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path
-        drop_path_rate=args.drop_path,
-        drop_block_rate=args.drop_block,
-        global_pool=args.gp,
-        bn_tf=args.bn_tf,
-        bn_momentum=args.bn_momentum,
-        bn_eps=args.bn_eps,
-        scriptable=args.torchscript,
-        checkpoint_path=args.initial_checkpoint)
-
-    # if args.is_ori_load:
-    #     # print(model)
-    #     model.load_from(torch.load(args.pretrained_dir))
+    if not args.is_use_timm_model:
+        model = create_model(
+            args.model,
+            pretrained=args.pretrained,
+            pretrained_dir=args.pretrained_dir,
+            is_changeSize=args.is_changeSize,
+            num_classes=args.num_classes,
+            drop_rate=args.drop,
+            drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path
+            drop_path_rate=args.drop_path,
+            drop_block_rate=args.drop_block,
+            global_pool=args.gp,
+            bn_tf=args.bn_tf,
+            bn_momentum=args.bn_momentum,
+            bn_eps=args.bn_eps,
+            scriptable=args.torchscript,
+            checkpoint_path=args.initial_checkpoint)
+    else:
+        model = create_model(
+            args.model,
+            pretrained=args.pretrained,
+            num_classes=args.num_classes,
+            drop_rate=args.drop,
+            drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path
+            drop_path_rate=args.drop_path,
+            drop_block_rate=args.drop_block,
+            global_pool=args.gp,
+            bn_tf=args.bn_tf,
+            bn_momentum=args.bn_momentum,
+            bn_eps=args.bn_eps,
+            scriptable=args.torchscript,
+            checkpoint_path=args.initial_checkpoint)
 
     if args.num_classes is None:
         assert hasattr(model, 'num_classes'), 'Model must have `num_classes` attr if not set on cmd line/config.'
@@ -633,18 +647,21 @@ def main():
     output_dir = None
 
     if args.rank == 0:
-        if args.is_nni:
-            tuner_params = nni.get_next_parameter()
-            print("get nni parameter")
-            args = merge_parameter(args, tuner_params)
-            writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
 
-            lr = args.lr
-            args.min_lr = lr / 50
-            args.warmup_lr = lr / 500
+        nni_experiment_name = args.experiment
 
-            nni_experiment_name = str(format(lr, '.1e')) + '_' + \
-                                  str(format(args.warmup_lr, '.1e'))
+        # if args.is_nni:
+        #     tuner_params = nni.get_next_parameter()
+        #     print("get nni parameter")
+        #     args = merge_parameter(args, tuner_params)
+        #     writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+        #
+        #     lr = args.lr
+        #     args.min_lr = lr / 50
+        #     args.warmup_lr = lr / 500
+        #
+        #     nni_experiment_name = str(format(lr, '.1e')) + '_' + \
+        #                           str(format(args.warmup_lr, '.1e'))
 
         if args.experiment and args.is_nni:
             exp_name = nni_experiment_name
@@ -763,14 +780,9 @@ def train_one_epoch(
                     contrast_loss = con_loss(part_token, target)
 
                 loss = loss + contrast_loss
-                # print('is_con_loss')
-                # print(loss)
-                # print(contrast_loss)
             else:
                 output = model(input)
                 loss = loss_fn(output, target)
-                # print('no is_con_loss')
-                # print(loss)
 
         if not args.distributed:
             losses_m.update(loss.item(), input.size(0))

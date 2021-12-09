@@ -48,14 +48,15 @@
 #  --model transfg_1472 \
 #  --data_dir /home/ubuntu/xu/CUB2 --is_con_loss
 #  --pretrained_dir /home/ubuntu/xu/ViT-B_16.npz \
-  #--is_con_loss #--is_ori_load
+#--is_con_loss #--is_ori_load
 
-#python3 mytrain.py -c main/ctfg_cub.yml \
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_cub_transfg.yml \
 #  --model transfg_1472 \
-#  --data_dir /hy-nas/CUB2 \
-#  --pretrained_dir /hy-nas/ViT-B_16.npz \
-#  --is_con_loss --is_ori_load
-
+#  --data_dir /home/ubuntu/xu/CUB2 \
+#  --pretrained \
+#  --pretrained_dir /home/ubuntu/xu/ViT-B_16.npz \
+#  --is_con_loss
 
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_cars.yml \
@@ -63,13 +64,20 @@
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
 #  --is_need_da #--is_con_loss
 
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_dogs.yml \
+#  --data_dir /home/ubuntu/Datas/dogs2 \
+#  --pretrained_dir /home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth \
+#  --log-wandb --experiment ctfg \
+#  --is_need_da #--is_con_loss
+
 python3 -m torch.distributed.launch --nproc_per_node=2 \
   mytrain.py -c main/ctfg_dogs.yml \
-  --data_dir /home/ubuntu/Datas/dogs2 \
-  --pretrained_dir /home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth \
-  --log-wandb --experiment ctfg \
-  --is_need_da #--is_con_loss
-
+  --model ctfg_14_7x2_384 \
+  --data_dir /home/ubuntu/xu/dogs2 \
+  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+  --is_con_loss --is_need_da \
+#  --log-wandb --experiment ctfg \
 
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_cub_ctfg.yml \
