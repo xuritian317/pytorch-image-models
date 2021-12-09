@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env python3
 """ ImageNet Training Script
 
@@ -39,6 +37,15 @@ from timm.optim import create_optimizer_v2, optimizer_kwargs
 from timm.scheduler import create_scheduler
 from timm.utils import ApexScaler, NativeScaler
 
+from tensorboardX import SummaryWriter
+import nni
+from nni.utils import merge_parameter
+import tsensor
+
+from main.ctfg.ctfg import *
+from main.old.cct.src import *
+from main.old.transfg_ctfg.modelingv0 import *
+
 try:
     from apex import amp
     from apex.parallel import DistributedDataParallel as ApexDDP
@@ -74,7 +81,7 @@ parser.add_argument('-c', '--config', default='', type=str, metavar='FILE',
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
 
 # Dataset parameters
-parser.add_argument('data_dir', metavar='DIR',
+parser.add_argument('--data_dir', metavar='DIR', default='', type=str,
                     help='path to dataset')
 parser.add_argument('--dataset', '-d', metavar='NAME', default='',
                     help='dataset type (default: ImageFolder/ImageTar if empty)')
@@ -177,6 +184,7 @@ parser.add_argument('--decay-rate', '--dr', type=float, default=0.1, metavar='RA
                     help='LR decay rate (default: 0.1)')
 
 # Augmentation & regularization parameters
+
 parser.add_argument('--no-aug', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--scale', type=float, nargs='+', default=[0.08, 1.0], metavar='PCT',
@@ -303,6 +311,19 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
+parser.add_argument('--pretrained_dir', type=str, default='',
+                    help='pretrained_dir')
+parser.add_argument('--is_changeSize', action='store_true', default=False,
+                    help='If you have pretrained checkpoint, whether to change size')
+parser.add_argument('--is_con_loss', action='store_true', default=False,
+                    help='Disable all training augmentation, override other train aug args')
+parser.add_argument('--is_nni', action='store_true', default=False,
+                    help='whether to use nni')
+parser.add_argument('--is_ori_load', action='store_true', default=False,
+                    help='whether to use model load')
+parser.add_argument('--is_need_da', action='store_true', default=False,
+                    help='whether to need data enhancement')
+
 
 def _parse_args():
     # Do we have a config file to parse?
@@ -324,6 +345,9 @@ def _parse_args():
 def main():
     setup_default_logging()
     args, args_text = _parse_args()
+    # _logger.info(args_text)
+
+    writer = SummaryWriter(log_dir="logs")
 
     if args.log_wandb:
         if has_wandb:
@@ -372,6 +396,8 @@ def main():
     model = create_model(
         args.model,
         pretrained=args.pretrained,
+        pretrained_dir=args.pretrained_dir,
+        is_changeSize=args.is_changeSize,
         num_classes=args.num_classes,
         drop_rate=args.drop,
         drop_connect_rate=args.drop_connect,  # DEPRECATED, use drop_path
@@ -383,6 +409,11 @@ def main():
         bn_eps=args.bn_eps,
         scriptable=args.torchscript,
         checkpoint_path=args.initial_checkpoint)
+
+    # if args.is_ori_load:
+    #     # print(model)
+    #     model.load_from(torch.load(args.pretrained_dir))
+
     if args.num_classes is None:
         assert hasattr(model, 'num_classes'), 'Model must have `num_classes` attr if not set on cmd line/config.'
         args.num_classes = model.num_classes  # FIXME handle model default vs config num_classes more elegantly
@@ -589,8 +620,10 @@ def main():
             train_loss_fn = LabelSmoothingCrossEntropy(smoothing=args.smoothing)
     else:
         train_loss_fn = nn.CrossEntropyLoss()
+
     train_loss_fn = train_loss_fn.cuda()
     validate_loss_fn = nn.CrossEntropyLoss().cuda()
+    con_loss = ConLossEntropy().cuda()
 
     # setup checkpoint saver and eval metric tracking
     eval_metric = args.eval_metric
@@ -598,9 +631,23 @@ def main():
     best_epoch = None
     saver = None
     output_dir = None
+
     if args.rank == 0:
-        if args.experiment:
-            exp_name = args.experiment
+        if args.is_nni:
+            tuner_params = nni.get_next_parameter()
+            print("get nni parameter")
+            args = merge_parameter(args, tuner_params)
+            writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+
+            lr = args.lr
+            args.min_lr = lr / 50
+            args.warmup_lr = lr / 500
+
+            nni_experiment_name = str(format(lr, '.1e')) + '_' + \
+                                  str(format(args.warmup_lr, '.1e'))
+
+        if args.experiment and args.is_nni:
+            exp_name = nni_experiment_name
         else:
             exp_name = '-'.join([
                 datetime.now().strftime("%Y%m%d-%H%M%S"),
@@ -623,7 +670,8 @@ def main():
             train_metrics = train_one_epoch(
                 epoch, model, loader_train, optimizer, train_loss_fn, args,
                 lr_scheduler=lr_scheduler, saver=saver, output_dir=output_dir,
-                amp_autocast=amp_autocast, loss_scaler=loss_scaler, model_ema=model_ema, mixup_fn=mixup_fn)
+                amp_autocast=amp_autocast, loss_scaler=loss_scaler,
+                model_ema=model_ema, mixup_fn=mixup_fn, con_loss=con_loss)
 
             if args.distributed and args.dist_bn in ('broadcast', 'reduce'):
                 if args.local_rank == 0:
@@ -654,16 +702,28 @@ def main():
                 save_metric = eval_metrics[eval_metric]
                 best_metric, best_epoch = saver.save_checkpoint(epoch, metric=save_metric)
 
+            writer.add_scalar("train/loss", scalar_value=train_metrics['loss'], global_step=epoch)
+            writer.add_scalar("train/lr", scalar_value=train_metrics['lr'][0], global_step=epoch)
+            writer.add_scalar("test/loss", scalar_value=eval_metrics['loss'], global_step=epoch)
+            writer.add_scalar("test/acc_Top1", scalar_value=eval_metrics['top1'], global_step=epoch)
+            writer.add_scalar("test/acc_Top5", scalar_value=eval_metrics['top5'], global_step=epoch)
+
     except KeyboardInterrupt:
         pass
+
     if best_metric is not None:
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
+
+    # nni.report_final_result(best_metric)
+
+    # writer.export_scalars_to_json(os.path.join("logs", "all_scalars.json"))
+    writer.close()
 
 
 def train_one_epoch(
         epoch, model, loader, optimizer, loss_fn, args,
         lr_scheduler=None, saver=None, output_dir=None, amp_autocast=suppress,
-        loss_scaler=None, model_ema=None, mixup_fn=None):
+        loss_scaler=None, model_ema=None, mixup_fn=None, writer=None, con_loss=None):
     if args.mixup_off_epoch and epoch >= args.mixup_off_epoch:
         if args.prefetcher and loader.mixup_enabled:
             loader.mixup_enabled = False
@@ -681,6 +741,7 @@ def train_one_epoch(
     last_idx = len(loader) - 1
     num_updates = epoch * len(loader)
     for batch_idx, (input, target) in enumerate(loader):
+
         last_batch = batch_idx == last_idx
         data_time_m.update(time.time() - end)
         if not args.prefetcher:
@@ -691,8 +752,25 @@ def train_one_epoch(
             input = input.contiguous(memory_format=torch.channels_last)
 
         with amp_autocast():
-            output = model(input)
-            loss = loss_fn(output, target)
+
+            if args.is_con_loss:
+                output, part_token = model(input, True)
+                loss = loss_fn(output, target)
+
+                if args.is_need_da:
+                    contrast_loss = con_loss(part_token, target[:, 0])
+                else:
+                    contrast_loss = con_loss(part_token, target)
+
+                loss = loss + contrast_loss
+                # print('is_con_loss')
+                # print(loss)
+                # print(contrast_loss)
+            else:
+                output = model(input)
+                loss = loss_fn(output, target)
+                # print('no is_con_loss')
+                # print(loss)
 
         if not args.distributed:
             losses_m.update(loss.item(), input.size(0))
@@ -710,6 +788,7 @@ def train_one_epoch(
                 dispatch_clip_grad(
                     model_parameters(model, exclude_head='agc' in args.clip_mode),
                     value=args.clip_grad, mode=args.clip_mode)
+
             optimizer.step()
 
         if model_ema is not None:
@@ -764,7 +843,7 @@ def train_one_epoch(
     if hasattr(optimizer, 'sync_lookahead'):
         optimizer.sync_lookahead()
 
-    return OrderedDict([('loss', losses_m.avg)])
+    return OrderedDict([('loss', losses_m.avg), ('lr', lr_scheduler.get_epoch_values(epoch))])
 
 
 def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix=''):
@@ -779,6 +858,7 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
     last_idx = len(loader) - 1
     with torch.no_grad():
         for batch_idx, (input, target) in enumerate(loader):
+
             last_batch = batch_idx == last_idx
             if not args.prefetcher:
                 input = input.cuda()
@@ -798,6 +878,7 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
                 target = target[0:target.size(0):reduce_factor]
 
             loss = loss_fn(output, target)
+
             acc1, acc5 = accuracy(output, target, topk=(1, 5))
 
             if args.distributed:
@@ -827,6 +908,8 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
                         loss=losses_m, top1=top1_m, top5=top5_m))
 
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg)])
+
+    # nni.report_intermediate_result(top1_m.avg)
 
     return metrics
 

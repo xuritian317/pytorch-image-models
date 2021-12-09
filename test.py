@@ -60,7 +60,8 @@ def getTime(a,b):
         temp = time.localtime(b-a)
     print(time.asctime(temp))
 
-getTime(1638973949.1273873,1638975738.3822677)
+getTime(1638965681.735153,1638948688.7214055)
+getTime(1638976282.6424797,1638993254.9089367)
 
 # timestr1 = time.asctime(time.localtime(1638971269.13979))
 # timestr2 = time.asctime(time.localtime(1638971382.3969326))
