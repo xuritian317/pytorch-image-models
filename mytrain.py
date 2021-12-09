@@ -311,11 +311,11 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
-parser.add_argument('--is_con_loss', action='store_true', default=False,
-                    help='Disable all training augmentation, override other train aug args')
-
 parser.add_argument('--is_nni', action='store_true', default=False,
                     help='whether to use nni')
+
+parser.add_argument('--is_con_loss', action='store_true', default=False,
+                    help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--is_need_da', action='store_true', default=False,
                     help='whether to need data enhancement')
 

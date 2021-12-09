@@ -40,10 +40,20 @@ import timm
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-# state_dict = torch.load('/home/ubuntu/xu/ViT-B_16.npz')
+state_dict = torch.load('/home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth')
+# print(state_dict['classifier.positional_emb'].size())
+print(type(state_dict))
+parameter = torch.nn.Parameter(torch.zeros(1, 1, 384),
+                               requires_grad=True)
+x = state_dict['classifier.positional_emb']
+x = torch.cat((parameter, x), dim=1)
+state_dict['classifier.positional_emb'] = x
+print(x)
+
 # for key in state_dict.keys():
 #     print(key)
-
+# a = [1, 2]
+# print(isinstance( a,list))
 
 # a = [1, 2, 3]
 # b = [3, 4, 5]
@@ -52,7 +62,7 @@ import timm
 #     print(str(i) + '' + str(j))
 # localtime = time.time()
 # print(type(localtime))
-#1638970500.6771438
+# 1638970500.6771438
 
 # def getTime(a,b):
 #     if a>=b:
@@ -61,8 +71,8 @@ import timm
 #         temp = time.localtime(b-a)
 #     print(time.asctime(temp))
 #
-# getTime(1639020352.9391108,1639020564.125613)
-# getTime(1638976282.6424797,1638993254.9089367)
+# getTime(1639050010.8981063,1639050641.8588426)
+# getTime(1639020352.9391108,1639020986.8782136)
 
 # if True and False:
 #     print(1)
@@ -72,13 +82,13 @@ import timm
 # timestr1 = time.asctime(time.localtime(1638971269.13979))
 # timestr2 = time.asctime(time.localtime(1638971382.3969326))
 # print(timestr2-timestr1)
-#Wed Dec  8 13:33:07 2021
-#Wed Dec  8 13:35:00 2021
+# Wed Dec  8 13:33:07 2021
+# Wed Dec  8 13:35:00 2021
 
-#1.83
+# 1.83
 
-#Tue Dec  7 07:44:16 2021
-                # Tue Dec  7 07:46:08 2021
+# Tue Dec  7 07:44:16 2021
+# Tue Dec  7 07:46:08 2021
 
 # def lr_lambda(step, warmup_steps=500, t_total=10000, cycles=.5, last_epoch=-1):
 #     if step < warmup_steps:

@@ -111,7 +111,8 @@ class TransformerClassifier(Module):
                  attention_dropout=0.1,
                  stochastic_depth=0.1,
                  positional_embedding='learnable',
-                 sequence_length=None):
+                 sequence_length=None,
+                 is_psm=True):
         super().__init__()
         positional_embedding = positional_embedding if \
             positional_embedding in ['sine', 'learnable', 'none'] else 'sine'
@@ -119,6 +120,7 @@ class TransformerClassifier(Module):
         self.embedding_dim = embedding_dim
         self.sequence_length = sequence_length
         self.seq_pool = seq_pool
+        self.is_psm = is_psm
 
         assert sequence_length is not None or positional_embedding == 'none', \
             f"Positional embedding is set to {positional_embedding} and" \
@@ -152,7 +154,9 @@ class TransformerClassifier(Module):
         self.norm = LayerNorm(embedding_dim)
 
         self.fc = Linear(embedding_dim, num_classes)
-        self.part_select = PartAttention(self.blocks[-1])
+
+        if self.is_psm:
+            self.part_select = PartAttention(self.blocks[-1])
 
         self.apply(self.init_weight)
 
@@ -169,17 +173,18 @@ class TransformerClassifier(Module):
 
         x = self.dropout(x)
 
-        attn_weights = []
-        for blk in self.blocks[:-1]:
-            x, weights = blk(x)
-            attn_weights.append(weights)
+        if self.is_psm:
+            attn_weights = []
+            for blk in self.blocks[:-1]:
+                x, weights = blk(x)
+                attn_weights.append(weights)
+            part_states = self.part_select(attn_weights, x)
+            x = self.norm(part_states)
 
-        part_states = self.part_select(attn_weights, x)
-        x = self.norm(part_states)
-
-        # for blk in self.blocks:
-        #     x, a = blk(x)
-        # x = self.norm(x)
+        else:
+            for blk in self.blocks:
+                x, _ = blk(x)
+            x = self.norm(x)
 
         if self.seq_pool:
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)

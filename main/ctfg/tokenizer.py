@@ -13,7 +13,8 @@ class Tokenizer(nn.Module):
                  in_planes=64,
                  activation=None,
                  max_pool=True,
-                 conv_bias=False):
+                 conv_bias=False,
+                 is_conv=True):
         super(Tokenizer, self).__init__()
 
         n_filter_list = [n_input_channels] + \

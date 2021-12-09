@@ -71,16 +71,17 @@
 #  --log-wandb --experiment ctfg \
 #  --is_need_da #--is_con_loss
 
-python3 -m torch.distributed.launch --nproc_per_node=2 \
-  mytrain.py -c main/ctfg_dogs.yml \
-  --model ctfg_14_7x2_384 \
-  --data_dir /home/ubuntu/xu/dogs2 \
-  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-  --is_con_loss --is_need_da \
-#  --log-wandb --experiment ctfg \
-
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
-#  mytrain.py -c main/ctfg_cub_ctfg.yml \
-#  --data_dir /home/ubuntu/xu/CUB2 \
-#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-#  --is_need_da --is_con_loss
+#  mytrain.py -c main/ctfg_dogs.yml \
+#  --model ctfg_14_7x2_384 \
+#  --data_dir /home/ubuntu/Datas/dogs2 \
+#  --pretrained_dir /home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da #--is_con_loss \
+##  --log-wandb --experiment ctfg \
+
+python3 -m torch.distributed.launch --nproc_per_node=2 \
+  mytrain.py -c main/ctfg_cub_ctfg.yml \
+  --model ctfg_14_7x2_384_no_seq_pool \
+  --data_dir /home/ubuntu/Datas/cub2 \
+  --pretrained_dir /home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth \
+  --is_need_da --is_con_loss
