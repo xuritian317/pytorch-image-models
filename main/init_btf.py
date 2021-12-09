@@ -2,8 +2,8 @@ import os
 import shutil
 
 
-def create_datasets(root):
-    dataset_path = os.path.join(root, 'Butterfly200')
+def create_datasets(root, name):
+    dataset_path = os.path.join(root, name)
 
     btf2 = os.path.join(root, "btf2")
     trainF = os.path.join(btf2, "train")
@@ -45,7 +45,7 @@ def mkdir(path):
 
 
 def main():
-    create_datasets(f'D:\Project\Datas\\butterfly')
+    create_datasets(f'/home/ubuntu/Datas', 'butterfly200')
 
 
 if __name__ == "__main__":
