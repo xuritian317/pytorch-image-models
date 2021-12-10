@@ -40,15 +40,15 @@ import timm
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-state_dict = torch.load('/home/ubuntu/Datas/cct_14_7x2_384_imagenet.pth')
+# state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
 # print(state_dict['classifier.positional_emb'].size())
-print(type(state_dict))
-parameter = torch.nn.Parameter(torch.zeros(1, 1, 384),
-                               requires_grad=True)
-x = state_dict['classifier.positional_emb']
-x = torch.cat((parameter, x), dim=1)
-state_dict['classifier.positional_emb'] = x
-print(x)
+# print(type(state_dict))
+# parameter = torch.nn.Parameter(torch.zeros(1, 1, 384),
+#                                requires_grad=True)
+# x = state_dict['classifier.positional_emb']
+# x = torch.cat((parameter, x), dim=1)
+# state_dict['classifier.positional_emb'] = x
+# print(x)
 
 # for key in state_dict.keys():
 #     print(key)
@@ -64,15 +64,17 @@ print(x)
 # print(type(localtime))
 # 1638970500.6771438
 
-# def getTime(a,b):
-#     if a>=b:
-#         temp = time.localtime(a-b)
-#     else:
-#         temp = time.localtime(b-a)
-#     print(time.asctime(temp))
-#
-# getTime(1639050010.8981063,1639050641.8588426)
-# getTime(1639020352.9391108,1639020986.8782136)
+def getTime(a,b):
+    if a>=b:
+        temp = time.localtime(a-b)
+    else:
+        temp = time.localtime(b-a)
+    print(time.asctime(temp))
+
+getTime(1638971269.13979,1638971382.3969326)
+getTime(1639056565.1461518,1639056725.6944604)
+
+#一轮多47秒
 
 # if True and False:
 #     print(1)
