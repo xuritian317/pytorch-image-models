@@ -87,9 +87,18 @@
 #  --is_need_da --is_con_loss
 
 #2021年12月10日10:07:44 ubuntu 241
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_cub_ctfg.yml \
+#  --model ctfg_14_7x2_384 --img-size 384 --batch-size 16 \
+#  --data_dir /home/ubuntu/xu/cub2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss
+
+
+#2021年12月10日10:22:54 teamviewer
 python3 -m torch.distributed.launch --nproc_per_node=2 \
-  mytrain.py -c main/ctfg_cub_ctfg.yml \
-  --model ctfg_14_7x2_384 --img-size 384 --batch-size 16 \
-  --data_dir /home/ubuntu/xu/cub2 \
+  mytrain.py -c main/ctfg_dogs.yml \
+  --model ctfg_14_7x2_448_no_conv --img-size 448 --batch-size 4 \
+  --data_dir /home/ubuntu/xu/dogs2 \
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
   --is_need_da --is_con_loss
