@@ -59,7 +59,7 @@ class CTFG(nn.Module):
                                    activation=nn.ReLU,
                                    n_conv_layers=n_conv_layers,
                                    conv_bias=False,
-                                   is_conv=is_conv)
+                                   is_conv=is_conv, embedding_dim=embedding_dim)
 
         self.classifier = TransformerClassifier(
             sequence_length=self.tokenizer.sequence_length(n_channels=n_input_channels,
@@ -119,7 +119,10 @@ def _ctfg(arch, pretrained, progress,
 
             if not is_conv:
                 # TODO
-                pass
+                state_dict.pop('tokenizer.conv_layers.0.0.weight')
+                state_dict.pop('tokenizer.conv_layers.1.0.weight')
+                state_dict['tokenizer.conv_layers.bias'] = model.tokenizer.conv_layers.bias
+                state_dict['tokenizer.conv_layers.weight'] = model.tokenizer.conv_layers.weight
 
             if not seq_pool:
                 print('ctfg has not seq_pool')
@@ -315,8 +318,8 @@ def ctfg_14_7x2_384_fl(pretrained=False, progress=False,
 
 
 @register_model
-def ctfg_14_7x2_384_no_conv(pretrained=False, progress=False,
-                            img_size=384, positional_embedding='learnable', num_classes=1000,
+def ctfg_14_7x2_448_no_conv(pretrained=False, progress=False,
+                            img_size=448, positional_embedding='learnable', num_classes=1000,
                             *args, **kwargs):
     return ctfg_14('ctfg_14_7x2_384', pretrained, progress,
                    kernel_size=7, n_conv_layers=2,
