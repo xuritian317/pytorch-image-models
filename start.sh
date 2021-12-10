@@ -99,6 +99,6 @@
 python3 -m torch.distributed.launch --nproc_per_node=2 \
   mytrain.py -c main/ctfg_dogs.yml \
   --model ctfg_14_7x2_448_no_conv --img-size 448 --batch-size 4 \
-  --data_dir /home/ubuntu/xu/dogs2 \
-  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+  --data_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/data_ori/dogs2 \
+  --pretrained_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/data_ori/cct_14_7x2_384_imagenet.pth \
   --is_need_da --is_con_loss
