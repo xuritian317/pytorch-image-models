@@ -86,7 +86,6 @@
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
 #  --is_need_da --is_con_loss
 
-#2021年12月10日10:07:44 ubuntu 241
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_cub_ctfg.yml \
 #  --model ctfg_14_7x2_384 --img-size 384 --batch-size 16 \
@@ -94,11 +93,30 @@
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
 #  --is_need_da --is_con_loss
 
+#CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_dogs.yml \
+#  --model ctfg_14_7x2_448_no_conv --img-size 448 --batch-size 4 \
+#  --data_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/xh/data_ori/dogs2 \
+#  --pretrained_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/xh/data_ori/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss
 
-#2021年12月10日10:22:54 teamviewer
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_cub_transfg.yml \
+#  --model ctfg_14_7x2_384_no_conv --img-size 384 --batch-size 8 \
+#  --data_dir /home/ubuntu/xu/CUB2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss
+
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_dogs.yml \
+#  --model ctfg_14_7x2_384_no_psm \
+#  --data_dir /home/ubuntu/xu/dogs2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss
+
 python3 -m torch.distributed.launch --nproc_per_node=2 \
-  mytrain.py -c main/ctfg_dogs.yml \
-  --model ctfg_14_7x2_448_no_conv --img-size 448 --batch-size 4 \
-  --data_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/data_ori/dogs2 \
-  --pretrained_dir /media/lirunze/6318bdfc-100a-4fef-9824-1d0f386abf3c/data_ori/cct_14_7x2_384_imagenet.pth \
+  mytrain.py -c main/ctfg_btf.yml \
+  --model ctfg_14_7x2_384 \
+  --data_dir /home/ubuntu/xu/btf2 \
+  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
   --is_need_da --is_con_loss

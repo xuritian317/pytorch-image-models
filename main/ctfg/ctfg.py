@@ -59,7 +59,7 @@ class CTFG(nn.Module):
                                    activation=nn.ReLU,
                                    n_conv_layers=n_conv_layers,
                                    conv_bias=False,
-                                   is_conv=is_conv, embedding_dim=embedding_dim)
+                                   is_conv=is_conv, embedding_dim=embedding_dim, img_size=img_size)
 
         self.classifier = TransformerClassifier(
             sequence_length=self.tokenizer.sequence_length(n_channels=n_input_channels,
@@ -320,6 +320,17 @@ def ctfg_14_7x2_384_fl(pretrained=False, progress=False,
 @register_model
 def ctfg_14_7x2_448_no_conv(pretrained=False, progress=False,
                             img_size=448, positional_embedding='learnable', num_classes=1000,
+                            *args, **kwargs):
+    return ctfg_14('ctfg_14_7x2_384', pretrained, progress,
+                   kernel_size=7, n_conv_layers=2,
+                   img_size=img_size, positional_embedding=positional_embedding,
+                   num_classes=num_classes, is_conv=False,
+                   *args, **kwargs)
+
+
+@register_model
+def ctfg_14_7x2_384_no_conv(pretrained=False, progress=False,
+                            img_size=384, positional_embedding='learnable', num_classes=1000,
                             *args, **kwargs):
     return ctfg_14('ctfg_14_7x2_384', pretrained, progress,
                    kernel_size=7, n_conv_layers=2,

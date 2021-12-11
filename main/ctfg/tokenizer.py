@@ -17,7 +17,7 @@ class Tokenizer(nn.Module):
                  conv_bias=False,
                  is_conv=True, img_size=448, embedding_dim=768):
         super(Tokenizer, self).__init__()
-
+        self.is_conv = is_conv
         if is_conv:
             n_filter_list = [n_input_channels] + \
                             [in_planes for _ in range(n_conv_layers - 1)] + \
@@ -39,7 +39,7 @@ class Tokenizer(nn.Module):
             img_size = _pair(img_size)
             patch_size = _pair(16)
             slide_step = 12
-            n_patches = ((img_size[0] - patch_size[0]) // slide_step + 1) * (
+            self.n_patches = ((img_size[0] - patch_size[0]) // slide_step + 1) * (
                     (img_size[1] - patch_size[1]) // slide_step + 1)
             self.conv_layers = nn.Conv2d(in_channels=n_input_channels,
                                          out_channels=embedding_dim,
@@ -50,7 +50,15 @@ class Tokenizer(nn.Module):
         self.apply(self.init_weight)
 
     def sequence_length(self, n_channels=3, height=224, width=224):
-        return self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
+        # a = self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
+        # b = self.n_patches
+        # print("\n\n************\n\n")
+        # print(a)
+        # print(b)
+        if self.is_conv:
+            return self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
+        else:
+            return self.n_patches
 
     def forward(self, x):
         conv_output = self.conv_layers(x)
