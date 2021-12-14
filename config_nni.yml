@@ -1,14 +1,14 @@
 experimentName: example_nni
 searchSpaceFile: search_space.json
 trialCodeDirectory: ./
-trialCommand: python3 train.py -c main/ctfg_cub_transfg.yml
-  --model ctfg_14_7x2_384 --data_dir /home/lirunze/xh/datas/CUB2
-  --pretrained_dir /home/lirunze/xh/datas/cct_14_7x2_384_imagenet.pth
-  --is_con_los --is_nni
+trialCommand: python3 mytrain.py -c main/ctfg_cub_ctfg.yml
+  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2
+  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth
+  --is_con_los --is_need_da --experiment nni
 trialConcurrency: 2
 trialGpuNumber: 1
 maxTrialNumber: 100
-maxExperimentDuration: 48h
+maxExperimentDuration: 60h
 debug: false
 experimentWorkingDirectory: output/nni
 tuner:
@@ -18,11 +18,11 @@ tuner:
 trainingService:
   platform: local
   maxTrialNumberPerGpu: 1
-  useActiveGpu: true
+  useActiveGpu: false
 assessor:
   name: Curvefitting
   classArgs:
-    epoch_num: 50
+    epoch_num: 55
     threshold: 0.9
-    start_step: 10
+    start_step: 20
     gap: 1

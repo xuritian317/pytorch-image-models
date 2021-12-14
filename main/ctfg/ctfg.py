@@ -5,6 +5,7 @@ from .transformers import TransformerClassifier
 from .tokenizer import Tokenizer
 from .helpers import pe_check
 import os
+from einops import rearrange, reduce, repeat
 
 try:
     from timm.models.registry import register_model
@@ -108,14 +109,30 @@ def _ctfg(arch, pretrained, progress,
         seq_pool = kwargs.get('seq_pool', True)
         is_psm = kwargs.get('is_psm', True)
         is_conv = kwargs.get('is_conv', True)
+        num_classes = kwargs.get('num_classes', True)
 
         if not is_changeSize:
 
             state_dict = torch.load(checkpoint_path)
             state_dict = pe_check(model, state_dict)
 
-            state_dict['classifier.fc.weight'] = model.classifier.fc.weight
-            state_dict['classifier.fc.bias'] = model.classifier.fc.bias
+            # state_dict['classifier.fc.weight'] = model.classifier.fc.weight
+            # state_dict['classifier.fc.bias'] = model.classifier.fc.bias
+
+            ori_fc_weight = state_dict['classifier.fc.weight']
+            ori_fc_bias = state_dict['classifier.fc.bias']
+            a, _ = ori_fc_weight.size()
+
+            ori_fc_weight = rearrange(ori_fc_weight, 'x y -> y x')
+            fc = torch.nn.Linear(a, num_classes)
+            fc_weight = fc(ori_fc_weight)
+            fc_weight = rearrange(fc_weight, 'x y -> y x')
+            state_dict['classifier.fc.weight'] = fc_weight
+
+            b = ori_fc_bias.size(0)
+            fc = torch.nn.Linear(b, num_classes)
+            fc_bias = fc(ori_fc_bias)
+            state_dict['classifier.fc.bias'] = fc_bias
 
             if not is_conv:
                 # TODO

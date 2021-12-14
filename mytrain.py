@@ -36,15 +36,19 @@ from timm.loss import *
 from timm.optim import create_optimizer_v2, optimizer_kwargs
 from timm.scheduler import create_scheduler
 from timm.utils import ApexScaler, NativeScaler
-
 from tensorboardX import SummaryWriter
-# import nni
-# from nni.utils import merge_parameter
-import tsensor
 
+import tsensor
 from main.ctfg.ctfg import *
 from main.old.cct.src import *
 from main.old.transfg_ctfg.modelingv0 import *
+
+is_nni = False
+if False:
+    import nni
+    from nni.utils import merge_parameter
+
+    is_nni = True
 
 try:
     from apex import amp
@@ -311,9 +315,6 @@ parser.add_argument('--torchscript', dest='torchscript', action='store_true',
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
-parser.add_argument('--is_nni', action='store_true', default=False,
-                    help='whether to use nni')
-
 parser.add_argument('--is_con_loss', action='store_true', default=False,
                     help='Disable all training augmentation, override other train aug args')
 parser.add_argument('--is_need_da', action='store_true', default=False,
@@ -347,9 +348,23 @@ def _parse_args():
 def main():
     setup_default_logging()
     args, args_text = _parse_args()
-    _logger.info(args_text)
+    # _logger.info(args_text)
 
-    writer = SummaryWriter(log_dir="logs")
+    if is_nni:
+        tuner_params = nni.get_next_parameter()
+        print("get nni parameter")
+        args = merge_parameter(args, tuner_params)
+        writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
+
+        lr = args.lr
+        args.min_lr = lr / 50
+        args.warmup_lr = lr / 500
+
+        args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
+    else:
+        writer = SummaryWriter(log_dir="logs")
+
+    _logger.info(args_text)
 
     if args.log_wandb:
         if has_wandb:
@@ -647,24 +662,13 @@ def main():
     output_dir = None
 
     if args.rank == 0:
-
-        nni_experiment_name = args.experiment
-
-        # if args.is_nni:
-        #     tuner_params = nni.get_next_parameter()
-        #     print("get nni parameter")
-        #     args = merge_parameter(args, tuner_params)
-        #     writer = SummaryWriter(log_dir=os.path.join('output/nni', os.environ['NNI_OUTPUT_DIR'], "tensorboard"))
-        #
-        #     lr = args.lr
-        #     args.min_lr = lr / 50
-        #     args.warmup_lr = lr / 500
-        #
-        #     nni_experiment_name = str(format(lr, '.1e')) + '_' + \
-        #                           str(format(args.warmup_lr, '.1e'))
-
-        if args.experiment and args.is_nni:
-            exp_name = nni_experiment_name
+        if args.experiment and is_nni:
+            exp_name = '_'.join([
+                datetime.now().strftime("%Y%m%d-%H%M%S"),
+                str(format(args.lr, '.1e')),
+                str(format(args.warmup_lr, '.1e')),
+                args.experiment
+            ])
         else:
             exp_name = '_'.join([
                 datetime.now().strftime("%Y%m%d-%H%M%S"),
@@ -733,7 +737,8 @@ def main():
     if best_metric is not None:
         _logger.info('*** Best metric: {0} (epoch {1})'.format(best_metric, best_epoch))
 
-    # nni.report_final_result(best_metric)
+    if is_nni:
+        nni.report_final_result(best_metric)
 
     # writer.export_scalars_to_json(os.path.join("logs", "all_scalars.json"))
     writer.close()
@@ -923,7 +928,8 @@ def validate(model, loader, loss_fn, args, amp_autocast=suppress, log_suffix='')
 
     metrics = OrderedDict([('loss', losses_m.avg), ('top1', top1_m.avg), ('top5', top5_m.avg)])
 
-    # nni.report_intermediate_result(top1_m.avg)
+    if is_nni:
+        nni.report_intermediate_result(top1_m.avg)
 
     return metrics
 

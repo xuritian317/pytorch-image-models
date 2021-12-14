@@ -1,4 +1,12 @@
-#nnictl create --config config_nni.yml
+#nnictl create --config config_nni.yml --port 8889
+
+python3 -m torch.distributed.launch --nproc_per_node=2 \
+  mytrain.py -c main/ctfg_cub_ctfg.yml \
+  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2 \
+  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+  --is_need_da --is_con_loss \
+  --resume /home/ubuntu/projects/ctfg_fork/output/train/20211214-064619_ctfg_14_7x2_384_384_7.0e-05_/last.pth.tar \
+  --no-resume-opt
 
 #python3 mytrain.py -c main/ctfg_cub_transfg.yml \
 #  --model ctfg_14_7x2_384 --data_dir /hy-nas/CUB2 \
@@ -121,9 +129,11 @@
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
 #  --is_need_da --is_con_loss
 
-python3 -m torch.distributed.launch --nproc_per_node=2 \
-  mytrain.py -c main/ctfg_nabirds.yml \
-  --model ctfg_14_7x2_384_no_psm \
-  --data_dir /home/ubuntu/xu/nabirds2 \
-  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-  --is_need_da --is_con_loss --experiment ubuntu240
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_nabirds.yml \
+#  --model ctfg_14_7x2_384 \
+#  --data_dir /home/ubuntu/xu/nabirds2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --experiment ubuntu240 \
+#  --resume /home/ubuntu/xu/ctfg/output/train/20211214-051857_ctfg_14_7x2_384_384_1.0e-04_ubuntu240/last.pth.tar \
+#  --no-resume-opt

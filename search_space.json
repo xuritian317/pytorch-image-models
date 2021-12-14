@@ -1,10 +1,9 @@
 {
   "lr": {
-    "_type": "quniform",
+    "_type": "loguniform",
     "_value": [
-      0.00005,
-      0.0003,
-      0.00001
+      0.00001,
+      0.001
     ]
   },
   "weight_decay": {

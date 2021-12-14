@@ -193,6 +193,8 @@ class TransformerClassifier(Module):
 
         part_token = x
 
+        # print(x.size())  16*384
+        # print(self.fc.weight.size())#    384*200
         x = self.fc(x)
 
         if flag:
