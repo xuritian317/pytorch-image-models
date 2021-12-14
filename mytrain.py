@@ -347,7 +347,7 @@ def _parse_args():
 def main():
     setup_default_logging()
     args, args_text = _parse_args()
-    # _logger.info(args_text)
+    _logger.info(args_text)
 
     writer = SummaryWriter(log_dir="logs")
 
@@ -666,10 +666,12 @@ def main():
         if args.experiment and args.is_nni:
             exp_name = nni_experiment_name
         else:
-            exp_name = '-'.join([
+            exp_name = '_'.join([
                 datetime.now().strftime("%Y%m%d-%H%M%S"),
                 safe_model_name(args.model),
-                str(data_config['input_size'][-1])
+                str(data_config['input_size'][-1]),
+                str(format(args.lr, '.1e')),
+                args.experiment
             ])
         output_dir = get_outdir(args.output if args.output else './output/train', exp_name)
         decreasing = True if eval_metric == 'loss' else False
