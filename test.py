@@ -2,6 +2,7 @@ import torch
 import time
 import math
 import timm
+from einops import rearrange, reduce, repeat
 
 # a = [1, 2, 3, 4, 5]
 # b = a[:-1]
@@ -40,7 +41,31 @@ import timm
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-# state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
+state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
+# print(state_dict['classifier.fc.weight'].size())
+# print(state_dict['classifier.fc.bias'].size())
+# b = state_dict['classifier.fc.bias']
+# # b = rearrange(b, 'x y -> y x')
+# a = torch.nn.Linear(1000, 200)
+# c = a(b)
+# # c = rearrange(c, 'x y -> y x')
+# print(c.size())
+# num_classes = 200
+# ori_fc_weight = state_dict['classifier.fc.weight']
+# ori_fc_bias = state_dict['classifier.fc.bias']
+# a, b = ori_fc_weight.size()
+#
+# ori_fc_weight = rearrange(ori_fc_weight, 'x y -> y x')
+# fc = torch.nn.Linear(a, num_classes)
+# fc_weight = fc(ori_fc_weight)
+# fc_weight = rearrange(fc_weight, 'x y -> y x')
+# print(fc_weight.size())
+#
+# b = ori_fc_bias.size(0)
+# fc = torch.nn.Linear(b, num_classes)
+# fc_bias = fc(ori_fc_bias)
+# state_dict['classifier.fc.bias'] = fc_bias
+# print(fc_bias.size())
 # print(state_dict['classifier.positional_emb'].size())
 # print(type(state_dict))
 # parameter = torch.nn.Parameter(torch.zeros(1, 1, 384),
@@ -71,12 +96,12 @@ def getTime(a,b):
         temp = time.localtime(b-a)
     print(time.asctime(temp))
 
-getTime(1639056565.1461518,1639056725.6944604)
-getTime(1639102424.2114468,1639102537.7518182)
+getTime(1639459592.9832702,1639482812.74201)
+# getTime(1639102424.2114468,1639102537.7518182)
 # getTime(1639113418.9794886,1639114406.913501)
 # getTime(1639060568.7568767,1639061559.9770453)
 
-#一轮多47秒
+# 一轮多47秒
 
 # if True and False:
 #     print(1)
@@ -112,3 +137,8 @@ getTime(1639102424.2114468,1639102537.7518182)
 # for name in model_list:
 #     if 'vit' in name:
 #         print(name)
+# a = 0.00020247304066628831
+# a = format(a, '.1e')
+# b = 3e-5
+# print(type(b))
+# print(type(a))
