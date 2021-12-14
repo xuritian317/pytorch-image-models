@@ -109,14 +109,21 @@
 
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_dogs.yml \
-#  --model ctfg_14_7x2_384_no_psm \
+#  --model ctfg_14_7x2_384 \
 #  --data_dir /home/ubuntu/xu/dogs2 \
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
 #  --is_need_da --is_con_loss
 
+#python3 -m torch.distributed.launch --nproc_per_node=2 \
+#  mytrain.py -c main/ctfg_btf.yml \
+#  --model ctfg_14_7x2_384_no_seq_pool \
+#  --data_dir /home/ubuntu/xu/btf2 \
+#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+#  --is_need_da --is_con_loss
+
 python3 -m torch.distributed.launch --nproc_per_node=2 \
-  mytrain.py -c main/ctfg_btf.yml \
-  --model ctfg_14_7x2_384 \
-  --data_dir /home/ubuntu/xu/btf2 \
+  mytrain.py -c main/ctfg_nabirds.yml \
+  --model ctfg_14_7x2_384_no_psm \
+  --data_dir /home/ubuntu/xu/nabirds2 \
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-  --is_need_da --is_con_loss
+  --is_need_da --is_con_loss --experiment ubuntu240
