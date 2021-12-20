@@ -37,14 +37,14 @@ workers: 8
 
 batch_size: 16
 epochs: 100
-cooldown_epochs: 5
+cooldown_epochs: 10
 warmup_epochs: 10
 pretrained: True
 
-lr: 7e-5
-min_lr: 3.5e-7
+lr: 5e-5
+min_lr: 1e-7
 weight_decay: 6e-2
-warmup_lr: 3.5e-8
+warmup_lr: 1e-8
 
 #lr: 1e-4
 #min_lr: 2e-6
