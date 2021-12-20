@@ -4,7 +4,7 @@ trialCodeDirectory: ./
 trialCommand: python3 mytrain.py -c main/ctfg_cub_ctfg.yml
   --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth
-  --is_con_los --is_need_da --experiment nni
+  --is_con_los --is_need_da --experiment nni --epochs 50
 trialConcurrency: 2
 trialGpuNumber: 1
 maxTrialNumber: 100
