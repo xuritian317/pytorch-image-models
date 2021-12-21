@@ -41,10 +41,15 @@ cooldown_epochs: 10
 warmup_epochs: 10
 pretrained: True
 
-lr: 5e-5
-min_lr: 1e-7
+#lr: 5e-5
+#min_lr: 1e-6
+#weight_decay: 6e-2
+#warmup_lr: 1e-7
+
+lr: 7e-5
+min_lr: 1.4e-6
 weight_decay: 6e-2
-warmup_lr: 1e-8
+warmup_lr: 1.4e-7
 
 #lr: 1e-4
 #min_lr: 2e-6

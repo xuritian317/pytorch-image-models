@@ -50,6 +50,8 @@ if False:
 
     is_nni = True
 
+is_debug = True
+
 try:
     from apex import amp
     from apex.parallel import DistributedDataParallel as ApexDDP
@@ -349,6 +351,14 @@ def main():
     setup_default_logging()
     args, args_text = _parse_args()
     # _logger.info(args_text)
+
+    if is_debug:
+        args.is_need_da = True
+        args.is_con_loss = True
+        args.experiment = 'ubuntu240'
+        args.data_dir = '/home/ubuntu/xu/cub2'
+        args.pretrained_dir = '/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth'
+        args.model = 'ctfg_14_7x2_384'
 
     if is_nni:
         tuner_params = nni.get_next_parameter()
@@ -673,8 +683,8 @@ def main():
             exp_name = '_'.join([
                 datetime.now().strftime("%Y%m%d-%H%M%S"),
                 safe_model_name(args.model),
-                str(data_config['input_size'][-1]),
                 str(format(args.lr, '.1e')),
+                args.dataset,
                 args.experiment
             ])
         output_dir = get_outdir(args.output if args.output else './output/train', exp_name)
