@@ -15,8 +15,19 @@ from einops import rearrange, reduce, repeat
 
 # target = torch.randint(5, (3,), dtype=torch.int64)
 # print(target)
-# labels = torch.randint(5, (4, 10), dtype=torch.int64)
-# print(labels)
+labels_a = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
+labels_b = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
+c = torch.matmul(labels_a, labels_b)
+
+c = c[:, :, 0, :]
+
+_, part_inx = c.max(2)
+
+x = torch.randint(99, (16,  576, 384), dtype=torch.int64)
+print(part_inx[1, :])
+print(x[0, part_inx[0, :]].size())
+
+print(x[:, 0].unsqueeze(1).size())
 # labels = labels[:, 0]
 # print(labels)
 # B = 4
@@ -41,7 +52,7 @@ from einops import rearrange, reduce, repeat
 
 # a = 0.0000000034234
 # print(format(a,'.1e'))
-state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
+# state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
 # print(state_dict['classifier.fc.weight'].size())
 # print(state_dict['classifier.fc.bias'].size())
 # b = state_dict['classifier.fc.bias']
@@ -89,14 +100,14 @@ state_dict = torch.load('/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth')
 # print(type(localtime))
 # 1638970500.6771438
 
-def getTime(a,b):
-    if a>=b:
-        temp = time.localtime(a-b)
-    else:
-        temp = time.localtime(b-a)
-    print(time.asctime(temp))
-
-getTime(1639459592.9832702,1639482812.74201)
+# def getTime(a,b):
+#     if a>=b:
+#         temp = time.localtime(a-b)
+#     else:
+#         temp = time.localtime(b-a)
+#     print(time.asctime(temp))
+#
+# getTime(1639459592.9832702,1639482812.74201)
 # getTime(1639102424.2114468,1639102537.7518182)
 # getTime(1639113418.9794886,1639114406.913501)
 # getTime(1639060568.7568767,1639061559.9770453)

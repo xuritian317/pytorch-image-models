@@ -326,6 +326,9 @@ class Beit(nn.Module):
         for blk in self.blocks:
             x = blk(x, rel_pos_bias=rel_pos_bias)
 
+        print("\n\n******\n\n")
+        print(x.size()) # 384  torch.Size([8, 577, 768])
+                        # 224  torch.Size([8, 197, 768])
         x = self.norm(x)
         if self.fc_norm is not None:
             t = x[:, 1:, :]

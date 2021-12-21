@@ -298,6 +298,10 @@ class Encoder(nn.Module):
         parts = torch.stack(parts).squeeze(1)
         concat = torch.cat((hidden_states[:, 0].unsqueeze(1), parts), dim=1)
         part_states, part_weights = self.part_layer(concat)
+
+        # print("\n\n*********\n\n")
+        # print(part_states.size()) torch.Size([2, 13, 768])
+
         part_encoded = self.part_norm(part_states)
 
         return part_encoded
