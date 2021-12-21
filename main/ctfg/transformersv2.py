@@ -59,7 +59,6 @@ class TransformerEncoderLayer(Module):
         self.activation = F.gelu
 
     def forward(self, src: torch.Tensor, *args, **kwargs) -> torch.Tensor:
-
         a = self.pre_norm(src)
         # print("\n\n****a******\n\n")
         # print(a.size()) torch.Size([16, 576, 384])
@@ -87,9 +86,9 @@ class PartAttention(Module):
 
     def forward(self, attn_weights, x):
         # print('attn_weights.size()')  # 13
-        # print(attn_weights[0].size())  # torch.Size([16, 6, 576, 576])
+        # print(attn_weights[0].size())  # torch.Size([16, 6, 576, 576]) torch.Size([16, 6, 577, 577])
         # print('x.size()')
-        # print(x.size())  # torch.Size([16, 576, 384])
+        # print(x.size())  # torch.Size([16, 576, 384]) torch.Size([16, 577, 384])
 
         length = len(attn_weights)
 
@@ -98,47 +97,26 @@ class PartAttention(Module):
         for i in range(1, length):
             last_map = torch.matmul(attn_weights[i], last_map)
 
-        # print('last_map.size()')
-        # print(last_map.size())  # torch.Size([16, 6, 576, 576])
-
-        last_map = last_map[:, :, 0, :]
+        last_map = last_map[:, :, 0, 1:]
 
         # print('last_map.size()')
         # print(last_map.size())  # torch.Size([16, 6, 576])
 
         _, part_inx = last_map.max(2)  # 2 dim
 
-        # print('part_inx.size()')
-        # print(part_inx)  # 16 * 6
+        part_inx = part_inx + 1
 
         parts = []
         B, _ = part_inx.shape
         for i in range(B):
             parts.append(x[i, part_inx[i, :]])
 
-        # print("x[i, part_inx[i, :]")
-        # print(x[0, part_inx[0, :]].size())  torch.Size([6, 384])
-        # print(x[1, part_inx[1, :]].size())  torch.Size([6, 384])
-        #
-        # print('parts.size()')
-        # print(parts[0].size())  # torch.Size([6, 384])
-
         parts = torch.stack(parts).squeeze(1)
-
-        # print('parts.size()')
-        # print(parts.size())  # torch.Size([16, 6, 384])
 
         concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
 
-        # print('concat.size()')
-        # print(concat.size())  # torch.Size([16, 7, 384])
-
         # 最后一层
         part_states, _ = self.last_block(concat)
-
-        # print('part_states.size()')
-        # print(part_states.size())  # torch.Size([16, 7, 384])
-
         return part_states
 
 
@@ -233,6 +211,8 @@ class TransformerClassifier(Module):
             x = self.norm(x)
 
         if self.seq_pool:
+            # x = x[:, 1:, :]
+            # print(x.size()) torch.Size([16, 6, 384])
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
         else:
             x = x[:, 0]
