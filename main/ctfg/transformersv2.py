@@ -97,7 +97,8 @@ class PartAttention(Module):
         for i in range(1, length):
             last_map = torch.matmul(attn_weights[i], last_map)
 
-        last_map = last_map[:, :, 0, 1:]
+        last_map = last_map[:, :, 0, :]
+        # last_map = last_map[:, :, 0, 1:]
 
         # print('last_map.size()')
         # print(last_map.size())  # torch.Size([16, 6, 576])
@@ -113,10 +114,10 @@ class PartAttention(Module):
 
         parts = torch.stack(parts).squeeze(1)
 
-        concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
+        # concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
 
         # 最后一层
-        part_states, _ = self.last_block(concat)
+        part_states, _ = self.last_block(parts)
         return part_states
 
 
@@ -211,7 +212,6 @@ class TransformerClassifier(Module):
             x = self.norm(x)
 
         if self.seq_pool:
-            # x = x[:, 1:, :]
             # print(x.size()) torch.Size([16, 6, 384])
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
         else:
