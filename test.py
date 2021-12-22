@@ -3,6 +3,7 @@ import time
 import math
 import timm
 from einops import rearrange, reduce, repeat
+import torch.nn.functional as F
 
 # a = [1, 2, 3, 4, 5]
 # b = a[:-1]
@@ -15,19 +16,41 @@ from einops import rearrange, reduce, repeat
 
 # target = torch.randint(5, (3,), dtype=torch.int64)
 # print(target)
-labels_a = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
-labels_b = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
-c = torch.matmul(labels_a, labels_b)
+# labels_a = torch.randint(5, (2, 2, 5, 5), dtype=torch.int64)
+# labels_b = torch.randint(5, (2, 2, 5, 5), dtype=torch.int64)
+# # labels_a = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
+# # labels_b = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
+# c = torch.matmul(labels_a, labels_b)
+# print(c)
+#
+# c = c[:, :, 0, :]
+# # c = c[0, :]
+#
+# _, part_inx = c.max(2)
+#
+# print(c)
+#
+# print(part_inx)
+# #
+# new = []
+# for i in range(part_inx.size(0)):
+#     # print(part_inx[i])
+#     a = part_inx[i]
+#     # print(a)
+#     for index in range(a.size(0)):
+#         b = a[index]
+#         new.append(torch.cat([c[a, 0:b], c[a, b + 1:]]))
+#         # print(index)
+#
+# # a = c[part_inx]
+#
+# print(new)
 
-c = c[:, :, 0, :]
-
-_, part_inx = c.max(2)
-
-x = torch.randint(99, (16,  576, 384), dtype=torch.int64)
-print(part_inx[1, :])
-print(x[0, part_inx[0, :]].size())
-
-print(x[:, 0].unsqueeze(1).size())
+# x = torch.randint(99, (16,  576, 384), dtype=torch.int64)
+# print(part_inx[1, :])
+# print(x[0, part_inx[0, :]].size())
+#
+# print(x[:, 0].unsqueeze(1).size())
 # labels = labels[:, 0]
 # print(labels)
 # B = 4
@@ -57,8 +80,15 @@ print(x[:, 0].unsqueeze(1).size())
 # print(state_dict['classifier.fc.bias'].size())
 # b = state_dict['classifier.fc.bias']
 # # b = rearrange(b, 'x y -> y x')
-# a = torch.nn.Linear(1000, 200)
-# c = a(b)
+
+labels_a = torch.Tensor(2, 2, 576, 576)
+# print(labels_a.size())
+a = torch.nn.Linear(576, 1)
+# c = a(labels_a)
+# print(c.size())
+
+c = torch.matmul(F.softmax(a(labels_a), dim=2).transpose(-1, -2), labels_a).squeeze(-2)
+print(c.size())
 # # c = rearrange(c, 'x y -> y x')
 # print(c.size())
 # num_classes = 200
