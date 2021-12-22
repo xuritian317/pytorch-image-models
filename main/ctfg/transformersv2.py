@@ -105,7 +105,7 @@ class PartAttention(Module):
 
         _, part_inx = last_map.max(2)  # 2 dim
 
-        part_inx = part_inx + 1
+        # part_inx = part_inx + 1
 
         parts = []
         B, _ = part_inx.shape
@@ -114,10 +114,10 @@ class PartAttention(Module):
 
         parts = torch.stack(parts).squeeze(1)
 
-        # concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
+        concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
 
         # 最后一层
-        part_states, _ = self.last_block(parts)
+        part_states, _ = self.last_block(concat)
         return part_states
 
 
