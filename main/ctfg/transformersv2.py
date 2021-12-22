@@ -80,10 +80,11 @@ class TransformerEncoderLayer(Module):
 
 # PSM
 class PartAttention(Module):
-    def __init__(self, last_block):
+    def __init__(self, last_block, sequence_length):
         super(PartAttention, self).__init__()
         self.last_block = last_block
-        self.attention_pool = Linear(576, 1)
+        # self.other_pool = Linear(sequence_length, 1)
+        self.sequence_length = sequence_length
 
     def forward(self, attn_weights, x):
         # print('attn_weights.size()')  # 13
@@ -92,14 +93,14 @@ class PartAttention(Module):
         # print(x.size())  # torch.Size([16, 576, 384]) torch.Size([16, 577, 384])
 
         length = len(attn_weights)
-
         last_map = attn_weights[0]
 
         for i in range(1, length):
             last_map = torch.matmul(attn_weights[i], last_map)
 
-        last_map = torch.matmul(F.softmax(self.attention_pool(last_map), dim=2).transpose(-1, -2), last_map).squeeze(-2)
-
+        a = Linear(self.sequence_length, 1).cuda()
+        last_map = torch.matmul(F.softmax(a(last_map), dim=2).transpose(-1, -2), last_map).squeeze(-2)
+        # last_map = torch.matmul(F.softmax(self.other_pool(last_map), dim=2).transpose(-1, -2), last_map).squeeze(-2)
         # last_map = last_map[:, :, 0, :]
 
         _, part_inx = last_map.max(2)  # 2 dim
@@ -115,6 +116,8 @@ class PartAttention(Module):
 
         # 最后一层
         part_states, _ = self.last_block(parts)
+
+        # print(part_states.size())
         return part_states
 
 
@@ -175,7 +178,7 @@ class TransformerClassifier(Module):
         self.fc = Linear(embedding_dim, num_classes)
 
         if self.is_psm:
-            self.part_select = PartAttention(self.blocks[-1])
+            self.part_select = PartAttention(self.blocks[-1], self.sequence_length)
 
         self.apply(self.init_weight)
 
@@ -200,7 +203,7 @@ class TransformerClassifier(Module):
 
             part_states = self.part_select(attn_weights, x)
             # print("\n\n**********\n\n")
-            # print(part_states.size()) torch.Size([16, 7, 384])
+            # print(part_states.size()) #torch.Size([16, 7, 384])
             x = self.norm(part_states)
 
         else:
@@ -209,7 +212,7 @@ class TransformerClassifier(Module):
             x = self.norm(x)
 
         if self.seq_pool:
-            # print(x.size()) torch.Size([16, 6, 384])
+            # print(x.size()) #torch.Size([16, 6, 384])
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
         else:
             x = x[:, 0]
@@ -219,6 +222,9 @@ class TransformerClassifier(Module):
         # print(x.size())  16*384
         # print(self.fc.weight.size())#    384*200
         x = self.fc(x)
+
+        # print(x.size())  #16*384
+        # print(self.fc.weight.size())
 
         if flag:
             return x, part_token
