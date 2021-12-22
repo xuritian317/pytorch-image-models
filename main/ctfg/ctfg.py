@@ -1,7 +1,7 @@
 import torch
 from torch.hub import load_state_dict_from_url, load
 import torch.nn as nn
-from .transformers import TransformerClassifier
+from .transformersv2 import TransformerClassifier
 from .tokenizer import Tokenizer
 from .helpers import pe_check
 import os
@@ -154,6 +154,14 @@ def _ctfg(arch, pretrained, progress,
                 x = state_dict['classifier.positional_emb']
                 x = torch.cat((parameter, x), dim=1)
                 state_dict['classifier.positional_emb'] = x
+
+            # state_dict['classifier.class_emb'] = model.classifier.class_emb
+            #
+            # parameter = torch.nn.Parameter(torch.zeros(1, 1, embedding_dim),
+            #                                requires_grad=True)
+            # x = state_dict['classifier.positional_emb']
+            # x = torch.cat((parameter, x), dim=1)
+            # state_dict['classifier.positional_emb'] = x
 
             if is_psm:
                 print('ctfg has psm')

@@ -202,6 +202,9 @@ class TransformerClassifier(Module):
             x = blk(x)
         x = self.norm(x)
 
+        # print("\n\nx.size\n\n")
+        # print(x.size()) torch.Size([2, 576, 384])
+
         if self.seq_pool:
             x = torch.matmul(F.softmax(self.attention_pool(x), dim=1).transpose(-1, -2), x).squeeze(-2)
         else:

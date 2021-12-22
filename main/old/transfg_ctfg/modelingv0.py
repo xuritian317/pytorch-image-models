@@ -285,6 +285,9 @@ class Encoder(nn.Module):
         self.part_norm = LayerNorm(config.hidden_size, eps=1e-6)
 
     def forward(self, hidden_states):
+        print('hidden_states.size()')
+        print(hidden_states.size())  # torch.Size([2, 1370, 768])
+
         attn_weights = []
         for layer in self.layer:
             hidden_states, weights = layer(hidden_states)
