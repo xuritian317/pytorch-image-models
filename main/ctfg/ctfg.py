@@ -165,6 +165,12 @@ def _ctfg(arch, pretrained, progress,
 
             if is_psm:
                 print('ctfg has psm')
+
+                # state_dict[
+                #     'classifier.part_select.last_block.attention_pool.weight'] = model.classifier.part_select.attention_pool.weight
+                # state_dict[
+                #     'classifier.part_select.last_block.attention_pool.bias'] = model.classifier.part_select.attention_pool.bias
+
                 num = str(num_layers - 1)
                 state_dict['classifier.part_select.last_block.pre_norm.weight'] = state_dict[
                     'classifier.blocks.' + num + '.pre_norm.weight']
@@ -218,6 +224,11 @@ def ctfg_7(arch, pretrained, progress, *args, **kwargs):
 
 def ctfg_14(arch, pretrained, progress, *args, **kwargs):
     return _ctfg(arch, pretrained, progress, num_layers=14, num_heads=6, mlp_ratio=3, embedding_dim=384,
+                 *args, **kwargs)
+
+
+def ctfg_14_heads(arch, pretrained, progress, num_heads=12, *args, **kwargs):
+    return _ctfg(arch, pretrained, progress, num_layers=14, num_heads=num_heads, mlp_ratio=3, embedding_dim=384,
                  *args, **kwargs)
 
 
@@ -329,6 +340,17 @@ def ctfg_14_7x2_384(pretrained=False, progress=False,
                    img_size=img_size, positional_embedding=positional_embedding,
                    num_classes=num_classes,
                    *args, **kwargs)
+
+
+@register_model
+def ctfg_14_7x2_384_heads(pretrained=False, progress=False,
+                          img_size=384, positional_embedding='learnable', num_classes=1000,
+                          *args, **kwargs):
+    return ctfg_14_heads('ctfg_14_7x2_384', pretrained, progress,
+                         kernel_size=7, n_conv_layers=2,
+                         img_size=img_size, positional_embedding=positional_embedding,
+                         num_classes=num_classes,
+                         *args, **kwargs)
 
 
 @register_model

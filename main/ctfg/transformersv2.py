@@ -83,6 +83,7 @@ class PartAttention(Module):
     def __init__(self, last_block):
         super(PartAttention, self).__init__()
         self.last_block = last_block
+        self.attention_pool = Linear(576, 1)
 
     def forward(self, attn_weights, x):
         # print('attn_weights.size()')  # 13
@@ -97,15 +98,11 @@ class PartAttention(Module):
         for i in range(1, length):
             last_map = torch.matmul(attn_weights[i], last_map)
 
-        last_map = last_map[:, :, 0, :]
-        # last_map = last_map[:, :, 0, 1:]
+        last_map = torch.matmul(F.softmax(self.attention_pool(last_map), dim=2).transpose(-1, -2), last_map).squeeze(-2)
 
-        # print('last_map.size()')
-        # print(last_map.size())  # torch.Size([16, 6, 576])
+        # last_map = last_map[:, :, 0, :]
 
         _, part_inx = last_map.max(2)  # 2 dim
-
-        # part_inx = part_inx + 1
 
         parts = []
         B, _ = part_inx.shape
@@ -114,10 +111,10 @@ class PartAttention(Module):
 
         parts = torch.stack(parts).squeeze(1)
 
-        concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
+        # concat = torch.cat((x[:, 0].unsqueeze(1), parts), dim=1)
 
         # 最后一层
-        part_states, _ = self.last_block(concat)
+        part_states, _ = self.last_block(parts)
         return part_states
 
 
