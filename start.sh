@@ -10,7 +10,7 @@
 
 python3 -m torch.distributed.launch --nproc_per_node=2 \
   mytrain.py -c main/ctfg_cub_ctfg.yml \
-  --model ctfg_14_7x2_384_no_seq_pool --data_dir /home/ubuntu/xu/cub2 \
+  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2 \
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
   --is_need_da --is_con_loss --experiment ubuntu240
 
