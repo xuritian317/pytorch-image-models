@@ -138,6 +138,7 @@ class PartAttention(Module):
 
         # print('part_states.size()')
         # print(part_states.size())  # torch.Size([16, 7, 384])
+
         return part_states
 
 

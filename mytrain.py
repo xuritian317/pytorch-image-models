@@ -354,12 +354,12 @@ def main():
 
     if is_debug:
         args.is_need_da = True
-        # args.is_con_loss = True
+        args.is_con_loss = True
         args.experiment = 'ubuntu240'
         args.data_dir = '/home/ubuntu/xu/cub2'
         args.pretrained_dir = '/home/ubuntu/xu/cct_14_7x2_384_imagenet.pth'
-        args.model = 'cct_14_7x2_384'
-        args.batch_size = 2
+        args.model = 'ctfg_14_7x2_384_heads'
+        args.batch_size = 12
         args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
 
     if is_nni:
