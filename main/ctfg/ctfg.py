@@ -155,21 +155,13 @@ def _ctfg(arch, pretrained, progress,
                 x = torch.cat((parameter, x), dim=1)
                 state_dict['classifier.positional_emb'] = x
 
-            # state_dict['classifier.class_emb'] = model.classifier.class_emb
-            #
-            # parameter = torch.nn.Parameter(torch.zeros(1, 1, embedding_dim),
-            #                                requires_grad=True)
-            # x = state_dict['classifier.positional_emb']
-            # x = torch.cat((parameter, x), dim=1)
-            # state_dict['classifier.positional_emb'] = x
-
             if is_psm:
                 print('ctfg has psm')
 
                 # state_dict[
-                #     'classifier.part_select.last_block.attention_pool.weight'] = model.classifier.part_select.attention_pool.weight
+                #     'classifier.part_select.other_pool.weight'] = model.classifier.part_select.other_pool.weight
                 # state_dict[
-                #     'classifier.part_select.last_block.attention_pool.bias'] = model.classifier.part_select.attention_pool.bias
+                #     'classifier.part_select.other_pool.bias'] = model.classifier.part_select.other_pool.bias
 
                 num = str(num_layers - 1)
                 state_dict['classifier.part_select.last_block.pre_norm.weight'] = state_dict[

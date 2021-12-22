@@ -50,19 +50,23 @@ class Tokenizer(nn.Module):
         self.apply(self.init_weight)
 
     def sequence_length(self, n_channels=3, height=224, width=224):
-        # a = self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
+        a = self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
         # b = self.n_patches
         # print("\n\n************\n\n")
-        # print(a)
+        # print(a)   576
         # print(b)
         if self.is_conv:
-            return self.forward(torch.zeros((1, n_channels, height, width))).shape[1]
+            return a
         else:
             return self.n_patches
 
     def forward(self, x):
         conv_output = self.conv_layers(x)
+        # print('\n\n*****\n\n')
+        # print(conv_output.size()) torch.Size([16, 384, 24, 24])
         output = self.flattener(conv_output).transpose(-2, -1)
+        # print('\n\n*****\n\n')
+        # print(output.size()) torch.Size([1, 576, 384])
         return output
 
     @staticmethod
