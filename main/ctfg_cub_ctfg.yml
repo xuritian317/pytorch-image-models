@@ -1,4 +1,4 @@
-dataset: CUB_200_2011
+dataset: CUB
 num_classes: 200
 img_size: 384
 train_split: train
@@ -46,12 +46,12 @@ pretrained: True
 #weight_decay: 6e-2
 #warmup_lr: 1e-7
 
-lr: 7e-5
-min_lr: 1.4e-6
-weight_decay: 6e-2
-warmup_lr: 1.4e-7
-
-#lr: 1e-4
-#min_lr: 2e-6
+#lr: 7e-5
+#min_lr: 1.4e-6
 #weight_decay: 6e-2
-#warmup_lr: 2e-7
+#warmup_lr: 1.4e-7
+
+lr: 2e-4
+min_lr: 4e-6
+weight_decay: 5e-2
+warmup_lr: 4e-7
