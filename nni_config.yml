@@ -1,12 +1,19 @@
 experimentName: example_nni
-searchSpaceFile: search_space.json
-trialCodeDirectory: ./
+searchSpace:
+  lr:
+    _type: choice
+    _value: [ 0.0004,0.0003,0.0002,0.0001,0.00009, 0.00008,
+              0.00007,0.00006,0.00005, 0.00004,0.00003,0.00002 ]
+  weight_decay:
+    _type: choice
+    _value: [ 0.0001, 0.001, 0.01, 0.1 ,0.05,0.06,0.03 ]
+trialCodeDirectory: .
 trialCommand: python3 mytrain.py -c main/ctfg_cub_ctfg.yml
   --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2
   --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth
-  --is_con_los --is_need_da --experiment nni --epochs 50
-trialConcurrency: 2
-trialGpuNumber: 1
+  --is_con_los --is_need_da --experiment nni --epochs 50 --cooldown-epochs 0
+trialConcurrency: 2  # Run 2 trials concurrently.
+trialGpuNumber: 1 # How many GPUs should each trial use.
 maxTrialNumber: 100
 maxExperimentDuration: 60h
 debug: false
@@ -17,12 +24,11 @@ tuner:
     optimize_mode: maximize
 trainingService:
   platform: local
-  maxTrialNumberPerGpu: 1
   useActiveGpu: false
 assessor:
   name: Curvefitting
   classArgs:
-    epoch_num: 55
+    epoch_num: 50
     threshold: 0.9
     start_step: 20
     gap: 1
