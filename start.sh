@@ -1,4 +1,4 @@
-nnictl create --config nni_config.yml --port 8889
+#nnictl create --config nni_config.yml --port 8889
 
 #CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_cub_ctfg.yml \
@@ -8,18 +8,18 @@ nnictl create --config nni_config.yml --port 8889
 #  --resume /home/ubuntu/projects/ctfg_fork/output/train/20211215-115653_ctfg_14_7x2_384_384_7.0e-05_/model_best.pth.tar \
 #  --no-resume-opt
 
-#python3 -m torch.distributed.launch --nproc_per_node=2 \
-#  mytrain.py -c main/ctfg_cub_ctfg.yml \
-#  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2 \
-#  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-#  --is_need_da --is_con_loss --experiment ubuntu241 \
+python3 -m torch.distributed.launch --nproc_per_node=2 \
+  mytrain.py -c main/ctfg_cub_ctfg.yml \
+  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2 \
+  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
+  --is_need_da --is_con_loss --experiment ubuntu241 \
 #  --resume /home/ubuntu/projects/ctfg_fork/output/train/20211222-094059_ctfg_14_7x2_384_7.0e-05_CUB_200_2011_ubuntu241/model_best.pth.tar \
 #  --no-resume-opt
 
 #python3 mytrain.py -c main/ctfg_cub_ctfg.yml \
 #  --model ctfg_14_7x2_384 --data_dir /home/ubuntu/xu/cub2 \
 #  --pretrained_dir /home/ubuntu/xu/cct_14_7x2_384_imagenet.pth \
-#  --is_need_da --is_con_loss --experiment ubuntu240
+#  --is_need_da --is_con_loss --experiment test
 
 #python3 -m torch.distributed.launch --nproc_per_node=2 \
 #  mytrain.py -c main/ctfg_cub_ctfg.yml \
@@ -38,7 +38,7 @@ nnictl create --config nni_config.yml --port 8889
 #python3 mytrain.py -c main/ctfg_cub_ctfg.yml \
 #  --model ctfg_14_7x2_384 --data_dir /hy-nas/CUB2 \
 #  --pretrained_dir  /hy-nas/cct_14_7x2_384_imagenet.pth \
-#  --is_need_da --is_con_loss \
+#  --is_need_da --is_con_loss --experiment hengyuan
 
 
 #python3 mytrain.py -c main/ctfg_cub_transfg.yml \

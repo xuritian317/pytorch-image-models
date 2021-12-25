@@ -4,6 +4,7 @@ import math
 import timm
 from einops import rearrange, reduce, repeat
 import torch.nn.functional as F
+import torch.nn as nn
 
 # a = [1, 2, 3, 4, 5]
 # b = a[:-1]
@@ -16,12 +17,12 @@ import torch.nn.functional as F
 
 # target = torch.randint(5, (3,), dtype=torch.int64)
 # print(target)
-# labels_a = torch.randint(5, (2, 2, 5, 5), dtype=torch.int64)
-# labels_b = torch.randint(5, (2, 2, 5, 5), dtype=torch.int64)
+labels_a = torch.randint(10, (16, 6, 576, 576), dtype=torch.int64)
+labels_b = torch.randint(5, (16,6, 576, 64), dtype=torch.int64)
 # # labels_a = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
 # # labels_b = torch.randint(99, (16, 6, 576, 576), dtype=torch.int64)
-# c = torch.matmul(labels_a, labels_b)
-# print(c)
+c = labels_a @ labels_b
+print(c.size())
 #
 # c = c[:, :, 0, :]
 # # c = c[0, :]
@@ -81,14 +82,14 @@ import torch.nn.functional as F
 # b = state_dict['classifier.fc.bias']
 # # b = rearrange(b, 'x y -> y x')
 
-labels_a = torch.Tensor(2, 2, 576, 576)
+# labels_a = torch.Tensor(16, 3, 384, 384)
 # print(labels_a.size())
-a = torch.nn.Linear(576, 1)
+# a = torch.nn.Linear(576, 1)
 # c = a(labels_a)
 # print(c.size())
 
-c = torch.matmul(F.softmax(a(labels_a), dim=2).transpose(-1, -2), labels_a).squeeze(-2)
-print(c.size())
+# c = torch.matmul(F.softmax(a(labels_a), dim=2).transpose(-1, -2), labels_a).squeeze(-2)
+# print(c.size())
 # # c = rearrange(c, 'x y -> y x')
 # print(c.size())
 # num_classes = 200
@@ -183,3 +184,22 @@ print(c.size())
 # b = 3e-5
 # print(type(b))
 # print(type(a))
+
+# labels_a = torch.randn(16, 3, 384, 384)
+# print(labels_a.size())
+# #
+# a = nn.Conv2d(3, 768,
+#               kernel_size=16,
+#               stride=16,
+#               )  # torch.Size([16, 64, 192, 192])
+# b = nn.Identity()
+# c = nn.MaxPool2d(kernel_size=3,
+#                  stride=2,
+#                  padding=1)
+# o = a(labels_a)
+# print(o.size())
+#
+# input = torch.randn(20, 16, 50, 100)
+# m = nn.Conv2d(16, 33, (3, 5), stride=(2, 1), padding=(4, 2))
+# output = m(input)
+# print(output.size())  #  torch.Size([20, 33, 28, 100])
