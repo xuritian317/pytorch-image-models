@@ -44,7 +44,7 @@ from main.old.cct.src import *
 from main.old.transfg_ctfg.modelingv0 import *
 
 is_nni = False
-if True:
+if False:
     import nni
     from nni.utils import merge_parameter
 

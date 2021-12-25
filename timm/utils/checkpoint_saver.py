@@ -31,7 +31,7 @@ class CheckpointSaver:
             checkpoint_dir='',
             recovery_dir='',
             decreasing=False,
-            max_history=10,
+            max_history=2,
             unwrap_fn=unwrap_model):
 
         # objects to save state_dicts of
