@@ -30,6 +30,17 @@ class Attention(Module):
         weights = attn
         attn = self.attn_drop(attn)
 
+        # print('\n\n*****\n\n')
+        # print('q.size()')
+        # print(q.size())
+        # print(v.size())
+
+        # torch.Size([16, 6, 576, 64])
+        # torch.Size([16, 6, 576, 64])
+
+        # torch.Size([16, 6, 6, 64])
+        # torch.Size([16, 6, 6, 64])
+
         x = (attn @ v).transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
         x = self.proj_drop(x)

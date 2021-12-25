@@ -186,8 +186,15 @@ class Embeddings(nn.Module):
 
         x = self.patch_embeddings(x)
 
+        # print("\n\n111111111111\n\n")
+        # print(x.size()) # torch.Size([2, 768, 28, 28])
+
         x = x.flatten(2)
         x = x.transpose(-1, -2)
+
+        # print("\n\n222222222\n\n")
+        # print(x.size()) #torch.Size([2, 784, 768])
+
         x = torch.cat((cls_tokens, x), dim=1)
 
         embeddings = x + self.position_embeddings
@@ -285,8 +292,8 @@ class Encoder(nn.Module):
         self.part_norm = LayerNorm(config.hidden_size, eps=1e-6)
 
     def forward(self, hidden_states):
-        print('hidden_states.size()')
-        print(hidden_states.size())  # torch.Size([2, 1370, 768])
+        # print('hidden_states.size()')
+        # print(hidden_states.size())  # torch.Size([2, 1370, 768]) torch.Size([2, 785, 768])
 
         attn_weights = []
         for layer in self.layer:
@@ -444,7 +451,7 @@ def transfg_1472(pretrained=False, **kwargs):
     num_classes = kwargs.get('num_classes', default_cfg['num_classes'])
 
     pretrained_dir = kwargs.get('pretrained_dir', './')
-    # config.split = 'non-overlap'
+    config.split = 'non-overlap'
     model = VisionTransformer(config, img_size=448, num_classes=num_classes, smoothing_value=0)
 
     if pretrained:
