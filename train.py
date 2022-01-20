@@ -237,8 +237,6 @@ parser.add_argument('--drop-block', type=float, default=None, metavar='PCT',
                     help='Drop block rate (default: None)')
 
 # Batch norm parameters (only works with gen_efficientnet based models currently)
-parser.add_argument('--bn-tf', action='store_true', default=False,
-                    help='Use Tensorflow BatchNorm defaults for models that support it (default: False)')
 parser.add_argument('--bn-momentum', type=float, default=None,
                     help='BatchNorm momentum override (if not None)')
 parser.add_argument('--bn-eps', type=float, default=None,
@@ -300,6 +298,8 @@ parser.add_argument('--use-multi-epochs-loader', action='store_true', default=Fa
                     help='use the multi-epochs-loader to save time at the beginning of every epoch')
 parser.add_argument('--torchscript', dest='torchscript', action='store_true',
                     help='convert model torchscript for inference')
+parser.add_argument('--fuser', default='', type=str,
+                    help="Select jit fuser. One of ('', 'te', 'old', 'nvfuser')")
 parser.add_argument('--log-wandb', action='store_true', default=False,
                     help='log training and validation metrics to wandb')
 
@@ -369,6 +369,9 @@ def main():
 
     random_seed(args.seed, args.rank)
 
+    if args.fuser:
+        set_jit_fuser(args.fuser)
+
     model = create_model(
         args.model,
         pretrained=args.pretrained,
@@ -378,7 +381,6 @@ def main():
         drop_path_rate=args.drop_path,
         drop_block_rate=args.drop_block,
         global_pool=args.gp,
-        bn_tf=args.bn_tf,
         bn_momentum=args.bn_momentum,
         bn_eps=args.bn_eps,
         scriptable=args.torchscript,

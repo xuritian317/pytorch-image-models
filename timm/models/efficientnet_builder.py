@@ -3,7 +3,7 @@
 Assembles EfficieNet and related network feature blocks from string definitions.
 Handles stride, dilation calculations, and selects feature extraction points.
 
-Hacked together by / Copyright 2020 Ross Wightman
+Hacked together by / Copyright 2019, Ross Wightman
 """
 
 import logging
@@ -40,7 +40,7 @@ def get_bn_args_tf():
 
 
 def resolve_bn_args(kwargs):
-    bn_args = get_bn_args_tf() if kwargs.pop('bn_tf', False) else {}
+    bn_args = {}
     bn_momentum = kwargs.pop('bn_momentum', None)
     if bn_momentum is not None:
         bn_args['momentum'] = bn_momentum
