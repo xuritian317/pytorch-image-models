@@ -23,6 +23,44 @@ I'm fortunate to be able to dedicate significant time and money of my own suppor
 
 ## What's New
 
+### March 23, 2022
+* Add `ParallelBlock` and `LayerScale` option to base vit models to support model configs in [Three things everyone should know about ViT](https://arxiv.org/abs/2203.09795)
+* `convnext_tiny_hnf` (head norm first) weights trained with (close to) A2 recipe, 82.2% top-1, could do better with more epochs.
+
+### March 21, 2022
+* Merge `norm_norm_norm`. **IMPORTANT** this update for a coming 0.6.x release will likely de-stabilize the master branch for a while. Branch [`0.5.x`](https://github.com/rwightman/pytorch-image-models/tree/0.5.x) or a previous 0.5.x release can be used if stability is required.
+* Significant weights update (all TPU trained) as described in this [release](https://github.com/rwightman/pytorch-image-models/releases/tag/v0.1-tpu-weights)
+  * `regnety_040` - 82.3 @ 224, 82.96 @ 288
+  * `regnety_064` - 83.0 @ 224, 83.65 @ 288
+  * `regnety_080` - 83.17 @ 224, 83.86 @ 288
+  * `regnetv_040` - 82.44 @ 224, 83.18 @ 288   (timm pre-act)
+  * `regnetv_064` - 83.1 @ 224, 83.71 @ 288   (timm pre-act)
+  * `regnetz_040` - 83.67 @ 256, 84.25 @ 320
+  * `regnetz_040h` - 83.77 @ 256, 84.5 @ 320 (w/ extra fc in head)
+  * `resnetv2_50d_gn` - 80.8 @ 224, 81.96 @ 288 (pre-act GroupNorm)
+  * `resnetv2_50d_evos` 80.77 @ 224, 82.04 @ 288 (pre-act EvoNormS)
+  * `regnetz_c16_evos`  - 81.9 @ 256, 82.64 @ 320 (EvoNormS)
+  * `regnetz_d8_evos`  - 83.42 @ 256, 84.04 @ 320 (EvoNormS)
+  * `xception41p` - 82 @ 299   (timm pre-act)
+  * `xception65` -  83.17 @ 299
+  * `xception65p` -  83.14 @ 299   (timm pre-act)
+  * `resnext101_64x4d` - 82.46 @ 224, 83.16 @ 288
+  * `seresnext101_32x8d` - 83.57 @ 224, 84.270 @ 288
+  * `resnetrs200` - 83.85 @ 256, 84.44 @ 320
+* HuggingFace hub support fixed w/ initial groundwork for allowing alternative 'config sources' for pretrained model definitions and weights (generic local file / remote url support soon)
+* SwinTransformer-V2 implementation added. Submitted by [Christoph Reich](https://github.com/ChristophReich1996). Training experiments and model changes by myself are ongoing so expect compat breaks.
+* Swin-S3 (AutoFormerV2) models / weights added from https://github.com/microsoft/Cream/tree/main/AutoFormerV2
+* MobileViT models w/ weights adapted from https://github.com/apple/ml-cvnets
+* PoolFormer models w/ weights adapted from https://github.com/sail-sg/poolformer
+* VOLO models w/ weights adapted from https://github.com/sail-sg/volo
+* Significant work experimenting with non-BatchNorm norm layers such as EvoNorm, FilterResponseNorm, GroupNorm, etc
+* Enhance support for alternate norm + act ('NormAct') layers added to a number of models, esp EfficientNet/MobileNetV3, RegNet, and aligned Xception
+* Grouped conv support added to EfficientNet family
+* Add 'group matching' API to all models to allow grouping model parameters for application of 'layer-wise' LR decay, lr scale added to LR scheduler
+* Gradient checkpointing support added to many models
+* `forward_head(x, pre_logits=False)` fn added to all models to allow separate calls of `forward_features` + `forward_head`
+* All vision transformer and vision MLP models update to return non-pooled / non-token selected features from `foward_features`, for consistency with CNN models, token selection or pooling now applied in `forward_head`
+
 ### Feb 2, 2022
 * [Chris Hughes](https://github.com/Chris-hughes10) posted an exhaustive run through of `timm` on his blog yesterday. Well worth a read. [Getting Started with PyTorch Image Models (timm): A Practitioner’s Guide](https://towardsdatascience.com/getting-started-with-pytorch-image-models-timm-a-practitioners-guide-4e77b4bf9055)
 * I'm currently prepping to merge the `norm_norm_norm` branch back to master (ver 0.6.x) in next week or so.
@@ -311,13 +349,16 @@ A full version of the list below with source links can be found in the [document
   * FBNet-V3 - https://arxiv.org/abs/2006.02049
   * HardCoRe-NAS - https://arxiv.org/abs/2102.11646
   * LCNet - https://arxiv.org/abs/2109.15099
+* MobileViT - https://arxiv.org/abs/2110.02178
 * NASNet-A - https://arxiv.org/abs/1707.07012
 * NesT - https://arxiv.org/abs/2105.12723
 * NFNet-F - https://arxiv.org/abs/2102.06171
 * NF-RegNet / NF-ResNet - https://arxiv.org/abs/2101.08692
 * PNasNet - https://arxiv.org/abs/1712.00559
+* PoolFormer (MetaFormer) - https://arxiv.org/abs/2111.11418
 * Pooling-based Vision Transformer (PiT) - https://arxiv.org/abs/2103.16302
 * RegNet - https://arxiv.org/abs/2003.13678
+* RegNetZ - https://arxiv.org/abs/2103.06877
 * RepVGG - https://arxiv.org/abs/2101.03697
 * ResMLP - https://arxiv.org/abs/2105.03404
 * ResNet/ResNeXt
@@ -334,12 +375,15 @@ A full version of the list below with source links can be found in the [document
 * ReXNet - https://arxiv.org/abs/2007.00992
 * SelecSLS - https://arxiv.org/abs/1907.00837
 * Selective Kernel Networks - https://arxiv.org/abs/1903.06586
+* Swin S3 (AutoFormerV2) - https://arxiv.org/abs/2111.14725
 * Swin Transformer - https://arxiv.org/abs/2103.14030
+* Swin Transformer V2 - https://arxiv.org/abs/2111.09883
 * Transformer-iN-Transformer (TNT) - https://arxiv.org/abs/2103.00112
 * TResNet - https://arxiv.org/abs/2003.13630
 * Twins (Spatial Attention in Vision Transformers) - https://arxiv.org/pdf/2104.13840.pdf
 * Visformer - https://arxiv.org/abs/2104.12533
 * Vision Transformer - https://arxiv.org/abs/2010.11929
+* VOLO (Vision Outlooker) - https://arxiv.org/abs/2106.13112
 * VovNet V2 and V1 - https://arxiv.org/abs/1911.06667
 * Xception - https://arxiv.org/abs/1610.02357
 * Xception (Modified Aligned, Gluon) - https://arxiv.org/abs/1802.02611
