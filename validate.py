@@ -20,9 +20,10 @@ import torch.nn.parallel
 from collections import OrderedDict
 from contextlib import suppress
 
-from timm.models import create_model, apply_test_time_pool, load_checkpoint, is_model, list_models
+from timm.models import create_model, apply_test_time_pool, load_checkpoint, is_model, list_models, set_fast_norm
 from timm.data import create_dataset, create_loader, resolve_data_config, RealLabelsImagenet
-from timm.utils import accuracy, AverageMeter, natural_key, setup_default_logging, set_jit_fuser
+from timm.utils import accuracy, AverageMeter, natural_key, setup_default_logging, set_jit_fuser,\
+    decay_batch_step, check_batch_size_retry
 
 has_apex = False
 try:
@@ -37,6 +38,12 @@ try:
         has_native_amp = True
 except AttributeError:
     pass
+
+try:
+    from functorch.compile import memory_efficient_fusion
+    has_functorch = True
+except ImportError as e:
+    has_functorch = False
 
 torch.backends.cudnn.benchmark = True
 _logger = logging.getLogger('validate')
@@ -61,6 +68,8 @@ parser.add_argument('--img-size', default=None, type=int,
                     metavar='N', help='Input image dimension, uses model default if empty')
 parser.add_argument('--input-size', default=None, nargs=3, type=int,
                     metavar='N N N', help='Input all image dimensions (d h w, e.g. --input-size 3 224 224), uses model default if empty')
+parser.add_argument('--use-train-size', action='store_true', default=False,
+                    help='force use of train input size, even when test size is specified in pretrained cfg')
 parser.add_argument('--crop-pct', default=None, type=float,
                     metavar='N', help='Input image center crop pct')
 parser.add_argument('--mean', type=float, nargs='+', default=None, metavar='MEAN',
@@ -101,16 +110,23 @@ parser.add_argument('--tf-preprocessing', action='store_true', default=False,
                     help='Use Tensorflow preprocessing pipeline (require CPU TF installed')
 parser.add_argument('--use-ema', dest='use_ema', action='store_true',
                     help='use ema version of weights if present')
-parser.add_argument('--torchscript', dest='torchscript', action='store_true',
-                    help='convert model torchscript for inference')
+scripting_group = parser.add_mutually_exclusive_group()
+scripting_group.add_argument('--torchscript', dest='torchscript', action='store_true',
+                    help='torch.jit.script the full model')
+scripting_group.add_argument('--aot-autograd', default=False, action='store_true',
+                    help="Enable AOT Autograd support. (It's recommended to use this option with `--fuser nvfuser` together)")
 parser.add_argument('--fuser', default='', type=str,
                     help="Select jit fuser. One of ('', 'te', 'old', 'nvfuser')")
+parser.add_argument('--fast-norm', default=False, action='store_true',
+                    help='enable experimental fast-norm')
 parser.add_argument('--results-file', default='', type=str, metavar='FILENAME',
                     help='Output csv file for validation results (summary)')
 parser.add_argument('--real-labels', default='', type=str, metavar='FILENAME',
                     help='Real labels JSON file for imagenet evaluation')
 parser.add_argument('--valid-labels', default='', type=str, metavar='FILENAME',
                     help='Valid label indices txt file for validation of partial label space')
+parser.add_argument('--retry', default=False, action='store_true',
+                    help='Enable batch size decay & retry for single model validation')
 
 
 def validate(args):
@@ -136,6 +152,8 @@ def validate(args):
 
     if args.fuser:
         set_jit_fuser(args.fuser)
+    if args.fast_norm:
+        set_fast_norm()
 
     # create model
     model = create_model(
@@ -155,14 +173,22 @@ def validate(args):
     param_count = sum([m.numel() for m in model.parameters()])
     _logger.info('Model %s created, param count: %d' % (args.model, param_count))
 
-    data_config = resolve_data_config(vars(args), model=model, use_test_size=True, verbose=True)
+    data_config = resolve_data_config(
+        vars(args),
+        model=model,
+        use_test_size=not args.use_train_size,
+        verbose=True
+    )
     test_time_pool = False
     if args.test_pool:
-        model, test_time_pool = apply_test_time_pool(model, data_config, use_test_size=True)
+        model, test_time_pool = apply_test_time_pool(model, data_config)
 
     if args.torchscript:
         torch.jit.optimized_execution(True)
         model = torch.jit.script(model)
+    if args.aot_autograd:
+        assert has_functorch, "functorch is needed for --aot-autograd"
+        model = memory_efficient_fusion(model)
 
     model = model.cuda()
     if args.apex_amp:
@@ -284,18 +310,19 @@ def _try_run(args, initial_batch_size):
     batch_size = initial_batch_size
     results = OrderedDict()
     error_str = 'Unknown'
-    while batch_size >= 1:
-        args.batch_size = batch_size
-        torch.cuda.empty_cache()
+    while batch_size:
+        args.batch_size = batch_size * args.num_gpu  # multiply by num-gpu for DataParallel case
         try:
+            torch.cuda.empty_cache()
             results = validate(args)
             return results
         except RuntimeError as e:
             error_str = str(e)
-            if 'channels_last' in error_str:
+            _logger.error(f'"{error_str}" while running validation.')
+            if not check_batch_size_retry(error_str):
                 break
-            _logger.warning(f'"{error_str}" while running validation. Reducing batch size to {batch_size} for retry.')
-        batch_size = batch_size // 2
+        batch_size = decay_batch_step(batch_size)
+        _logger.warning(f'Reducing batch size to {batch_size} for retry.')
     results['error'] = error_str
     _logger.error(f'{args.model} failed to validate ({error_str}).')
     return results
@@ -349,7 +376,10 @@ def main():
         if len(results):
             write_results(results_file, results)
     else:
-        results = validate(args)
+        if args.retry:
+            results = _try_run(args, args.batch_size)
+        else:
+            results = validate(args)
     # output results in JSON to stdout w/ delimiter for runner script
     print(f'--result\n{json.dumps(results, indent=4)}')
 
